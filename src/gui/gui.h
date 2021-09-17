@@ -1,3 +1,12 @@
 #include <gtk/gtk.h>
 
-void activate(GtkApplication *app, gpointer data);
+typedef struct
+{
+    GtkWidget *open;
+    GtkWidget *save;
+} 
+ToolButtons;
+
+void app_activate(GtkApplication *app, gpointer data);
+void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpointer data);
+void launch_open_file_dialog(GtkButton *button, gpointer data);

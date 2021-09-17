@@ -12,7 +12,6 @@
         <child>
           <object class="GtkBox">
             <property name="can-focus">0</property>
-            <property name="spacing">5</property>
             <child>
               <object class="GtkButton" id="open_button">
                 <property name="label" translatable="yes">Open</property>
@@ -28,12 +27,14 @@
             <child>
               <object class="GtkButton" id="prev_button">
                 <property name="label" translatable="yes">Prev</property>
+                <property name="sensitive">0</property>
                 <property name="receives-default">1</property>
               </object>
             </child>
             <child>
               <object class="GtkButton" id="next_button">
                 <property name="label" translatable="yes">Next</property>
+                <property name="sensitive">0</property>
                 <property name="receives-default">1</property>
               </object>
             </child>
@@ -68,7 +69,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkComboBoxText" id="character_combo_box">
-                                    <property name="can-focus">0</property>
+                                    <property name="sensitive">0</property>
                                     <property name="active">0</property>
                                   </object>
                                 </child>
@@ -80,6 +81,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkEntry" id="character_name_entry">
+                                    <property name="sensitive">0</property>
                                     <property name="max-length">5</property>
                                   </object>
                                 </child>
@@ -102,6 +104,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="current_hp_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -123,6 +126,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="agl_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -144,6 +148,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="int_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -165,6 +170,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="current_max_ap_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -186,6 +192,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="current_max_hp_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -207,6 +214,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="pwr_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -228,6 +236,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="actual_max_hp_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -249,6 +258,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="actual_max_ap_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -270,6 +280,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="def_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -291,6 +302,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="current_ap_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -312,6 +324,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="willpower_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -333,6 +346,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="surprise_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -354,6 +368,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="reprisal_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -375,6 +390,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="critical_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -396,6 +412,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="dodge_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -417,6 +434,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="to_hit_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -438,6 +456,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="fatigue_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -459,6 +478,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="level_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -480,6 +500,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="exp_entry">
+                                        <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
                                     </child>
@@ -518,8 +539,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="fire_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -549,8 +570,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="ice_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -580,8 +601,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="earth_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -611,8 +632,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="psionic_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -642,8 +663,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="wind_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -673,8 +694,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="holy_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -704,8 +725,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="death_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -735,8 +756,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="electric_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -766,8 +787,8 @@
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="status_combo_box">
+                                        <property name="sensitive">0</property>
                                         <property name="can-focus">0</property>
-                                        <property name="active">6</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
