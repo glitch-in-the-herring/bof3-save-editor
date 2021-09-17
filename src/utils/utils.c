@@ -39,3 +39,16 @@ char *get_character_name(unsigned char *memory_card, int order, int start)
     character_name[5] = '\0';
     return character_name;
 }
+
+CharacterData *get_character_data(unsigned char *memory_card, int order, int start)
+{
+    if (order > 8)
+        return NULL;
+    
+    CharacterData *character_data = g_new(CharacterData, 1);
+    
+    character_data->lvl = memory_card[start + 0x290 + 0xA4 * order + 6];
+    
+    return character_data;
+}
+

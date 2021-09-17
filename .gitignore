@@ -53,3 +53,6 @@ dkms.conf
 
 # Memory card files
 *.srm
+
+# Binary
+save-editor
