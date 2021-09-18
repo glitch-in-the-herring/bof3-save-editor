@@ -80,7 +80,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="character_name_entry">
+                                  <object class="GtkEntry" id="name_entry">
                                     <property name="sensitive">0</property>
                                     <property name="max-length">5</property>
                                   </object>
@@ -125,7 +125,7 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="agl_entry">
+                                      <object class="GtkEntry" id="base_agl_entry">
                                         <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
@@ -147,7 +147,7 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="int_entry">
+                                      <object class="GtkEntry" id="base_int_entry">
                                         <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
@@ -213,7 +213,7 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="pwr_entry">
+                                      <object class="GtkEntry" id="base_pwr_entry">
                                         <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
@@ -231,11 +231,11 @@
                                     <child>
                                       <object class="GtkLabel">
                                         <property name="can-focus">0</property>
-                                        <property name="label" translatable="yes">Actual max HP:</property>
+                                        <property name="label" translatable="yes">True max HP:</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="actual_max_hp_entry">
+                                      <object class="GtkEntry" id="true_max_hp_entry">
                                         <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
@@ -253,11 +253,11 @@
                                     <child>
                                       <object class="GtkLabel">
                                         <property name="can-focus">0</property>
-                                        <property name="label" translatable="yes">Actual max AP:</property>
+                                        <property name="label" translatable="yes">True max AP:</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="actual_max_ap_entry">
+                                      <object class="GtkEntry" id="true_max_ap_entry">
                                         <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>
@@ -279,7 +279,7 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="def_entry">
+                                      <object class="GtkEntry" id="base_def_entry">
                                         <property name="sensitive">0</property>
                                         <property name="input-purpose">number</property>
                                       </object>

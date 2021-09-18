@@ -3,13 +3,6 @@
 #include "../utils/utils.h"
 #include "../data/character.h"
 
-typedef struct
-{
-    GtkWidget *level_entry;
-    CharacterData **character_data;
-}
-ChangeCharacterArg;
-
 void launch_open_file_dialog(GtkButton *button, gpointer data)
 {
     g_print("this wasteland\n");
@@ -48,9 +41,9 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 {
     GtkBuilder *builder;
     GtkWidget *app_window;
-    static GtkWidget *character_combo_box;
-    static GtkWidget *level_entry;
-    ToolButtons tool_buttons;
+
+    static struct CharacterFields *character_fields = g_new(CharacterFields, 1);
+    static struct ToolButtons tool_buttons;
     
     builder = gtk_builder_new_from_file("editor.ui");
         
@@ -60,9 +53,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     tool_buttons.open = GTK_WIDGET(gtk_builder_get_object(builder, "open_button"));
     g_signal_connect(tool_buttons.open, "clicked", G_CALLBACK(launch_open_file_dialog), NULL);
     
-    character_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "character_combo_box"));
-    
-    level_entry = GTK_WIDGET(gtk_builder_get_object(builder, "level_entry"));
+    assign_character_fields(character_fields, builder);
     
     g_object_unref(builder);
     
@@ -71,6 +62,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     unsigned char *memory_card;
     gsize length;
     static CharacterData *character_data[8];
+    static CharacterDataFields *character_data_fields[8];
     
     if (g_file_load_contents(files[0], NULL, (char **) &memory_card, &length, NULL, NULL))
     {
@@ -99,10 +91,10 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     change_character_arg.character_data = character_data;
     
     g_signal_connect(character_combo_box, "changed", G_CALLBACK(change_character_data), &change_character_arg);
-    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), NULL);
+    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), character_data);
 }
 
 void app_shutdown(GtkApplication *app, gpointer data)
 {
-    g_print("Bye!\n");
+    
 }
