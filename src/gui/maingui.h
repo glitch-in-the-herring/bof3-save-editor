@@ -15,8 +15,8 @@ struct CharacterFields
     GtkWidget *current_hp_entry;
     GtkWidget *current_max_hp_entry;
     GtkWidget *current_max_ap_entry;
-    GtkWidget *current_max_hp_entry;
-    GtkWidget *current_max_ap_entry;
+    GtkWidget *true_max_hp_entry;
+    GtkWidget *true_max_ap_entry;
     GtkWidget *base_pwr_entry;
     GtkWidget *base_def_entry;
     GtkWidget *base_agl_entry;
@@ -28,6 +28,12 @@ struct CharacterFields
     GtkWidget *to_hit_entry;
     GtkWidget *resistance_combo_boxes[9];
 };
+
+struct FreeStructs
+{
+    struct CharacterFields *character_fields;
+    struct CharacterData **character_data;
+}
 
 void app_activate(GtkApplication *app, gpointer data);
 void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpointer data);

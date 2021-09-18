@@ -28,7 +28,7 @@ struct CharacterData
 struct CharacterDataFields
 {
     struct CharacterData *character_data;
-    struct CharacterFields *character_fields;
+    struct CharacterFields **character_fields;
 };
 
 char *get_character_name(unsigned char *memory_card, int order, int start);

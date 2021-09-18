@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "gui.h"
+#include "maingui.h"
 #include "../utils/utils.h"
 #include "../data/character.h"
 
@@ -42,8 +42,9 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     GtkBuilder *builder;
     GtkWidget *app_window;
 
-    static struct CharacterFields *character_fields = g_new(CharacterFields, 1);
     static struct ToolButtons tool_buttons;
+    static struct CharacterFields *character_fields;    
+    character_fields = g_new(CharacterFields, 1);
     
     builder = gtk_builder_new_from_file("editor.ui");
         
@@ -57,12 +58,10 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     
     g_object_unref(builder);
     
-    gtk_widget_show(app_window);
-    
     unsigned char *memory_card;
     gsize length;
-    static CharacterData *character_data[8];
-    static CharacterDataFields *character_data_fields[8];
+    static struct CharacterData *character_data[8];
+    static struct CharacterDataFields character_data_fields;
     
     if (g_file_load_contents(files[0], NULL, (char **) &memory_card, &length, NULL, NULL))
     {
@@ -89,9 +88,16 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     static ChangeCharacterArg change_character_arg;
     change_character_arg.level_entry = level_entry;
     change_character_arg.character_data = character_data;
+
+    static FreeStructs *free_structs;
+    free_structs = g_new(struct FreeStructs, 1);
+    free_structs->character_fields = character_fields;
+    free_structs->character_data = 
     
     g_signal_connect(character_combo_box, "changed", G_CALLBACK(change_character_data), &change_character_arg);
-    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), character_data);
+    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_structs);
+
+    gtk_widget_show(app_window);
 }
 
 void app_shutdown(GtkApplication *app, gpointer data)
