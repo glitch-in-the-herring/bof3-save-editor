@@ -84,12 +84,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
         }
         g_free(memory_card);
     }
-    
-    static ChangeCharacterArg change_character_arg;
-    change_character_arg.level_entry = level_entry;
-    change_character_arg.character_data = character_data;
 
-    static FreeStructs *free_structs;
+    static struct FreeStructs *free_structs;
     free_structs = g_new(struct FreeStructs, 1);
     free_structs->character_fields = character_fields;
     free_structs->character_data = 
