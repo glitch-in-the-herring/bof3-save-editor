@@ -22,7 +22,6 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
     character_data->exp = convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 8, 4);
     character_data->current_hp = convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 20, 2);
     character_data->current_ap = convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 22, 2);
-	printf("exp: %i\n", convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 8, 4));    
     character_data->current_max_hp = convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 28, 2);
     character_data->current_max_ap = convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 30, 2);
     character_data->true_max_hp = convert_little_endian(memory_card, start + 0x290 + 0xA4 * order + 60, 2);

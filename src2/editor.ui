@@ -452,28 +452,6 @@
                                     <child>
                                       <object class="GtkLabel">
                                         <property name="focusable">1</property>
-                                        <property name="label" translatable="yes">Fatigue:</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="fatigue_entry">
-                                        <property name="sensitive">0</property>
-                                        <property name="input-purpose">number</property>
-                                      </object>
-                                    </child>
-                                    <layout>
-                                      <property name="column">0</property>
-                                      <property name="row">9</property>
-                                    </layout>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="focusable">1</property>
-                                    <property name="spacing">5</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Level:</property>
                                       </object>
                                     </child>

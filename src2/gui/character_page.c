@@ -62,6 +62,7 @@ void enable_character_fields(struct CharacterFields *character_fields)
     g_object_set(character_fields->reprisal_entry, "sensitive", TRUE, NULL);
     g_object_set(character_fields->critical_entry, "sensitive", TRUE, NULL);
     g_object_set(character_fields->dodge_entry, "sensitive", TRUE, NULL);
+    g_object_set(character_fields->to_hit_entry, "sensitive", TRUE, NULL);
 
     for (int i = 0; i < 9; i++)
         g_object_set(character_fields->resistance_combo_boxes[i], "sensitive", TRUE, NULL);
@@ -93,4 +94,20 @@ void load_character_fields(GtkWidget *widget, gpointer data)
     gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->base_pwr_entry), buffer);
     sprintf(buffer, "%i", (character_data_fields->character_data[order])->base_def);
     gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->base_def_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->base_agl);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->base_agl_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->base_int);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->base_int_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->willpower);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->willpower_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->surprise);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->surprise_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->reprisal);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->reprisal_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->critical);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->critical_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->dodge);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->dodge_entry), buffer);
+    sprintf(buffer, "%i", (character_data_fields->character_data[order])->to_hit);
+    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->to_hit_entry), buffer);
 }
