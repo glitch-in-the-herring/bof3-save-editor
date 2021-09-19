@@ -2,16 +2,17 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <object class="GtkApplicationWindow" id="app_window">
-    <property name="can-focus">0</property>
+    <property name="focusable">1</property>
     <property name="default-width">700</property>
     <property name="default-height">800</property>
+    <property name="title" translatable="yes">Breath of Fire 3 Save Editor</property>    
     <child>
       <object class="GtkBox" id="main_box">
-        <property name="can-focus">0</property>
+        <property name="focusable">1</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
-            <property name="can-focus">0</property>
+            <property name="focusable">1</property>
             <child>
               <object class="GtkButton" id="open_button">
                 <property name="label" translatable="yes">Open</property>
@@ -50,20 +51,20 @@
                     <property name="vscrollbar-policy">always</property>
                     <property name="child">
                       <object class="GtkViewport">
-                        <property name="can-focus">0</property>
+                        <property name="focusable">1</property>
                         <property name="child">
                           <object class="GtkBox">
-                            <property name="can-focus">0</property>
+                            <property name="focusable">1</property>
                             <property name="margin-top">5</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkBox">
-                                <property name="can-focus">0</property>
+                                <property name="focusable">1</property>
                                 <property name="spacing">5</property>
                                 <child>
                                   <object class="GtkLabel">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="label" translatable="yes">Character:</property>
                                   </object>
                                 </child>
@@ -75,7 +76,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkLabel">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="label" translatable="yes">New Name:</property>
                                   </object>
                                 </child>
@@ -89,16 +90,16 @@
                             </child>
                             <child>
                               <object class="GtkGrid">
-                                <property name="can-focus">0</property>
+                                <property name="focusable">1</property>
                                 <property name="row-spacing">2</property>
                                 <property name="column-homogeneous">1</property>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Current HP:</property>
                                       </object>
                                     </child>
@@ -116,11 +117,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Base AGL:</property>
                                       </object>
                                     </child>
@@ -138,11 +139,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Base INT:</property>
                                       </object>
                                     </child>
@@ -160,11 +161,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Current max AP:</property>
                                       </object>
                                     </child>
@@ -182,11 +183,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Current max HP:</property>
                                       </object>
                                     </child>
@@ -204,11 +205,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Base PWR:</property>
                                       </object>
                                     </child>
@@ -226,11 +227,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">True max HP:</property>
                                       </object>
                                     </child>
@@ -248,11 +249,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">True max AP:</property>
                                       </object>
                                     </child>
@@ -270,11 +271,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Base DEF:</property>
                                       </object>
                                     </child>
@@ -292,11 +293,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Current AP:</property>
                                       </object>
                                     </child>
@@ -314,11 +315,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Willpower:</property>
                                       </object>
                                     </child>
@@ -336,11 +337,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Surprise:</property>
                                       </object>
                                     </child>
@@ -358,11 +359,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Reprisal:</property>
                                       </object>
                                     </child>
@@ -380,11 +381,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Critical:</property>
                                       </object>
                                     </child>
@@ -402,11 +403,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Dodge:</property>
                                       </object>
                                     </child>
@@ -424,11 +425,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">To-Hit:</property>
                                       </object>
                                     </child>
@@ -446,11 +447,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Fatigue:</property>
                                       </object>
                                     </child>
@@ -468,11 +469,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Level:</property>
                                       </object>
                                     </child>
@@ -490,11 +491,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">EXP:</property>
                                       </object>
                                     </child>
@@ -517,30 +518,30 @@
                             </child>
                             <child>
                               <object class="GtkSeparator">
-                                <property name="can-focus">0</property>
+                                <property name="focusable">1</property>
                                 <property name="orientation">vertical</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkGrid" id="character_grid_2_1">
-                                <property name="can-focus">0</property>
+                                <property name="focusable">1</property>
                                 <property name="row-spacing">2</property>
                                 <property name="column-spacing">5</property>
                                 <property name="column-homogeneous">1</property>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Fire resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="fire_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -560,18 +561,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Ice resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="ice_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -591,18 +592,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Earth resistance: </property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="earth_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -622,18 +623,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Psionic resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="psionic_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -653,18 +654,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Wind resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="wind_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -684,18 +685,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Holy effectiveness:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="holy_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -715,18 +716,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Death resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="death_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -746,18 +747,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Electric resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="electric_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -777,18 +778,18 @@
                                 </child>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="can-focus">0</property>
+                                    <property name="focusable">1</property>
                                     <property name="spacing">5</property>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <property name="label" translatable="yes">Status resistance:</property>
                                       </object>
                                     </child>
                                     <child>
                                       <object class="GtkComboBoxText" id="status_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="can-focus">0</property>
+                                        <property name="focusable">1</property>
                                         <items>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
@@ -816,7 +817,7 @@
                 </property>
                 <property name="tab">
                   <object class="GtkLabel">
-                    <property name="can-focus">0</property>
+                    <property name="focusable">1</property>
                     <property name="label" translatable="yes">Character Editor</property>
                   </object>
                 </property>
@@ -826,7 +827,7 @@
         </child>
         <child>
           <object class="GtkStatusbar" id="status_bar">
-            <property name="can-focus">0</property>
+            <property name="focusable">1</property>
             <property name="margin-start">10</property>
             <property name="margin-end">10</property>
             <property name="margin-top">6</property>
