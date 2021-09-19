@@ -1,10 +1,13 @@
+#ifndef CHARACTER
+#define CHARACTER
+
 #include <stdint.h>
-#include "../gui/gui.h"
+#include <gtk/gtk.h>
 
 struct CharacterData
 {
     char name[6];
-    uint8_t lvl;
+    uint8_t level;
     uint32_t exp;
     uint16_t current_hp;
     uint16_t current_ap;
@@ -25,11 +28,6 @@ struct CharacterData
     uint8_t resistances[9];
 };
 
-struct CharacterDataFields
-{
-    struct CharacterData *character_data;
-    struct CharacterFields **character_fields;
-};
-
-char *get_character_name(unsigned char *memory_card, int order, int start);
 struct CharacterData *get_character_data(unsigned char *memory_card, int order, int start);
+
+#endif
