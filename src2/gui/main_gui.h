@@ -7,9 +7,9 @@
 
 struct FreeStruct
 {
-	int save_slot_count;
-	struct SaveSlot **save_slots;
-	struct CharacterFields *character_fields;
+    int save_slot_count;
+    struct SlotPage *slot_page;
+    struct CharacterFields *character_fields;
 };
 
 void app_activate(GtkApplication *app, gpointer data);

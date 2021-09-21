@@ -1,4 +1,5 @@
 #include "main_gui.h"
+#include "slot_switcher.h"
 #include "character_page.h"
 #include "../structs/save_slot.h"
 #include "../structs/character.h"
@@ -25,9 +26,11 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     GtkWidget *app_window;
 
     static struct SaveSlot *save_slots[3];
+    static struct SlotPage *slot_page;
     static struct CharacterFields *character_fields;
     static struct CharacterDataFields *character_data_fields;
 
+    slot_page = g_new(struct SlotPage, 1);
     character_fields = g_new(struct CharacterFields, 1);
     character_data_fields = g_new(struct CharacterDataFields, 1);
 
@@ -35,6 +38,10 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
         
     app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
+
+    slot_page->character_data_fields = character_data_fields;
+    slot_page->prev_button = GTK_WIDGET(gtk_builder_get_object(builder, "prev_button"));
+    slot_page->next_button = GTK_WIDGET(gtk_builder_get_object(builder, "next_button"));
 
     assign_character_fields(character_fields, builder);
 
@@ -63,11 +70,19 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 save_slot_count++;
             }
 
+            slot_page->save_slot_count = save_slot_count;
+            slot_page->position = 0;
+            slot_page->save_slots = save_slots;
             character_data_fields->character_fields = character_fields;
             character_data_fields->character_data = save_slots[0]->character_data;
             load_character_names(character_data_fields);
             enable_character_fields(character_fields);
-            load_character_fields(character_fields->character_combo_box, character_data_fields);
+            load_character_fields(character_data_fields, 0);
+
+            if (save_slot_count > 1)
+            {
+                g_object_set(slot_page->next_button, "sensitive", TRUE, NULL);
+            }
         }
 
         g_free(memory_card);
@@ -76,10 +91,11 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     static struct FreeStruct *free_struct;
     free_struct = g_new(struct FreeStruct, 1);
     free_struct->save_slot_count = save_slot_count;
-    free_struct->save_slots = save_slots;
+    free_struct->slot_page = slot_page;
     free_struct->character_fields = character_fields;
 
-    g_signal_connect(character_fields->character_combo_box, "changed", G_CALLBACK(load_character_fields), character_data_fields);
+    g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(prev_slot_load_character_fields), slot_page);
+    g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_slot_load_character_fields), slot_page);    
     g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);
 
     gtk_widget_show(app_window);
@@ -93,13 +109,14 @@ void app_shutdown(GtkApplication *app, gpointer data)
     {
         for (int j = 0; j < 8; j++)
         {
-            g_free(free_struct->save_slots[i]->character_data[j]);
+            g_free(free_struct->slot_page->save_slots[i]->character_data[j]);
         }
 
-        g_free(free_struct->save_slots[i]->character_data);
-        g_free(free_struct->save_slots[i]);
+        g_free(free_struct->slot_page->save_slots[i]->character_data);
+        g_free(free_struct->slot_page->save_slots[i]);
     }
 
+    g_free(free_struct->slot_page);
     g_free(free_struct->character_fields);
     g_free(free_struct);
 }

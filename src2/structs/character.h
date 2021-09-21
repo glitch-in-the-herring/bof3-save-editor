@@ -3,27 +3,35 @@
 
 #include <stdint.h>
 
+/* uint8 array:
+ * level        0
+ * willpower    1
+ * surprise     2
+ * reprisal     3
+ * critical     4
+ * dodge        5
+ * to_hit       6
+ */
+
+/* uint16 array:
+ * current_hp       0
+ * current_ap       1
+ * current_max_hp   2
+ * current_max_ap   3
+ * true_max_hp      4
+ * true_max_ap      5
+ * base_pwr         6
+ * base_def         7
+ * base_agl         8
+ * base_int         9
+ */
+
 struct CharacterData
 {
     char name[6];
-    uint8_t level;
+    uint8_t uint8_array[7];
+    uint16_t uint16_array[10];
     uint32_t exp;
-    uint16_t current_hp;
-    uint16_t current_ap;
-    uint16_t current_max_hp;
-    uint16_t current_max_ap;
-    uint16_t true_max_hp;
-    uint16_t true_max_ap;
-    uint16_t base_pwr;
-    uint16_t base_def;
-    uint16_t base_agl;
-    uint16_t base_int;
-    uint8_t willpower;
-    uint8_t surprise;
-    uint8_t reprisal;
-    uint8_t critical;
-    uint8_t dodge;
-    uint8_t to_hit;
     uint8_t resistances[9];
 };
 
