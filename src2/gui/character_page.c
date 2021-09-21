@@ -28,8 +28,8 @@ void assign_character_fields(struct CharacterFields *character_fields, GtkBuilde
                              "earth_combo_box", "wind_combo_box", "holy_combo_box"
                              "psionic_combo_box", "status_combo_box", "death_combo_box"};
 
-    for (int i = 0; i < 9; i++)
-        character_fields->resistance_combo_boxes[i] = GTK_WIDGET(gtk_builder_get_object(builder, resistances[i]));
+    //for (int i = 0; i < 9; i++)
+    //    character_fields->resistance_combo_boxes[i] = GTK_WIDGET(gtk_builder_get_object(builder, resistances[i]));
 }
 
 void load_character_names(struct CharacterDataFields *character_data_fields)
@@ -64,8 +64,8 @@ void enable_character_fields(struct CharacterFields *character_fields)
     g_object_set(character_fields->dodge_entry, "sensitive", TRUE, NULL);
     g_object_set(character_fields->to_hit_entry, "sensitive", TRUE, NULL);
 
-    for (int i = 0; i < 9; i++)
-        g_object_set(character_fields->resistance_combo_boxes[i], "sensitive", TRUE, NULL);
+    //for (int i = 0; i < 9; i++)
+    //    g_object_set(character_fields->resistance_combo_boxes[i], "sensitive", TRUE, NULL);
 }
 
 void load_character_fields(GtkWidget *widget, gpointer data)

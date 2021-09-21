@@ -43,7 +43,8 @@ struct CharacterDataFields
 
 struct FreeStruct
 {
-    struct CharacterData **character_data;    
+    int save_slot_count;
+    struct SaveSlot **save_slots;
     struct CharacterFields *character_fields;
 };
 

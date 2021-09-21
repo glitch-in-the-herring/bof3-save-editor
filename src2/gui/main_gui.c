@@ -1,5 +1,6 @@
 #include "main_gui.h"
 #include "character_page.h"
+#include "../structs/save_slot.h"
 #include "../structs/character.h"
 #include "../memcard/memcard.h"
 
@@ -22,7 +23,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 {
     GtkBuilder *builder;
     GtkWidget *app_window;
-    static struct CharacterData *character_data[8];
+
+    static struct SaveSlot *save_slots[3];
     static struct CharacterFields *character_fields;
     static struct CharacterDataFields *character_data_fields;
 
@@ -39,39 +41,65 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     g_object_unref(builder);
     
     unsigned char *memory_card;
+    int address;
+    int save_slot_count = 0;
     gsize length;
 
     if (g_file_load_contents(files[0], NULL, (char **) &memory_card, &length, NULL, NULL))
     {
         if (validate_memory_card(memory_card))
         {
-            for (int i = 0; i < 8; i++)
+            while ((address = browse_toc(memory_card)) != -1)
             {
-                character_data[i] = get_character_data(memory_card, i, 0x2000);
+                save_slots[save_slot_count] = g_new(struct SaveSlot, 1);
+                save_slots[save_slot_count]->character_data = g_new(struct CharacterData*, 8);
+                save_slots[save_slot_count]->address = address;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    save_slots[save_slot_count]->character_data[i] = get_character_data(memory_card, i, address);
+                }
+
+                save_slot_count++;
             }
 
             character_data_fields->character_fields = character_fields;
-            character_data_fields->character_data = character_data;
+            character_data_fields->character_data = save_slots[0]->character_data;
             load_character_names(character_data_fields);
             enable_character_fields(character_fields);
             load_character_fields(character_fields->character_combo_box, character_data_fields);
         }
 
         g_free(memory_card);
-    }    
+    }
+
+    static struct FreeStruct *free_struct;
+    free_struct = g_new(struct FreeStruct, 1);
+    free_struct->save_slot_count = save_slot_count;
+    free_struct->save_slots = save_slots;
+    free_struct->character_fields = character_fields;
 
     g_signal_connect(character_fields->character_combo_box, "changed", G_CALLBACK(load_character_fields), character_data_fields);
-    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), character_data_fields);
+    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);
 
     gtk_widget_show(app_window);
 }
 
 void app_shutdown(GtkApplication *app, gpointer data)
 {
-    struct CharacterDataFields *character_data_fields = data;
-    g_free(character_data_fields->character_fields);
-    for (int i = 0; i < 8; i++)
-        g_free(character_data_fields->character_data[i]);
+    struct FreeStruct *free_struct = data;
 
-    g_free(character_data_fields);
+    for (int i = 0; i < free_struct->save_slot_count; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            g_free(free_struct->save_slots[i]->character_data[j]);
+        }
+
+        g_free(free_struct->save_slots[i]->character_data);
+        g_free(free_struct->save_slots[i]);
+    }
+
+    g_free(free_struct->character_fields);
+    g_free(free_struct);
 }
