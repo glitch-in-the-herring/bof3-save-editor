@@ -1,5 +1,5 @@
 save-editor: save_editor.o main_gui.o character_page.o memcard.o utils.o character.o
-	gcc -o out save_editor.o main_gui.o character_page.o memcard.o utils.o character.o `pkg-config --cflags --libs gtk4` -O2
+	gcc -o a.out save_editor.o main_gui.o character_page.o memcard.o utils.o character.o `pkg-config --cflags --libs gtk4` -O2
 save_editor.o:
 	gcc -c save_editor.c `pkg-config --cflags --libs gtk4` -O2
 main_gui.o:
@@ -14,5 +14,5 @@ character.o:
 	gcc -c structs/character.c -O2 `pkg-config --cflags --libs gtk4` -O2	
 .PHONY: clean
 clean:
-	rm -f save-editor
+	rm -f out
 	rm -f *.o
