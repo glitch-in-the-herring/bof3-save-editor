@@ -3,7 +3,6 @@
 #include <gtk/gtk.h>
 #include "character_page.h"
 
-
 void assign_character_fields(struct CharacterFields *character_fields, GtkBuilder *builder)
 {
     char *uint8_ids[16] = {"level_entry", "willpower_entry", "surprise_entry",
@@ -78,14 +77,10 @@ void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDa
     if (is_signal_set != 0)
     {
         for (int i = 0; i < 8; i++)
-        {
             g_signal_handler_disconnect(character_data_fields->character_fields->uint8_entries[i], uint8_signal_ids[i]);
-        }
 
         for (int i = 0; i < 10; i++)
-        {
             g_signal_handler_disconnect(character_data_fields->character_fields->uint16_entries[i], uint16_signal_ids[i]);
-        }
 
         g_signal_handler_disconnect(character_data_fields->character_fields->name_entry, other_signals[0]);
         g_signal_handler_disconnect(character_data_fields->character_fields->exp_entry, other_signals[1]);
