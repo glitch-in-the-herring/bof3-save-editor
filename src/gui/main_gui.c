@@ -42,7 +42,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     character_fields = g_new(struct CharacterFields, 1);
     character_data_fields = g_new(struct CharacterDataFields, 1);
 
-    builder = gtk_builder_new_from_file("editor.ui");
+    builder = gtk_builder_new_from_file("layout.ui");
         
     app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));

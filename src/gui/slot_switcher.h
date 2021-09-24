@@ -15,10 +15,10 @@ struct SlotPage
 };
 
 /* slot_page_id index
- * 0 - 6    uint8 character entries
- * 7 - 16   uint16 character entries
- * 17       char* character name entry
- * 18       uint32 character exp entry      
+ * 0 - 7    uint8 character entries
+ * 8 - 17   uint16 character entries
+ * 18       char* character name entry
+ * 19       uint32 character exp entry      
  */
 
 struct SlotPageID

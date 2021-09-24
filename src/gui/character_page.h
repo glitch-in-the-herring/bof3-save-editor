@@ -33,7 +33,7 @@ struct CharacterFields
     GtkWidget *character_combo_box;
     GtkWidget *name_entry;
     GtkWidget *exp_entry;
-    GtkWidget *uint8_entries[7];
+    GtkWidget *uint8_entries[8];
     GtkWidget *uint16_entries[10];
     GtkWidget *resistance_combo_boxes[9];
 };

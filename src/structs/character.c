@@ -17,12 +17,13 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
         if (character_data->name[i] == '\0')
             break;
     }
+
     character_data->name[5] = '\0';
 
-    int uint8_offsets[7] = {6, 42, 52, 53, 54, 55, 56};
+    int uint8_offsets[8] = {6, 42, 52, 53, 54, 55, 56, 25};
     int uint16_offsets[10] = {20, 22, 28, 30, 60, 62, 64, 66, 68, 70};
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 8; i++)
     {
         character_data->uint8_array[i] = memory_card[character_offset + uint8_offsets[i]];
     }

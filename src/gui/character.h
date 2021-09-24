@@ -11,6 +11,7 @@
  * critical     4
  * dodge        5
  * to_hit       6
+ * fatigue      7
  */
 
 /* uint16 array:
@@ -29,7 +30,7 @@
 struct CharacterData
 {
     char name[6];
-    uint8_t uint8_array[7];
+    uint8_t uint8_array[8];
     uint16_t uint16_array[10];
     uint32_t exp;
     uint8_t resistances[9];
