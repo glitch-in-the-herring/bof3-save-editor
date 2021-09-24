@@ -1,7 +1,9 @@
 #ifndef CHARACTER_PAGE
 #define CHARACTER_PAGE
 
+#include <stdint.h>
 #include "../structs/character.h"
+#include "slot_switcher.h"
 
 /* uint8 entries array:
  * level_entry              0
@@ -40,14 +42,23 @@ struct CharacterDataFields
 {
     struct CharacterData **character_data;
     struct CharacterFields *character_fields;
+    int character_id;
 };
 
 void assign_character_fields(struct CharacterFields *character_fields, GtkBuilder *builder);
-void load_character_names(struct CharacterDataFields *character_data_fields);
+void load_character_names(struct SlotPageID **slot_page_ids);
 void enable_character_fields(struct CharacterFields *character_fields);
-void load_character_fields(struct CharacterDataFields *character_data_fields, int order);
+void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDataFields *character_data_fields, int order);
+void base_store_uint8_character_entry(struct SlotPage *slot_page, int entry, uint8_t value);
+void base_store_uint16_character_entry(struct SlotPage *slot_page, int entry, uint16_t value);
+void base_store_name_character_entry(struct SlotPage *slot_page, const char *value);
+void base_store_exp_character_entry(struct SlotPage *slot_page, uint32_t value);
 void combo_box_load_character_fields(GtkWidget *widget, gpointer data);
-void prev_slot_load_character_fields(GtkWidget *widget, gpointer data);
-void next_slot_load_character_fields(GtkWidget *widget, gpointer data);
+void prev_slot_load_character_fields(struct SlotPageID **slot_page_ids);
+void next_slot_load_character_fields(struct SlotPageID **slot_page_ids);
+void store_uint8_character_entry(GtkWidget *widget, gpointer data);
+void store_uint16_character_entry(GtkWidget *widget, gpointer data);
+void store_name_character_entry(GtkWidget *widget, gpointer data);
+void store_exp_character_entry(GtkWidget *widget, gpointer data);
 
 #endif

@@ -5,11 +5,12 @@
 #include "character_page.h"
 #include "../structs/save_slot.h"
 
+#define INPUT_COUNT 19
+
 struct FreeStruct
 {
     int save_slot_count;
-    struct SlotPage *slot_page;
-    struct CharacterFields *character_fields;
+    struct SlotPageID **slot_page_ids;
 };
 
 void app_activate(GtkApplication *app, gpointer data);
