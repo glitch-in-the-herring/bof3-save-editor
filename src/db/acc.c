@@ -1,0 +1,32 @@
+#include "database.h"
+
+char *acc_db[13] = {
+"Nothing",
+"Titan Belt",
+"High Boots",
+"Speed Boots",
+"Wisdom Ring",
+"Lion's Belt",
+"Dream Ring",
+"Midas Stone",
+"Balance Ring",
+"Bat Amulet",
+"Ring of Ice",
+"Ring of Fire",
+"Thunder Ring",
+"Talisman",
+"Diamond Ring",
+"Life Sandals",
+"Light Bangle",
+"Barrier Ring",
+"Hawk's Ring",
+"Artemis' Cap",
+"Bell Collar",
+"Holy Mantle",
+"Cupid's Lyre",
+"Ivory Charm",
+"Soul Gem",
+"Shaman'sRing",
+"Spirit Ring",
+"Coupons"
+}; 

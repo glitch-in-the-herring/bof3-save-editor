@@ -10,7 +10,7 @@ void app_activate(GtkApplication *app, gpointer data)
     GtkBuilder *builder;
     GtkWidget *app_window;
 
-    builder = gtk_builder_new_from_file("editor.ui");
+    builder = gtk_builder_new_from_file("layout.ui");
         
     app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
@@ -55,6 +55,11 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
         slot_page_ids[i]->slot_page = slot_page;
     }
 
+    for (int i = 0; i < 3; i++)
+    {
+        save_slots[i] = g_new(struct SaveSlot, 1);
+    }
+
     assign_character_fields(character_fields, builder);
 
     g_object_unref(builder);
@@ -70,7 +75,6 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
         {
             while ((address = browse_toc(memory_card)) != -1)
             {
-                save_slots[save_slot_count] = g_new(struct SaveSlot, 1);
                 save_slots[save_slot_count]->character_data = g_new(struct CharacterData*, 8);
                 save_slots[save_slot_count]->address = address;
 
@@ -118,7 +122,7 @@ void app_shutdown(GtkApplication *app, gpointer data)
 {
     struct FreeStruct *free_struct = data;
 
-    for (int i = 0; i < free_struct->save_slot_count; i++)
+    for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 8; j++)
         {
