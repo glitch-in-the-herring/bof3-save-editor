@@ -3,6 +3,7 @@
 
 #include <gtk/gtk.h>
 #include "../gui/slot_switcher.h"
+#include "../utils/utils.h"
 
 struct CardStream
 {

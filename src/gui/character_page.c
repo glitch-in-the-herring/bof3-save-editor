@@ -124,7 +124,14 @@ void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDa
 
 void base_store_name_character_entry(struct SlotPage *slot_page, const char *value)
 {
+    int name_length = strlen(value);
     strcpy(slot_page->character_data_fields->character_data[slot_page->character_data_fields->character_id]->name, value);
+
+    if (name_length < 5)
+    {
+        for (int i = name_length; i < 5; i++)
+            slot_page->character_data_fields->character_data[slot_page->character_data_fields->character_id]->name[i] = '\0';
+    }
 }
 
 void base_store_exp_character_entry(struct SlotPage *slot_page, uint32_t value)
