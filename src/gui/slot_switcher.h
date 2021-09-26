@@ -10,16 +10,11 @@ struct SlotPage
     int position;
     struct SaveSlot **save_slots;
     struct CharacterDataFields *character_data_fields;
+    GtkWidget *save_button;
     GtkWidget *prev_button;
     GtkWidget *next_button;
+    GtkWidget *status_bar;
 };
-
-/* slot_page_id index
- * 0 - 7    uint8 character entries
- * 8 - 17   uint16 character entries
- * 18       char* character name entry
- * 19       uint32 character exp entry      
- */
 
 struct SlotPageID
 {

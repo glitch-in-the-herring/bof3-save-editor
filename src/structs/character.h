@@ -11,6 +11,7 @@
  * critical     4
  * dodge        5
  * to_hit       6
+ * fatigue      7 
  */
 
 /* uint16 array:

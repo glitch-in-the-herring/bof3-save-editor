@@ -1,6 +1,8 @@
+#include <stdio.h>
 #include "main_gui.h"
 #include "slot_switcher.h"
 #include "character_page.h"
+#include "error_handler.h"
 #include "../structs/save_slot.h"
 #include "../structs/character.h"
 #include "../memcard/memcard.h"
@@ -9,6 +11,7 @@ void app_activate(GtkApplication *app, gpointer data)
 {
     GtkBuilder *builder;
     GtkWidget *app_window;
+    GtkWidget *status_bar;
 
     builder = gtk_builder_new_from_file("layout.ui");
         
@@ -24,19 +27,23 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 {
     GtkBuilder *builder;
     GtkWidget *app_window;
+    GtkWidget *status_bar;
 
     static struct SaveSlot *save_slots[3];
     static struct SlotPage *slot_page;
     static struct SlotPageID **slot_page_ids;
     static struct CharacterFields *character_fields;
     static struct CharacterDataFields *character_data_fields;
+    static struct CardStream *card_stream;
 
     slot_page = g_new(struct SlotPage, 1);
-    slot_page_ids = g_new(struct SlotPageID *, INPUT_COUNT);
+    slot_page_ids = g_new(struct SlotPageID *, INPUT_ID);
+    card_stream = g_new(struct CardStream, 1);
 
-    for (int i = 0; i < INPUT_COUNT; i++)
+    for (int i = 0; i < INPUT_ID; i++)
     {
         slot_page_ids[i] = g_new(struct SlotPageID, 1);
+        slot_page_ids[i]->entry_id = i;
     }
 
     character_fields = g_new(struct CharacterFields, 1);
@@ -47,24 +54,33 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
 
+    status_bar = GTK_WIDGET(gtk_builder_get_object(builder, "status_bar"));
+
+    slot_page->save_button = GTK_WIDGET(gtk_builder_get_object(builder, "save_button"));
     slot_page->prev_button = GTK_WIDGET(gtk_builder_get_object(builder, "prev_button"));
     slot_page->next_button = GTK_WIDGET(gtk_builder_get_object(builder, "next_button"));
+    slot_page->status_bar = status_bar;
 
-    for (int i = 0; i < INPUT_COUNT; i++)
-    {
+    for (int i = 0; i < INPUT_ID; i++)
         slot_page_ids[i]->slot_page = slot_page;
-    }
 
     for (int i = 0; i < 3; i++)
     {
         save_slots[i] = g_new(struct SaveSlot, 1);
+        save_slots[i]->character_data = NULL;
     }
+
+    slot_page->position = 0;
+    slot_page->character_data_fields = character_data_fields;
+    slot_page->save_slots = save_slots;
+    character_data_fields->character_fields = character_fields;
 
     assign_character_fields(character_fields, builder);
 
     g_object_unref(builder);
     
     unsigned char *memory_card;
+    char *filename;
     int address;
     int save_slot_count = 0;
     gsize length;
@@ -79,28 +95,33 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 save_slots[save_slot_count]->address = address;
 
                 for (int i = 0; i < 8; i++)
-                {
                     save_slots[save_slot_count]->character_data[i] = get_character_data(memory_card, i, address);
-                }
 
                 save_slot_count++;
             }
 
             slot_page->save_slot_count = save_slot_count;
-            slot_page->position = 0;
-            slot_page->save_slots = save_slots;
-            character_data_fields->character_fields = character_fields;
             character_data_fields->character_data = save_slots[0]->character_data;
             character_data_fields->character_id = 0;
-            slot_page->character_data_fields = character_data_fields;
             load_character_names(slot_page_ids);
             enable_character_fields(character_fields);
             load_character_fields(slot_page_ids, character_data_fields, 0);
 
+            char buffer[32];
+            sprintf(buffer, "Slot %i of %i", slot_page->position + 1, save_slot_count);
+
+            gtk_statusbar_push(GTK_STATUSBAR(status_bar), 1, buffer);
+
+            g_object_set(slot_page->save_button, "sensitive", TRUE, NULL);
+
             if (save_slot_count > 1)
-            {
                 g_object_set(slot_page->next_button, "sensitive", TRUE, NULL);
-            }
+
+            g_file_open_readwrite(G_FILE())
+        }
+        else
+        {
+            assert_error(GTK_WINDOW(app_window), "Invalid Memory Card");
         }
 
         g_free(memory_card);
@@ -111,6 +132,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     free_struct->save_slot_count = save_slot_count;
     free_struct->slot_page_ids = slot_page_ids;
 
+    g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(save_card), card_stream);
     g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(prev_save_slot), slot_page_ids);
     g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_save_slot), slot_page_ids);    
     g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);
@@ -121,25 +143,25 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 void app_shutdown(GtkApplication *app, gpointer data)
 {
     struct FreeStruct *free_struct = data;
-
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 8; j++)
-        {
-            g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data[j]);
+        {           
+            if (free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data != NULL)
+                g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data[j]);
         }
 
-        g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data);
+        if (free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data != NULL)
+            g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data);
+
         g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]);
     }
 
     g_free(free_struct->slot_page_ids[0]->slot_page->character_data_fields->character_fields);
     g_free(free_struct->slot_page_ids[0]->slot_page->character_data_fields);
 
-    for (int i = 0; i < INPUT_COUNT; i++)
-    {
+    for (int i = 0; i < INPUT_ID; i++)
         g_free(free_struct->slot_page_ids[i]);
-    }
 
     g_free(free_struct->slot_page_ids);
     g_free(free_struct);

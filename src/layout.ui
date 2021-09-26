@@ -22,6 +22,7 @@
             <child>
               <object class="GtkButton" id="save_button">
                 <property name="label" translatable="yes">Save</property>
+                <property name="sensitive">0</property>
                 <property name="receives-default">1</property>
               </object>
             </child>
@@ -536,6 +537,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -567,6 +569,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -598,6 +601,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -629,6 +633,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -660,6 +665,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -691,6 +697,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -722,6 +729,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -753,6 +761,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -784,6 +793,7 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
@@ -819,7 +829,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkStatusbar">
+          <object class="GtkStatusbar" id="status_bar">
             <property name="focusable">0</property>
             <property name="margin-start">10</property>
             <property name="margin-end">10</property>
