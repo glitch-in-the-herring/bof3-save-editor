@@ -6,7 +6,7 @@
 
 struct CardStream
 {
-    GOutputStream *output_stream;    
+    GFileIOStream *file_stream;    
     struct SlotPage *slot_page;
 };
 

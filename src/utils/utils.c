@@ -12,7 +12,7 @@ uint32_t from_little_endian(unsigned char *memory_card, int start, int length)
 
 uint8_t *to_uint16_little_endian(uint16_t value)
 {
-    uint8 *result = g_new(uint8_t, 2);
+    uint8_t *result = g_new(uint8_t, 2);
 
     for (int i = 0; i < 2; i++)
     {
@@ -24,7 +24,7 @@ uint8_t *to_uint16_little_endian(uint16_t value)
 
 uint8_t *to_uint32_little_endian(uint32_t value)
 {
-    uint8 *result = g_new(uint8_t, 4);
+    uint8_t *result = g_new(uint8_t, 4);
 
     for (int i = 0; i < 4; i++)
     {

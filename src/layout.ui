@@ -93,7 +93,8 @@
                                     <child>
                                       <object class="GtkEntry" id="name_entry">
                                         <property name="sensitive">0</property>
-                                      </object>
+                                        <property name="max-length">5</property>
+                                      </object>/
                                     </child>
                                   </object>
                                 </child>

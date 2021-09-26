@@ -11,6 +11,7 @@ struct FreeStruct
 {
     int save_slot_count;
     struct SlotPageID **slot_page_ids;
+    struct CardStream *card_stream;
 };
 
 void app_activate(GtkApplication *app, gpointer data);

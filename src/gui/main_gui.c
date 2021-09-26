@@ -6,6 +6,7 @@
 #include "../structs/save_slot.h"
 #include "../structs/character.h"
 #include "../memcard/memcard.h"
+#include "../memcard/memcard_writer.h"
 
 void app_activate(GtkApplication *app, gpointer data)
 {
@@ -74,6 +75,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     slot_page->character_data_fields = character_data_fields;
     slot_page->save_slots = save_slots;
     character_data_fields->character_fields = character_fields;
+    card_stream->slot_page = slot_page;
+    card_stream->file_stream = NULL;
 
     assign_character_fields(character_fields, builder);
 
@@ -83,6 +86,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     char *filename;
     int address;
     int save_slot_count = 0;
+    GFileIOStream *file_stream;
     gsize length;
 
     if (g_file_load_contents(files[0], NULL, (char **) &memory_card, &length, NULL, NULL))
@@ -117,7 +121,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
             if (save_slot_count > 1)
                 g_object_set(slot_page->next_button, "sensitive", TRUE, NULL);
 
-            g_file_open_readwrite(G_FILE())
+            file_stream = g_file_open_readwrite(G_FILE(files[0]), NULL, NULL);
+            card_stream->file_stream = file_stream;
         }
         else
         {
@@ -131,8 +136,9 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     free_struct = g_new(struct FreeStruct, 1);
     free_struct->save_slot_count = save_slot_count;
     free_struct->slot_page_ids = slot_page_ids;
+    free_struct->card_stream = card_stream;
 
-    g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(save_card), card_stream);
+    g_signal_connect(slot_page->save_button, "clicked", G_CALLBACK(save_card), card_stream);
     g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(prev_save_slot), slot_page_ids);
     g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_save_slot), slot_page_ids);    
     g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);
@@ -162,6 +168,11 @@ void app_shutdown(GtkApplication *app, gpointer data)
 
     for (int i = 0; i < INPUT_ID; i++)
         g_free(free_struct->slot_page_ids[i]);
+
+    if (free_struct->card_stream->file_stream != NULL)
+        g_io_stream_close(G_IO_STREAM(free_struct->card_stream->file_stream), NULL, NULL); 
+
+    g_free(free_struct->card_stream);
 
     g_free(free_struct->slot_page_ids);
     g_free(free_struct);
