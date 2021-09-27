@@ -36,6 +36,12 @@ void save_character(GOutputStream *stream, struct SaveSlot *save_slot)
             g_seekable_seek(G_SEEKABLE(stream), base_address + 0xA4 * i + 75 + j, G_SEEK_SET, NULL, NULL);
             g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->character_data[i]->resistances + j, 1, NULL, NULL);
         }
+
+        for (int j = 0; j < 6; j++)
+        {
+            g_seekable_seek(G_SEEKABLE(stream), base_address + 0xA4 * i + 14 + j, G_SEEK_SET, NULL, NULL);
+            g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->character_data[i]->equipment + j, 1, NULL, NULL);
+        }        
     }
 }
 
