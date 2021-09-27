@@ -10,7 +10,7 @@
       <object class="GtkBox">
         <property name="focusable">0</property>
         <property name="orientation">vertical</property>
-        <child>
+        <child>F
           <object class="GtkBox">
             <property name="focusable">0</property>
             <child>
@@ -22,7 +22,6 @@
             <child>
               <object class="GtkButton" id="save_button">
                 <property name="label" translatable="yes">Save</property>
-                <property name="sensitive">0</property>
                 <property name="receives-default">1</property>
               </object>
             </child>
@@ -75,7 +74,7 @@
                                     <child>
                                       <object class="GtkComboBoxText" id="character_combo_box">
                                         <property name="sensitive">0</property>
-                                        <property name="focusable">1</property>
+                                        <property name="focusable">0</property>
                                       </object>
                                     </child>
                                   </object>
@@ -93,8 +92,7 @@
                                     <child>
                                       <object class="GtkEntry" id="name_entry">
                                         <property name="sensitive">0</property>
-                                        <property name="max-length">5</property>
-                                      </object>/
+                                      </object>
                                     </child>
                                   </object>
                                 </child>
@@ -108,7 +106,7 @@
                             <child>
                               <object class="GtkGrid">
                                 <property name="focusable">0</property>
-                                <property name="column-spacing">4</property>
+                                <property name="column-spacing">5</property>
                                 <property name="column-homogeneous">1</property>
                                 <child>
                                   <object class="GtkBox">
@@ -602,8 +600,8 @@
                                         <property name="sensitive">0</property>
                                         <property name="focusable">0</property>
                                         <items>
-                                          <item translatable="yes">0</item>
                                           <item translatable="yes">1</item>
+                                          <item translatable="yes">0</item>
                                           <item translatable="yes">2</item>
                                           <item translatable="yes">3</item>
                                           <item translatable="yes">4</item>
@@ -722,7 +720,7 @@
                                     <child>
                                       <object class="GtkLabel">
                                         <property name="focusable">0</property>
-                                        <property name="label" translatable="yes">Psionic Resistance</property>
+                                        <property name="label" translatable="yes">Psionic Resistance:</property>
                                       </object>
                                     </child>
                                     <child>
@@ -786,7 +784,7 @@
                                     <child>
                                       <object class="GtkLabel">
                                         <property name="focusable">0</property>
-                                        <property name="label" translatable="yes">Death Resistance</property>
+                                        <property name="label" translatable="yes">Death Resistance:</property>
                                       </object>
                                     </child>
                                     <child>
@@ -811,6 +809,154 @@
                                     </layout>
                                   </object>
                                 </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <property name="focusable">0</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkGrid">
+                                <property name="focusable">0</property>
+                                <property name="column-spacing">5</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="focusable">0</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="focusable">0</property>
+                                        <property name="label" translatable="yes">Weapon:</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="weapon_combo_box">
+                                        <property name="sensitive">0</property>
+                                        <property name="focusable">0</property>
+                                      </object>
+                                    </child>
+                                    <layout>
+                                      <property name="column">0</property>
+                                      <property name="row">0</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="focusable">0</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="focusable">0</property>
+                                        <property name="label" translatable="yes">Helmet:</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="helmet_combo_box">
+                                        <property name="sensitive">0</property>
+                                        <property name="focusable">0</property>
+                                      </object>
+                                    </child>
+                                    <layout>
+                                      <property name="column">0</property>
+                                      <property name="row">1</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="focusable">0</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="focusable">0</property>
+                                        <property name="label" translatable="yes">Shield:</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="shield_combo_box">
+                                        <property name="sensitive">0</property>
+                                        <property name="focusable">0</property>
+                                      </object>
+                                    </child>
+                                    <layout>
+                                      <property name="column">1</property>
+                                      <property name="row">0</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="focusable">0</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="focusable">0</property>
+                                        <property name="label" translatable="yes">Armor:</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="armor_combo_box">
+                                        <property name="sensitive">0</property>
+                                        <property name="focusable">0</property>
+                                      </object>
+                                    </child>
+                                    <layout>
+                                      <property name="column">1</property>
+                                      <property name="row">1</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="focusable">0</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="focusable">0</property>
+                                        <property name="label" translatable="yes">Accessory 1:</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="acc1_combo_box">
+                                        <property name="sensitive">0</property>
+                                        <property name="focusable">0</property>
+                                      </object>
+                                    </child>
+                                    <layout>
+                                      <property name="column">0</property>
+                                      <property name="row">2</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="focusable">0</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="focusable">0</property>
+                                        <property name="label" translatable="yes">Accessory 2:</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="acc2_combo_box">
+                                        <property name="sensitive">0</property>
+                                        <property name="focusable">0</property>
+                                      </object>
+                                    </child>
+                                    <layout>
+                                      <property name="column">1</property>
+                                      <property name="row">2</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <property name="focusable">0</property>
                               </object>
                             </child>
                           </object>
