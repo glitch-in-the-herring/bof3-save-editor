@@ -13,14 +13,11 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
     for(int i = 0; i < 5; i++)
     {
         character_data->name[i] = memory_card[start + 0x290 + 0xA4 * order + i];
-
-        if (character_data->name[i] == '\0')
-            break;
     }
 
     character_data->name[5] = '\0';
 
-    int uint8_offsets[8] = {6, 42, 52, 53, 54, 55, 56, 25};
+    int uint8_offsets[8] = {6, 74, 84, 85, 86, 87, 88, 25};
     int uint16_offsets[10] = {20, 22, 28, 30, 60, 62, 64, 66, 68, 70};
 
     for (int i = 0; i < 8; i++)
@@ -32,7 +29,7 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
     character_data->exp = from_little_endian(memory_card, base_address + 8, 4);
 
     for (int i = 0; i < 9; i++)
-        character_data->resistances[i] =  memory_card[base_address + 43 + i];
+        character_data->resistances[i] =  memory_card[base_address + 75 + i];
 
     return character_data;
 }

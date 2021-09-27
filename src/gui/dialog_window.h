@@ -1,5 +1,5 @@
-#ifndef ERROR_HANDLER
-#define ERROR_HANDLER
+#ifndef DIALOG_WINDOW
+#define DIALOG_WINDOW
 
 #include <gtk/gtk.h>
 

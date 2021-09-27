@@ -2,7 +2,7 @@
 #include "main_gui.h"
 #include "slot_switcher.h"
 #include "character_page.h"
-#include "error_handler.h"
+#include "dialog_window.h"
 #include "../structs/save_slot.h"
 #include "../structs/character.h"
 #include "../memcard/memcard.h"

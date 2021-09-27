@@ -1,4 +1,4 @@
-#include "error_handler.h"
+#include "dialog_window.h"
 
 void assert_error(GtkWindow *parent, const char *error_message)
 {

@@ -37,15 +37,13 @@ uint8_t *to_uint32_little_endian(uint32_t value)
 void generate_checksum(GFileIOStream *file_stream, int start)
 {
     uint16_t sum = 0;
-    uint8_t buffer;
+    uint16_t buffer;
     uint8_t *checksum = to_uint16_little_endian(0x0000);
     GInputStream *input_stream = g_io_stream_get_input_stream(G_IO_STREAM(file_stream));
     GOutputStream *output_stream = g_io_stream_get_output_stream(G_IO_STREAM(file_stream));
 
     g_seekable_seek(G_SEEKABLE(output_stream), start + 0x270, G_SEEK_SET, NULL, NULL);
     g_output_stream_write(G_OUTPUT_STREAM(output_stream), checksum, 2, NULL, NULL);
-    g_seekable_seek(G_SEEKABLE(output_stream), start + 0x200, G_SEEK_SET, NULL, NULL);
-
     g_free(checksum);
 
     for (int i = 0; i < 0x1e00; i++)
@@ -58,6 +56,5 @@ void generate_checksum(GFileIOStream *file_stream, int start)
     checksum = to_uint16_little_endian(sum);
     g_seekable_seek(G_SEEKABLE(output_stream), start + 0x270, G_SEEK_SET, NULL, NULL);
     g_output_stream_write(G_OUTPUT_STREAM(output_stream), checksum, 2, NULL, NULL);
-
     g_free(checksum);
 }
