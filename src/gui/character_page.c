@@ -106,24 +106,24 @@ void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDa
     }
 
     sprintf(buffer, "%s", character_data_fields->character_data[order]->name);
-    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->name_entry), buffer);
+    gtk_entry_set_text(GTK_ENTRY(character_data_fields->character_fields->name_entry), buffer);
     name_exp_signals[0] = g_signal_connect(character_data_fields->character_fields->name_entry, "changed", G_CALLBACK(store_name_character_entry), slot_page_ids[0]);
 
     sprintf(buffer, "%u", character_data_fields->character_data[order]->exp);
-    gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->exp_entry), buffer);
+    gtk_entry_set_text(GTK_ENTRY(character_data_fields->character_fields->exp_entry), buffer);
     name_exp_signals[1] = g_signal_connect(character_data_fields->character_fields->exp_entry, "changed", G_CALLBACK(store_exp_character_entry), slot_page_ids[0]);
 
     for (int i = 0; i < 8; i++)
     {
         sprintf(buffer, "%i", character_data_fields->character_data[order]->uint8_array[i]);
-        gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->uint8_entries[i]), buffer);
+        gtk_entry_set_text(GTK_ENTRY(character_data_fields->character_fields->uint8_entries[i]), buffer);
         uint8_signal_ids[i] = g_signal_connect(character_data_fields->character_fields->uint8_entries[i], "changed", G_CALLBACK(store_uint8_character_entry), slot_page_ids[i]);
     }
 
     for (int i = 0; i < 10; i++)
     {
         sprintf(buffer, "%u", character_data_fields->character_data[order]->uint16_array[i]);
-        gtk_editable_set_text(GTK_EDITABLE(character_data_fields->character_fields->uint16_entries[i]), buffer);
+        gtk_entry_set_text(GTK_ENTRY(character_data_fields->character_fields->uint16_entries[i]), buffer);
         uint16_signal_ids[i] = g_signal_connect(character_data_fields->character_fields->uint16_entries[i], "changed", G_CALLBACK(store_uint16_character_entry), slot_page_ids[i]);        
     }
 
@@ -226,14 +226,14 @@ void next_slot_load_character_fields(struct SlotPageID **slot_page_ids)
 void store_name_character_entry(GtkWidget *widget, gpointer data)
 {
     struct SlotPageID *slot_page_id = data;
-    base_store_name_character_entry(slot_page_id->slot_page, gtk_editable_get_text(GTK_EDITABLE(widget)));
+    base_store_name_character_entry(slot_page_id->slot_page, gtk_entry_get_text(GTK_ENTRY(widget)));
 }
 
 void store_exp_character_entry(GtkWidget *widget, gpointer data)
 {
     uint32_t value;
     struct SlotPageID *slot_page_id = data;
-    sscanf(gtk_editable_get_text(GTK_EDITABLE(widget)), "%u", &value);
+    sscanf(gtk_entry_get_text(GTK_ENTRY(widget)), "%u", &value);
     base_store_exp_character_entry(slot_page_id->slot_page, value);
 }
 
@@ -241,7 +241,7 @@ void store_uint8_character_entry(GtkWidget *widget, gpointer data)
 {
     uint8_t value;
     struct SlotPageID *slot_page_id = data;
-    sscanf(gtk_editable_get_text(GTK_EDITABLE(widget)), "%hhu", &value);
+    sscanf(gtk_entry_get_text(GTK_ENTRY(widget)), "%hhu", &value);
     base_store_uint8_character_entry(slot_page_id->slot_page, slot_page_id->entry_id, value);
 }
 
@@ -249,7 +249,7 @@ void store_uint16_character_entry(GtkWidget *widget, gpointer data)
 {
     uint16_t value;
     struct SlotPageID *slot_page_id = data;
-    sscanf(gtk_editable_get_text(GTK_EDITABLE(widget)), "%hu", &value);
+    sscanf(gtk_entry_get_text(GTK_ENTRY(widget)), "%hu", &value);
     base_store_uint16_character_entry(slot_page_id->slot_page, slot_page_id->entry_id, value);
 }
 
