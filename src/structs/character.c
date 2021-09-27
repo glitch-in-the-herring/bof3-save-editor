@@ -31,5 +31,8 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
     for (int i = 0; i < 9; i++)
         character_data->resistances[i] =  memory_card[base_address + 75 + i];
 
+    for (int i = 0; i < 6; i++)
+        character_data->equipment[i] =  memory_card[base_address + 14 + i];    
+
     return character_data;
 }

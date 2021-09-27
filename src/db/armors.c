@@ -1,6 +1,6 @@
 #include "database.h"
 
-char *armor_db[13] = {
+char *armor_db[] = {
 "Nothing",
 "Clothing",
 "LeatherArmor",

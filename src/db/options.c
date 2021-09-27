@@ -1,6 +1,6 @@
 #include "database.h"
 
-char *option_db[13] = {
+char *option_db[] = {
 "Worm",
 "Spirit",
 "Caro",

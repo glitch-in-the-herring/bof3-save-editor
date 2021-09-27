@@ -2,12 +2,13 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include "character_page.h"
+#include "../db/database.h"
 
 void assign_character_fields(struct CharacterFields *character_fields, GtkBuilder *builder)
 {
     char *uint8_ids[16] = {"level_entry", "willpower_entry", "surprise_entry",
-                       "reprisal_entry", "critical_entry",
-                       "dodge_entry", "to_hit_entry", "fatigue_entry"};
+                           "reprisal_entry", "critical_entry",
+                           "dodge_entry", "to_hit_entry", "fatigue_entry"};
 
     char *uint16_ids[25] = {"current_hp_entry", "current_ap_entry",
                             "current_max_hp_entry", "current_max_ap_entry",
@@ -18,6 +19,10 @@ void assign_character_fields(struct CharacterFields *character_fields, GtkBuilde
     char *resistances[20] = {"fire_combo_box", "ice_combo_box", "electric_combo_box",
                              "earth_combo_box", "wind_combo_box", "holy_combo_box",
                              "psionic_combo_box", "status_combo_box", "death_combo_box"};
+
+     char *equipments[6] = {"weapon_combo_box", "shield_combo_box",
+                            "helmet_combo_box", "armor_combo_box",
+                            "acc1_combo_box", "acc2_combo_box"};
 
     character_fields->character_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "character_combo_box"));
     character_fields->name_entry = GTK_WIDGET(gtk_builder_get_object(builder, "name_entry"));
@@ -31,6 +36,9 @@ void assign_character_fields(struct CharacterFields *character_fields, GtkBuilde
 
     for (int i = 0; i < 9; i++)
         character_fields->resistance_combo_boxes[i] = GTK_WIDGET(gtk_builder_get_object(builder, resistances[i]));
+
+    for (int i = 0; i < 6; i++)
+        character_fields->equipment_combo_boxes[i] = GTK_WIDGET(gtk_builder_get_object(builder, equipments[i]));    
 }
 
 void load_character_names(struct SlotPageID **slot_page_ids)
@@ -64,6 +72,9 @@ void enable_character_fields(struct CharacterFields *character_fields)
 
     for (int i = 0; i < 9; i++)
         g_object_set(character_fields->resistance_combo_boxes[i], "sensitive", TRUE, NULL);
+
+    for (int i = 0; i < 6; i++)
+        g_object_set(character_fields->equipment_combo_boxes[i], "sensitive", TRUE, NULL);    
 }
 
 void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDataFields *character_data_fields, int order)
@@ -73,6 +84,7 @@ void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDa
     static unsigned long uint16_signal_ids[10];
     static unsigned long name_exp_signals[2];
     static unsigned long resistance_signal_ids[9];
+    static unsigned long equipment_signal_ids[6];
     static int is_signal_set = 0;
 
     if (is_signal_set != 0)
@@ -84,7 +96,10 @@ void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDa
             g_signal_handler_disconnect(character_data_fields->character_fields->uint16_entries[i], uint16_signal_ids[i]);
 
         for (int i = 0; i < 9; i++)
-            g_signal_handler_disconnect(character_data_fields->character_fields->resistance_combo_boxes[i], resistance_signal_ids[i]);        
+            g_signal_handler_disconnect(character_data_fields->character_fields->resistance_combo_boxes[i], resistance_signal_ids[i]);
+
+        for (int i = 0; i < 6; i++)
+            g_signal_handler_disconnect(character_data_fields->character_fields->equipment_combo_boxes[i], equipment_signal_ids[i]);
 
         g_signal_handler_disconnect(character_data_fields->character_fields->name_entry, name_exp_signals[0]);
         g_signal_handler_disconnect(character_data_fields->character_fields->exp_entry, name_exp_signals[1]);
@@ -118,8 +133,33 @@ void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDa
         resistance_signal_ids[i] = g_signal_connect(character_data_fields->character_fields->resistance_combo_boxes[i], "changed", G_CALLBACK(store_character_resistance), slot_page_ids[i]);
     }
 
+    for (int i = 0; i < 6; i++)
+    {
+        gtk_combo_box_set_active(GTK_COMBO_BOX(character_data_fields->character_fields->equipment_combo_boxes[i]), character_data_fields->character_data[order]->equipment[i]);
+        equipment_signal_ids[i] = g_signal_connect(character_data_fields->character_fields->equipment_combo_boxes[i], "changed", G_CALLBACK(store_character_equipment), slot_page_ids[i]);
+    }    
+
     is_signal_set = 1;
     character_data_fields->character_id = order;
+}
+
+void load_equipment_combo_boxes(struct CharacterFields *character_fields)
+{
+    for (int i = 0; i < 83; i++)
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(character_fields->equipment_combo_boxes[0]), NULL, weapon_db[i]);
+
+    for (int i = 0; i < 68; i++)
+    {
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(character_fields->equipment_combo_boxes[1]), NULL, armor_db[i]);
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(character_fields->equipment_combo_boxes[2]), NULL, armor_db[i]);
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(character_fields->equipment_combo_boxes[3]), NULL, armor_db[i]);
+    }
+
+    for (int i = 0; i < 28; i++)
+    {
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(character_fields->equipment_combo_boxes[4]), NULL, acc_db[i]);
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(character_fields->equipment_combo_boxes[5]), NULL, acc_db[i]);
+    }    
 }
 
 void base_store_name_character_entry(struct SlotPage *slot_page, const char *value)
@@ -152,6 +192,11 @@ void base_store_uint16_character_entry(struct SlotPage *slot_page, int entry, ui
 void base_store_character_resistance(struct SlotPage *slot_page, int entry, uint8_t value)
 {
     slot_page->character_data_fields->character_data[slot_page->character_data_fields->character_id]->resistances[entry] = value;
+}
+
+void base_store_character_equipment(struct SlotPage *slot_page, int entry, uint8_t value)
+{
+    slot_page->character_data_fields->character_data[slot_page->character_data_fields->character_id]->equipment[entry] = value;
 }
 
 void combo_box_load_character_fields(GtkWidget *widget, gpointer data)
@@ -213,4 +258,11 @@ void store_character_resistance(GtkWidget *widget, gpointer data)
     uint8_t value = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
     struct SlotPageID *slot_page_id = data;
     base_store_character_resistance(slot_page_id->slot_page, slot_page_id->entry_id, value);
+}
+
+void store_character_equipment(GtkWidget *widget, gpointer data)
+{
+    uint8_t value = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
+    struct SlotPageID *slot_page_id = data;
+    base_store_character_equipment(slot_page_id->slot_page, slot_page_id->entry_id, value);
 }

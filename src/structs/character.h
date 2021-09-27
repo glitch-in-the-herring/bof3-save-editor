@@ -27,6 +27,15 @@
  * base_int         9
  */
 
+/* equipment:
+ * weapon           0
+ * shield           1
+ * helmet           2
+ * armor            3
+ * acc1             4
+ * acc2             5
+ */
+
 struct CharacterData
 {
     char name[6];
@@ -34,6 +43,7 @@ struct CharacterData
     uint16_t uint16_array[10];
     uint32_t exp;
     uint8_t resistances[9];
+    uint8_t equipment[6];
 };
 
 struct CharacterData *get_character_data(unsigned char *memory_card, int order, int start);

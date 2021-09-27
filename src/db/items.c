@@ -1,6 +1,6 @@
 #include "database.h"
 
-char *item_db[13] = {
+char *item_db[] = {
 "Nothing",
 "Green Apple",
 "Bread",

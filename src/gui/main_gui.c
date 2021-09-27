@@ -108,6 +108,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
             character_data_fields->character_data = save_slots[0]->character_data;
             character_data_fields->character_id = 0;
             load_character_names(slot_page_ids);
+            load_equipment_combo_boxes(character_fields);
             enable_character_fields(character_fields);
             load_character_fields(slot_page_ids, character_data_fields, 0);
 

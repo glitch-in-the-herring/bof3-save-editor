@@ -1,6 +1,6 @@
 #include "database.h"
 
-char *vital_db[13] = {
+char *vital_db[] = {
 "Nothing",
 "Flier",
 "Wallet",

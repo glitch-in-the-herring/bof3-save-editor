@@ -1,6 +1,6 @@
 #include "database.h"
 
-char *abil_db[13] = {
+char *abil_db[] = {
 "Nue Stomp",
 "Gambit",
 "Super Combo",

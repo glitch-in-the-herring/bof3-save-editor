@@ -36,6 +36,7 @@ struct CharacterFields
     GtkWidget *uint8_entries[8];
     GtkWidget *uint16_entries[10];
     GtkWidget *resistance_combo_boxes[9];
+    GtkWidget *equipment_combo_boxes[6];
 };
 
 struct CharacterDataFields
@@ -49,12 +50,14 @@ void assign_character_fields(struct CharacterFields *character_fields, GtkBuilde
 void load_character_names(struct SlotPageID **slot_page_ids);
 void enable_character_fields(struct CharacterFields *character_fields);
 void load_character_fields(struct SlotPageID **slot_page_ids, struct CharacterDataFields *character_data_fields, int order);
+void load_equipment_combo_boxes(struct CharacterFields *character_fields);
 
 void base_store_name_character_entry(struct SlotPage *slot_page, const char *value);
 void base_store_exp_character_entry(struct SlotPage *slot_page, uint32_t value);
 void base_store_uint8_character_entry(struct SlotPage *slot_page, int entry, uint8_t value);
 void base_store_uint16_character_entry(struct SlotPage *slot_page, int entry, uint16_t value);
 void base_store_character_resistance(struct SlotPage *slot_page, int entry, uint8_t value);
+void base_store_character_equipment(struct SlotPage *slot_page, int entry, uint8_t value);
 
 void combo_box_load_character_fields(GtkWidget *widget, gpointer data);
 void prev_slot_load_character_fields(struct SlotPageID **slot_page_ids);
@@ -65,5 +68,6 @@ void store_exp_character_entry(GtkWidget *widget, gpointer data);
 void store_uint8_character_entry(GtkWidget *widget, gpointer data);
 void store_uint16_character_entry(GtkWidget *widget, gpointer data);
 void store_character_resistance(GtkWidget *widget, gpointer data);
+void store_character_equipment(GtkWidget *widget, gpointer data);
 
 #endif
