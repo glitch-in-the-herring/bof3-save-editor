@@ -5,8 +5,10 @@
 
 struct SaveSlot
 {
-	int address;
-	struct CharacterData **character_data;
+    int address;
+    //char name[6];
+    struct CharacterData **character_data;
+    //struct InventoryData **inventory_data;
 };
 
 #endif

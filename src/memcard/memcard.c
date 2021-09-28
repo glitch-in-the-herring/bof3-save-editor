@@ -12,12 +12,13 @@ int validate_memory_card(unsigned char *memory_card)
 int browse_toc(unsigned char *memory_card)
 {
     static int toc_address = 0x00;
-
     toc_address += 0x80;
 
-    
     if (toc_address > 0x780)
+    {
+        toc_address = 0x00;
         return -1;
+    }
     
     if (memory_card[toc_address] != 0xA0 && check_toc_entry(memory_card, toc_address))
         return 0x2000 * (toc_address / 0x80);
