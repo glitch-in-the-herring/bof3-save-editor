@@ -24,7 +24,7 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
         character_data->uint8_array[i] = memory_card[base_address + uint8_offsets[i]];
     
     for (int i = 0; i < 10; i++)
-        character_data->uint16_array[i] = from_little_endian(memory_card, base_address + uint16_offsets[i], 2);        
+        character_data->uint16_array[i] = from_little_endian(memory_card, base_address + uint16_offsets[i], 2);
 
     character_data->exp = from_little_endian(memory_card, base_address + 8, 4);
 
@@ -32,7 +32,15 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
         character_data->resistances[i] =  memory_card[base_address + 75 + i];
 
     for (int i = 0; i < 6; i++)
-        character_data->equipment[i] =  memory_card[base_address + 14 + i];    
+        character_data->equipment[i] =  memory_card[base_address + 14 + i];
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            character_data->abilities[i][j] = memory_card[base_address + 92 + i * 10 + j];
+        }
+    }
 
     return character_data;
 }

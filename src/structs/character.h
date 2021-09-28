@@ -36,6 +36,13 @@
  * acc2             5
  */
 
+/* abilities
+ * heal             0
+ * assist           1
+ * attack           2
+ * skill            3
+ */
+
 struct CharacterData
 {
     char name[6];
@@ -44,6 +51,7 @@ struct CharacterData
     uint32_t exp;
     uint8_t resistances[9];
     uint8_t equipment[6];
+    uint8_t abilities[4][10];
 };
 
 struct CharacterData *get_character_data(unsigned char *memory_card, int order, int start);

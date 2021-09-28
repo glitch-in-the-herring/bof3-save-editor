@@ -7,6 +7,7 @@
 
 struct CardStream
 {
+    GtkWidget *app_window;    
     GFileIOStream *file_stream;    
     struct SlotPage *slot_page;
 };
