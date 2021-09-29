@@ -12,6 +12,7 @@ struct CardStream
     struct SlotPage *slot_page;
 };
 
+void save_slot_name(GOutputStream *stream, struct SaveSlot *save_slot);
 void save_card(GtkWidget *widget, gpointer data);
 
 #endif

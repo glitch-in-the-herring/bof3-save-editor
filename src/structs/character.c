@@ -11,9 +11,7 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
     struct CharacterData *character_data = g_new(struct CharacterData, 1);
     
     for(int i = 0; i < 5; i++)
-    {
         character_data->name[i] = memory_card[start + 0x290 + 0xA4 * order + i];
-    }
 
     character_data->name[5] = '\0';
 
@@ -37,9 +35,7 @@ struct CharacterData *get_character_data(unsigned char *memory_card, int order, 
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 10; j++)
-        {
             character_data->abilities[i][j] = memory_card[base_address + 92 + i * 10 + j];
-        }
     }
 
     return character_data;

@@ -1,7 +1,7 @@
 #please
 #rewrite this
-save_editor: save_editor.o main_gui.o character_page.o memcard.o utils.o character.o slot_switcher.o dialog_window.o memcard_writer.o abils.o accs.o armors.o items.o options.o vitals.o weapons.o inventory.o inventory_page.o file_opener.o
-	gcc -o save_editor save_editor.o main_gui.o character_page.o memcard.o utils.o character.o slot_switcher.o dialog_window.o file_opener.o memcard_writer.o abils.o accs.o armors.o items.o options.o vitals.o weapons.o inventory.o inventory_page.o `pkg-config --cflags gtk+-3.0 --libs gtk+-3.0` -O2
+save_editor: save_editor.o main_gui.o character_page.o memcard.o utils.o character.o slot_switcher.o dialog_window.o memcard_writer.o abils.o accs.o armors.o items.o options.o vitals.o weapons.o inventory.o inventory_page.o file_opener.o save_slot.o
+	gcc -o save_editor save_editor.o main_gui.o character_page.o memcard.o utils.o character.o slot_switcher.o dialog_window.o file_opener.o memcard_writer.o abils.o accs.o armors.o items.o options.o vitals.o weapons.o inventory.o inventory_page.o save_slot.o `pkg-config --cflags gtk+-3.0 --libs gtk+-3.0` -O2
 	rm -f *.o
 save_editor.o:
 	gcc -c save_editor.c `pkg-config --cflags gtk+-3.0 --libs gtk+-3.0` -O2
@@ -41,9 +41,12 @@ inventory_page.o:
 	gcc -c gui/inventory_page.c -O2 `pkg-config --cflags gtk+-3.0 --libs gtk+-3.0` -O2
 file_opener.o:
 	gcc -c gui/file_opener.c -O2 `pkg-config --cflags gtk+-3.0 --libs gtk+-3.0` -O2	
+save_slot.o:
+	gcc -c structs/save_slot.c -O2 `pkg-config --cflags gtk+-3.0 --libs gtk+-3.0` -O2	
 
 .PHONY: clean
 clean:
 	rm -f save_editor
 	rm -f save_editor.exe
+	rm -f *.out
 	rm -f *.o

@@ -266,16 +266,8 @@ void combo_box_load_abilities(GtkWidget *widget, gpointer data)
     load_abilities(slot_page_ids, slot_page_ids[0]->slot_page->character_data_fields, order, abil_id);
 }
 
-void prev_slot_load_character_fields(struct SlotPageID **slot_page_ids)
+void change_slot_load_character_fields(struct SlotPageID **slot_page_ids)
 {
-    slot_page_ids[0]->slot_page->character_data_fields->character_data = slot_page_ids[0]->slot_page->save_slots[slot_page_ids[0]->slot_page->position]->character_data;
-
-    load_character_names(slot_page_ids);
-    load_character_fields(slot_page_ids, slot_page_ids[0]->slot_page->character_data_fields, 0);
-}
-
-void next_slot_load_character_fields(struct SlotPageID **slot_page_ids)
-{   
     slot_page_ids[0]->slot_page->character_data_fields->character_data = slot_page_ids[0]->slot_page->save_slots[slot_page_ids[0]->slot_page->position]->character_data;
 
     load_character_names(slot_page_ids);

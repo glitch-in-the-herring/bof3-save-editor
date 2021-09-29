@@ -6,6 +6,7 @@
 #include "file_opener.h"
 #include "../structs/save_slot.h"
 #include "../structs/character.h"
+#include "../structs/inventory.h"
 #include "../memcard/memcard.h"
 #include "../memcard/memcard_writer.h"
 
@@ -15,13 +16,84 @@ void app_activate(GtkApplication *app, gpointer data)
     GtkWidget *app_window;
     GtkWidget *status_bar;
 
+    static struct SaveSlot *save_slots[3];
+    static struct SlotPage *slot_page;
+    static struct SlotPageID **slot_page_ids;
+    static struct CharacterFields *character_fields;
+    static struct CharacterDataFields *character_data_fields;
+    static struct CardStream *card_stream;
+    static struct Loadable *loadable;
+
+    slot_page = g_new(struct SlotPage, 1);
+    slot_page_ids = g_new(struct SlotPageID *, INPUT_ID);
+    card_stream = g_new(struct CardStream, 1);
+    loadable = g_new(struct Loadable, 1);
+
+    for (int i = 0; i < INPUT_ID; i++)
+    {
+        slot_page_ids[i] = g_new(struct SlotPageID, 1);
+        slot_page_ids[i]->entry_id = i;
+        slot_page_ids[i]->slot_page = slot_page;
+    }
+
+    character_fields = g_new(struct CharacterFields, 1);
+    character_data_fields = g_new(struct CharacterDataFields, 1);
+
     builder = gtk_builder_new_from_file("layout.ui");
         
     app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
-    
+
+    status_bar = GTK_WIDGET(gtk_builder_get_object(builder, "status_bar"));
+
+    slot_page->open_button = GTK_WIDGET(gtk_builder_get_object(builder, "open_button"));
+    slot_page->save_button = GTK_WIDGET(gtk_builder_get_object(builder, "save_button"));
+    slot_page->prev_button = GTK_WIDGET(gtk_builder_get_object(builder, "prev_button"));
+    slot_page->next_button = GTK_WIDGET(gtk_builder_get_object(builder, "next_button"));
+    slot_page->status_bar = status_bar;
+
+    loadable->not_sensitive = 1;
+    loadable->parent = app_window;
+    loadable->status_bar = status_bar;
+    loadable->slot_page_ids = slot_page_ids;
+    loadable->card_stream = card_stream;
+
+    for (int i = 0; i < 3; i++)
+    {
+        save_slots[i] = g_new(struct SaveSlot, 1);
+        save_slots[i]->character_data = NULL;
+        save_slots[i]->inventory_data = NULL;
+    }
+
+    slot_page->position = 0;
+    slot_page->character_data_fields = character_data_fields;
+    slot_page->save_slots = save_slots;
+    character_data_fields->character_fields = character_fields;
+    card_stream->app_window = app_window;
+    card_stream->slot_page = slot_page;
+    card_stream->file_stream = NULL;
+
+    assign_character_fields(character_fields, builder);
+
     g_object_unref(builder);
+
+    load_equipment_combo_boxes(character_fields);
+    load_ability_combo_boxes(character_fields);    
     
+    static struct FreeStruct *free_struct;
+    free_struct = g_new(struct FreeStruct, 1);
+    free_struct->save_slot_count = 0;
+    free_struct->slot_page_ids = slot_page_ids;
+    free_struct->card_stream = card_stream;
+    free_struct->loadable = loadable;
+    loadable->free_struct = free_struct;
+
+    g_signal_connect(slot_page->open_button, "clicked", G_CALLBACK(file_opener), loadable);
+    g_signal_connect(slot_page->save_button, "clicked", G_CALLBACK(save_card), card_stream);
+    g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(prev_save_slot), slot_page_ids);
+    g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_save_slot), slot_page_ids);    
+    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);    
+
     gtk_widget_show(app_window);
 }
 
@@ -65,10 +137,10 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     slot_page->save_button = GTK_WIDGET(gtk_builder_get_object(builder, "save_button"));
     slot_page->prev_button = GTK_WIDGET(gtk_builder_get_object(builder, "prev_button"));
     slot_page->next_button = GTK_WIDGET(gtk_builder_get_object(builder, "next_button"));
+    slot_page->slot_name_entry = GTK_WIDGET(gtk_builder_get_object(builder, "slot_name_entry"));
     slot_page->status_bar = status_bar;
 
     loadable->not_sensitive = 1;
-    loadable->file = NULL;
     loadable->parent = app_window;
     loadable->status_bar = status_bar;
     loadable->slot_page_ids = slot_page_ids;
@@ -78,6 +150,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     {
         save_slots[i] = g_new(struct SaveSlot, 1);
         save_slots[i]->character_data = NULL;
+        save_slots[i]->inventory_data = NULL;
     }
 
     slot_page->position = 0;
@@ -110,35 +183,50 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 save_slots[save_slot_count]->character_data = g_new(struct CharacterData*, 8);
                 save_slots[save_slot_count]->address = address;
 
+                get_save_slot_name(memory_card, save_slots[save_slot_count]->name, address);
+                
                 for (int i = 0; i < 8; i++)
                     save_slots[save_slot_count]->character_data[i] = get_character_data(memory_card, i, address);
 
                 save_slot_count++;
             }
-            slot_page->save_slot_count = save_slot_count;
-            character_data_fields->character_data = save_slots[0]->character_data;
-            character_data_fields->character_id = 0;
-            load_character_names(slot_page_ids);
-            load_character_fields(slot_page_ids, character_data_fields, 0);
-            enable_character_fields(character_fields);
-            loadable->not_sensitive = 0;;
-            char buffer[32];
-            sprintf(buffer, "Slot %i of %i", slot_page->position + 1, save_slot_count);
 
-            gtk_statusbar_push(GTK_STATUSBAR(status_bar), 1, buffer);
+            if (save_slot_count > 0)
+            {
+                char buffer[128];
+                filename = g_file_get_basename(files[0]);
+                slot_page->save_slot_count = save_slot_count;
+                character_data_fields->character_data = save_slots[0]->character_data;
+                character_data_fields->character_id = 0;
+                load_slot_name(slot_page, 0);
+                load_character_names(slot_page_ids);
+                load_character_fields(slot_page_ids, character_data_fields, 0);
+                enable_character_fields(character_fields);
+                loadable->not_sensitive = 0;
 
-            g_object_set(slot_page->save_button, "sensitive", TRUE, NULL);
+                g_snprintf(buffer, 128, "Slot %i of %i", slot_page->position + 1, save_slot_count);
+                gtk_statusbar_push(GTK_STATUSBAR(status_bar), 1, buffer);
 
-            if (save_slot_count > 1)
-                g_object_set(slot_page->next_button, "sensitive", TRUE, NULL);
+                g_snprintf(buffer, 128, "Breath of Fire III Save Editor - %s", filename);
+                gtk_window_set_title(GTK_WINDOW(app_window), buffer);
+                g_free(filename);
 
-            file_stream = g_file_open_readwrite(G_FILE(files[0]), NULL, NULL);
-            card_stream->file_stream = file_stream;
+                g_object_set(slot_page->save_button, "sensitive", TRUE, NULL);
+                g_object_set(slot_page->slot_name_entry, "sensitive", TRUE, NULL);
+
+                if (save_slot_count > 1)
+                    g_object_set(slot_page->next_button, "sensitive", TRUE, NULL);
+
+                file_stream = g_file_open_readwrite(G_FILE(files[0]), NULL, NULL);
+                card_stream->file_stream = file_stream;
+            }
+            else
+            {
+                assert_error(GTK_WINDOW(app_window), "No Breath of Fire III Save File Found");
+            }
         }
         else
-        {
             assert_error(GTK_WINDOW(app_window), "Invalid Memory Card");
-        }
 
         g_free(memory_card);
     }
@@ -149,6 +237,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
             assert_error(GTK_WINDOW(app_window), "File Does Not Exist");
             g_free(filename);
         }
+        else
+            assert_error(GTK_WINDOW(app_window), "Unknown Error");
     }
 
     static struct FreeStruct *free_struct;
@@ -159,7 +249,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     free_struct->loadable = loadable;
     loadable->free_struct = free_struct;
 
-    g_signal_connect(slot_page->open_button, "clicked", G_CALLBACK(file_opener_open), loadable);
+    g_signal_connect(slot_page->open_button, "clicked", G_CALLBACK(file_opener), loadable);
     g_signal_connect(slot_page->save_button, "clicked", G_CALLBACK(save_card), card_stream);
     g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(prev_save_slot), slot_page_ids);
     g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_save_slot), slot_page_ids);    
@@ -181,6 +271,9 @@ void app_shutdown(GtkApplication *app, gpointer data)
 
         if (free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data != NULL)
             g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]->character_data);
+
+        if (free_struct->slot_page_ids[0]->slot_page->save_slots[i]->inventory_data != NULL)
+            g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]->inventory_data);
 
         g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]);
     }

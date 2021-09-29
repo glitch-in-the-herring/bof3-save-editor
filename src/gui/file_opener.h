@@ -6,7 +6,6 @@
 struct Loadable
 {
     int not_sensitive;
-    GFile *file;
     GtkWidget *parent;
     GtkWidget *status_bar;
     struct SlotPageID **slot_page_ids;
@@ -14,6 +13,6 @@ struct Loadable
     struct FreeStruct *free_struct;
 };
 
-void file_opener_open(GtkWidget *widget, gpointer data);
+void file_opener(GtkWidget *widget, gpointer data);
 
 #endif

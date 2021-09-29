@@ -67,8 +67,7 @@ void base_store_character_ability(struct SlotPage *slot_page, int entry, uint8_t
 
 void combo_box_load_character_fields(GtkWidget *widget, gpointer data);
 void combo_box_load_abilities(GtkWidget *widget, gpointer data);
-void prev_slot_load_character_fields(struct SlotPageID **slot_page_ids);
-void next_slot_load_character_fields(struct SlotPageID **slot_page_ids);
+void change_slot_load_character_fields(struct SlotPageID **slot_page_ids);
 
 void store_name_character_entry(GtkWidget *widget, gpointer data);
 void store_exp_character_entry(GtkWidget *widget, gpointer data);

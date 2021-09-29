@@ -1,6 +1,12 @@
 #include "memcard_writer.h"
 #include "../gui/dialog_window.h"
 
+void save_slot_name(GOutputStream *stream, struct SaveSlot *save_slot)
+{
+    g_seekable_seek(G_SEEKABLE(stream), save_slot->address + 0xEA0, G_SEEK_SET, NULL, NULL);
+    g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->name, 5, NULL, NULL);
+}
+
 void save_character(GOutputStream *stream, struct SaveSlot *save_slot)
 {
     int base_address;
@@ -68,6 +74,7 @@ void save_card(GtkWidget *widget, gpointer data)
 
     for (int i = 0; i < slot_page->save_slot_count; i++)
     {
+        save_slot_name(output_stream, slot_page->save_slots[i]);
         save_character(output_stream, slot_page->save_slots[i]);
         generate_checksum(file_stream, slot_page->save_slots[i]->address);
     }
