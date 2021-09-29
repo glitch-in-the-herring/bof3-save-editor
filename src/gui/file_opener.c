@@ -2,6 +2,7 @@
 #include "main_gui.h"
 #include "slot_switcher.h"
 #include "character_page.h"
+#include "inventory_page.h"
 #include "dialog_window.h"
 #include "../structs/save_slot.h"
 #include "../structs/character.h"
@@ -16,6 +17,8 @@ void file_opener(GtkWidget *widget, gpointer data)
     struct SlotPage *slot_page = loadable->card_stream->slot_page;
     struct CharacterDataFields *character_data_fields = slot_page->character_data_fields;
     struct CharacterFields *character_fields = character_data_fields->character_fields;
+    struct InventoryDataFields *inventory_data_fields = slot_page->inventory_data_fields;
+    struct InventoryFields *inventory_fields = inventory_data_fields->inventory_fields;
     struct SaveSlot **save_slots = slot_page->save_slots;
     struct FreeStruct *free_struct = loadable->free_struct;
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
@@ -81,6 +84,7 @@ void file_opener(GtkWidget *widget, gpointer data)
                     load_slot_name(slot_page, 0);
                     load_character_names(slot_page_ids);
                     load_character_fields(slot_page_ids, character_data_fields, 0);
+                    create_inventory_grid(inventory_fields);
                     g_object_unref(file);
 
                     if (loadable->not_sensitive)

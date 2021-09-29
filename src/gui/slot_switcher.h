@@ -12,6 +12,7 @@ struct SlotPage
     int position;
     struct SaveSlot **save_slots;
     struct CharacterDataFields *character_data_fields;
+    struct InventoryDataFields *inventory_data_fields;
     GtkWidget *open_button;
     GtkWidget *save_button;
     GtkWidget *prev_button;

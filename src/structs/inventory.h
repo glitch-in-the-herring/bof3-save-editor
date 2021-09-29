@@ -2,6 +2,7 @@
 #define INVENTORY
 
 #include <stdint.h>
+#include <gtk/gtk.h>
 
 /* item_ids/item_counts:
  * item     0
