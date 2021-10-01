@@ -81,10 +81,13 @@ void file_opener(GtkWidget *widget, gpointer data)
                     slot_page->save_slot_count = save_slot_count;
                     character_data_fields->character_data = save_slots[0]->character_data;
                     character_data_fields->character_id = 0;
+                    inventory_data_fields->inventory_data = save_slots[0]->inventory_data;
+                    inventory_data_fields->inv_id = 0;                    
                     load_slot_name(slot_page, 0);
                     load_character_names(slot_page_ids);
                     load_character_fields(slot_page_ids, character_data_fields, 0);
                     load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
+                    load_vital_box(slot_page_ids, inventory_data_fields);
                     gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
                     g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), slot_page_ids);
                     g_object_unref(file);

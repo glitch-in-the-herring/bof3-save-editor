@@ -15,11 +15,7 @@ struct InventoryData
 {
     uint8_t item_ids[4][128];
     uint8_t item_counts[4][128];
-};
-
-struct VitalItemsData
-{
-    uint8_t item_ids[32];
+    uint8_t vital_item_ids[32];
 };
 
 struct SkillNotesData

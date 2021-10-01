@@ -19,6 +19,7 @@ void app_activate(GtkApplication *app, gpointer data)
     GtkWidget *app_window;
     GtkWidget *status_bar;
     GtkWidget *inventory_grid;
+    GtkWidget *vital_box;
 
     static struct SaveSlot *save_slots[3];
     static struct SlotPage *slot_page;
@@ -52,6 +53,7 @@ void app_activate(GtkApplication *app, gpointer data)
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
 
     inventory_grid = GTK_WIDGET(gtk_builder_get_object(builder, "inventory_grid"));
+    vital_box = GTK_WIDGET(gtk_builder_get_object(builder, "vital_box"));
     status_bar = GTK_WIDGET(gtk_builder_get_object(builder, "status_bar"));
 
     slot_page->open_button = GTK_WIDGET(gtk_builder_get_object(builder, "open_button"));
@@ -68,6 +70,7 @@ void app_activate(GtkApplication *app, gpointer data)
     loadable->card_stream = card_stream;
 
     inventory_fields->inventory_grid = inventory_grid;
+    inventory_fields->vital_box = vital_box;    
     inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
@@ -126,6 +129,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     GtkWidget *app_window;
     GtkWidget *status_bar;
     GtkWidget *inventory_grid; 
+    GtkWidget *vital_box;
 
     static struct SaveSlot *save_slots[3];
     static struct SlotPage *slot_page;
@@ -159,6 +163,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
 
     inventory_grid = GTK_WIDGET(gtk_builder_get_object(builder, "inventory_grid"));
+    vital_box = GTK_WIDGET(gtk_builder_get_object(builder, "vital_box"));    
     status_bar = GTK_WIDGET(gtk_builder_get_object(builder, "status_bar"));
 
     slot_page->open_button = GTK_WIDGET(gtk_builder_get_object(builder, "open_button"));
@@ -175,6 +180,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     loadable->card_stream = card_stream;
 
     inventory_fields->inventory_grid = inventory_grid;
+    inventory_fields->vital_box = vital_box;
     inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
@@ -247,6 +253,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 load_character_fields(slot_page_ids, character_data_fields, 0);
                 create_inventory_grid(inventory_data_fields);
                 load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
+                load_vital_box(slot_page_ids, inventory_data_fields);
                 gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
                 g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), slot_page_ids);
                 enable_character_fields(character_fields);

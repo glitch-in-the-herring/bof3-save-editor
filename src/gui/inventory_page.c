@@ -38,7 +38,21 @@ void create_inventory_grid(struct InventoryDataFields *inventory_data_fields)
         for (int j = 0; j < 24; j++)
             gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(inventory_fields->combo_boxes[3][i]), NULL, option_db[j + 1]);
 
-    }       
+    }
+
+    for (int i = 0; i < 32; i++)
+    {
+        combo_box = gtk_combo_box_text_new();
+
+        for (int j = 0; j < 16; j++)
+            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo_box), NULL, vital_db[j]);
+
+        gtk_widget_set_halign(combo_box, GTK_ALIGN_START);
+
+        inventory_fields->vital_combo_boxes[i] = combo_box;
+        gtk_box_pack_start(GTK_BOX(inventory_fields->vital_box), combo_box, FALSE, FALSE, 0);
+        gtk_widget_show(combo_box);
+    }
 }
 
 void load_inventory_grid(struct SlotPageID **slot_page_ids, struct InventoryDataFields *inventory_data_fields, int order)
@@ -89,6 +103,24 @@ void load_inventory_grid(struct SlotPageID **slot_page_ids, struct InventoryData
     entry_signals_set = 1;
 }
 
+void load_vital_box(struct SlotPageID **slot_page_ids, struct InventoryDataFields *inventory_data_fields)
+{
+    static long unsigned signal_ids[32];
+    static int is_signal_set = 0;
+
+    if (is_signal_set)
+    {
+        for (int i = 0; i < 32; i++)
+            g_signal_handler_disconnect(inventory_data_fields->inventory_fields->vital_combo_boxes[i], signal_ids[i]);
+    }
+
+    for (int i = 0; i < 32; i++)
+    {
+        gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_data_fields->inventory_fields->vital_combo_boxes[i]), inventory_data_fields->inventory_data->vital_item_ids[i]);
+        g_signal_connect(inventory_data_fields->inventory_fields->vital_combo_boxes[i], "changed", G_CALLBACK(store_vital_items), slot_page_ids[i]);
+    }
+}
+
 void combo_box_load_inventory_grid(GtkWidget *widget, gpointer data)
 {
     int order = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
@@ -102,6 +134,7 @@ void change_slot_load_inventory_grid(struct SlotPageID **slot_page_ids)
 {
     slot_page_ids[0]->slot_page->inventory_data_fields->inventory_data = slot_page_ids[0]->slot_page->save_slots[slot_page_ids[0]->slot_page->position]->inventory_data;
     load_inventory_grid(slot_page_ids, slot_page_ids[0]->slot_page->inventory_data_fields, 0);
+    load_vital_box(slot_page_ids, slot_page_ids[0]->slot_page->inventory_data_fields);
     gtk_combo_box_set_active(GTK_COMBO_BOX(slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->inv_id_combo_box), 0);
 }
 
@@ -113,6 +146,11 @@ void base_store_inventory_item(struct SlotPage *slot_page, int entry, int inv_id
 void base_store_inventory_count(struct SlotPage *slot_page, int entry, int inv_id, uint8_t count)
 {
     slot_page->inventory_data_fields->inventory_data->item_counts[inv_id][entry] = count;
+}
+
+void base_store_vital_items(struct SlotPage *slot_page, int entry, uint8_t item)
+{
+    slot_page->inventory_data_fields->inventory_data->vital_item_ids[entry] = item;
 }
 
 void store_inventory_item(GtkWidget *widget, gpointer data)
@@ -130,4 +168,11 @@ void store_inventory_count(GtkWidget *widget, gpointer data)
     uint8_t count;
     sscanf(gtk_entry_get_text(GTK_ENTRY(widget)), "%hhu", &count);
     base_store_inventory_count(slot_page_id->slot_page, slot_page_id->entry_id, inv_id, count);
+}
+
+void store_vital_items(GtkWidget *widget, gpointer data)
+{
+    struct SlotPageID *slot_page_id = data;
+    uint8_t item = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
+    base_store_vital_items(slot_page_id->slot_page, slot_page_id->entry_id, item);
 }
