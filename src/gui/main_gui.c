@@ -68,6 +68,7 @@ void app_activate(GtkApplication *app, gpointer data)
     loadable->card_stream = card_stream;
 
     inventory_fields->inventory_grid = inventory_grid;
+    inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
     for (int i = 0; i < 3; i++)
@@ -91,7 +92,8 @@ void app_activate(GtkApplication *app, gpointer data)
     g_object_unref(builder);
 
     load_equipment_combo_boxes(character_fields);
-    load_ability_combo_boxes(character_fields);    
+    load_ability_combo_boxes(character_fields);
+    create_inventory_grid(inventory_data_fields);
     
     static struct FreeStruct *free_struct;
     free_struct = g_new(struct FreeStruct, 1);
@@ -165,6 +167,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     loadable->card_stream = card_stream;
 
     inventory_fields->inventory_grid = inventory_grid;
+    inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
     for (int i = 0; i < 3; i++)
@@ -221,11 +224,15 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 filename = g_file_get_basename(files[0]);
                 slot_page->save_slot_count = save_slot_count;
                 character_data_fields->character_data = save_slots[0]->character_data;
+                inventory_data_fields->inventory_data = save_slots[0]->inventory_data;
                 character_data_fields->character_id = 0;
                 load_slot_name(slot_page, 0);
                 load_character_names(slot_page_ids);
                 load_character_fields(slot_page_ids, character_data_fields, 0);
-                create_inventory_grid(inventory_fields);
+                create_inventory_grid(inventory_data_fields);
+                load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
+                gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
+                g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), inventory_data_fields);
                 enable_character_fields(character_fields);
                 loadable->not_sensitive = 0;
 
@@ -238,6 +245,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 
                 g_object_set(slot_page->save_button, "sensitive", TRUE, NULL);
                 g_object_set(slot_page->slot_name_entry, "sensitive", TRUE, NULL);
+                g_object_set(inventory_fields->inv_id_combo_box, "sensitive", TRUE, NULL);
 
                 if (save_slot_count > 1)
                     g_object_set(slot_page->next_button, "sensitive", TRUE, NULL);

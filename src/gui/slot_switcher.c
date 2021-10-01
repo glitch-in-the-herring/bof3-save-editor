@@ -1,5 +1,6 @@
 #include "slot_switcher.h"
 #include "character_page.h"
+#include "inventory_page.h"
 
 void prev_save_slot(GtkWidget *widget, gpointer data)
 {
@@ -20,6 +21,7 @@ void prev_save_slot(GtkWidget *widget, gpointer data)
 
     load_slot_name(slot_page_ids[0]->slot_page, slot_page_ids[0]->slot_page->position);
     change_slot_load_character_fields(slot_page_ids);
+    change_slot_load_inventory_grid(slot_page_ids);
 }
 
 void next_save_slot(GtkWidget *widget, gpointer data)
@@ -41,6 +43,7 @@ void next_save_slot(GtkWidget *widget, gpointer data)
 
     load_slot_name(slot_page_ids[0]->slot_page, slot_page_ids[0]->slot_page->position);
     change_slot_load_character_fields(slot_page_ids);
+    change_slot_load_inventory_grid(slot_page_ids);
 }
 
 void load_slot_name(struct SlotPage *slot_page, int order)

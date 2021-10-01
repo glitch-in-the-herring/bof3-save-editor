@@ -84,7 +84,9 @@ void file_opener(GtkWidget *widget, gpointer data)
                     load_slot_name(slot_page, 0);
                     load_character_names(slot_page_ids);
                     load_character_fields(slot_page_ids, character_data_fields, 0);
-                    create_inventory_grid(inventory_fields);
+                    load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
+                    g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), inventory_data_fields);
                     g_object_unref(file);
 
                     if (loadable->not_sensitive)
@@ -92,6 +94,7 @@ void file_opener(GtkWidget *widget, gpointer data)
                         enable_character_fields(character_fields);
                         g_object_set(slot_page->slot_name_entry, "sensitive", TRUE, NULL);
                         g_object_set(slot_page->save_button, "sensitive", TRUE, NULL);
+                        g_object_set(inventory_fields->inv_id_combo_box, "sensitive", TRUE, NULL);
                         loadable->not_sensitive = 0;
                     }
 

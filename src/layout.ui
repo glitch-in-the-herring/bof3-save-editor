@@ -2103,7 +2103,7 @@
                                   <!-- n-columns=2 n-rows=128 -->
                                   <object class="GtkGrid" id="inventory_grid">
                                     <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
+                                    <property name="can-focus">True</property>
                                     <property name="row-spacing">2</property>
                                     <property name="column-spacing">5</property>
                                     <child>

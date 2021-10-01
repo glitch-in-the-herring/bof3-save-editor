@@ -8,16 +8,21 @@
 struct InventoryFields
 {
     GtkWidget *inventory_grid;
-    GtkWidget *combo_boxes[128];
+    GtkWidget *inv_id_combo_box;
+    GtkWidget *combo_boxes[4][128];
     GtkWidget *entries[128];
 };
 
 struct InventoryDataFields
 {
+    int inv_id;    
     struct InventoryFields *inventory_fields;
     struct InventoryData *inventory_data;
 };
 
-void create_inventory_grid(struct InventoryFields *inventory_fields);
+void create_inventory_grid(struct InventoryDataFields *inventory_data_fields);
+void load_inventory_grid(struct InventoryDataFields *inventory_data_fields, int order);
+void combo_box_load_inventory_grid(GtkWidget *widget, gpointer data);
+void change_slot_load_inventory_grid(struct SlotPageID **slot_page_ids);
 
 #endif
