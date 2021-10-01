@@ -43,20 +43,21 @@ void create_inventory_grid(struct InventoryDataFields *inventory_data_fields)
 
 void load_inventory_grid(struct SlotPageID **slot_page_ids, struct InventoryDataFields *inventory_data_fields, int order)
 {
-    static combo_box_signal_ids[128];
-    static entry_signal_ids[128];
-    static is_signal_set = 0;
-
-    if (is_signal_set)
-    {
-        for (int i = 0; i < 128; i++)
-        {
-            g_signal_handler_disconnect(inventory_fields->combo_boxes[order][i], combo_box_signal_ids[i]);
-            g_signal_handler_disconnect(inventory_fields->entries[i], entry_signal_ids[i]);
-        }
-    }
+    static long unsigned combo_box_signal_ids[4][128];
+    static long unsigned entry_signal_ids[128];
+    static int combo_box_signals_set[4] = {0, 0, 0, 0};
+    static int entry_signals_set = 0;
 
     struct InventoryFields *inventory_fields = inventory_data_fields->inventory_fields;
+
+    for (int i = 0; i < 128; i++)
+    {
+        if (combo_box_signals_set[order])
+            g_signal_handler_disconnect(inventory_fields->combo_boxes[order][i], combo_box_signal_ids[order][i]);
+
+        if (entry_signals_set)
+            g_signal_handler_disconnect(inventory_fields->entries[i], entry_signal_ids[i]);
+    }
 
     gtk_grid_remove_column(GTK_GRID(inventory_fields->inventory_grid), 0);
     gtk_grid_remove_column(GTK_GRID(inventory_fields->inventory_grid), 0);
@@ -78,25 +79,29 @@ void load_inventory_grid(struct SlotPageID **slot_page_ids, struct InventoryData
         sprintf(buffer, "%i", inventory_data_fields->inventory_data->item_counts[order][i]);
         gtk_entry_set_text(GTK_ENTRY(inventory_fields->entries[i]), buffer);
 
-        g_signal_connect(inventory_fields->combo_boxes[order][i], "changed", G_CALLBACK(store_inventory_item), slot_page_ids[i]);
+        combo_box_signal_ids[order][i] = g_signal_connect(inventory_fields->combo_boxes[order][i], "changed", G_CALLBACK(store_inventory_item), slot_page_ids[i]);
+
+        entry_signal_ids[i] = g_signal_connect(inventory_fields->entries[i], "changed", G_CALLBACK(store_inventory_count), slot_page_ids[i]);  
     }
 
     inventory_data_fields->inv_id = order;
-    is_signal_set = 1;
+    combo_box_signals_set[order] = 1;
+    entry_signals_set = 1;
 }
 
 void combo_box_load_inventory_grid(GtkWidget *widget, gpointer data)
 {
     int order = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
-    struct InventoryDataFields *inventory_data_fields = data;
+    struct SlotPageID **slot_page_ids = data;
+    struct InventoryDataFields *inventory_data_fields = slot_page_ids[0]->slot_page->inventory_data_fields;
 
-    load_inventory_grid(inventory_data_fields, order);
+    load_inventory_grid(slot_page_ids, inventory_data_fields, order);
 }
 
 void change_slot_load_inventory_grid(struct SlotPageID **slot_page_ids)
 {
     slot_page_ids[0]->slot_page->inventory_data_fields->inventory_data = slot_page_ids[0]->slot_page->save_slots[slot_page_ids[0]->slot_page->position]->inventory_data;
-    load_inventory_grid(slot_page_ids[0]->slot_page->inventory_data_fields, 0);
+    load_inventory_grid(slot_page_ids, slot_page_ids[0]->slot_page->inventory_data_fields, 0);
     gtk_combo_box_set_active(GTK_COMBO_BOX(slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->inv_id_combo_box), 0);
 }
 

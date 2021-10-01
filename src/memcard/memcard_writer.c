@@ -62,6 +62,23 @@ void save_character(GOutputStream *stream, struct SaveSlot *save_slot)
     }
 }
 
+void save_inventory(GOutputStream *stream, struct SaveSlot *save_slot)
+{
+    int id_base_address = save_slot->address + 0x974;
+    int count_base_address = save_slot->address + 0xB74;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 128; j++)
+        {
+            g_seekable_seek(G_SEEKABLE(stream), id_base_address + 128 * i + j, G_SEEK_SET, NULL, NULL);
+            g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->inventory_data->item_ids[i] + j, 1, NULL, NULL);
+            g_seekable_seek(G_SEEKABLE(stream), count_base_address + 128 * i + j, G_SEEK_SET, NULL, NULL);
+            g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->inventory_data->item_counts[i] + j, 1, NULL, NULL);
+        }
+    }
+}
+
 void save_card(GtkWidget *widget, gpointer data)
 {
     struct CardStream *card_stream = data;
@@ -76,6 +93,7 @@ void save_card(GtkWidget *widget, gpointer data)
     {
         save_slot_name(output_stream, slot_page->save_slots[i]);
         save_character(output_stream, slot_page->save_slots[i]);
+        save_inventory(output_stream, slot_page->save_slots[i]);
         generate_checksum(file_stream, slot_page->save_slots[i]->address);
     }
 

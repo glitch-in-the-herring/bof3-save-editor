@@ -13,6 +13,8 @@ struct CardStream
 };
 
 void save_slot_name(GOutputStream *stream, struct SaveSlot *save_slot);
+void save_inventory(GOutputStream *stream, struct SaveSlot *save_slot);
+void save_character(GOutputStream *stream, struct SaveSlot *save_slot);
 void save_card(GtkWidget *widget, gpointer data);
 
 #endif

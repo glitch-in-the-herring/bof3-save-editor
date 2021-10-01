@@ -86,7 +86,7 @@ void file_opener(GtkWidget *widget, gpointer data)
                     load_character_fields(slot_page_ids, character_data_fields, 0);
                     load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
                     gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
-                    g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), inventory_data_fields);
+                    g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), slot_page_ids);
                     g_object_unref(file);
 
                     if (loadable->not_sensitive)

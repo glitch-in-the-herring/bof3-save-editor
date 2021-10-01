@@ -5,7 +5,7 @@
 #include "character_page.h"
 #include "../structs/save_slot.h"
 
-#define INPUT_ID 12
+#define INPUT_ID 128
 
 struct FreeStruct
 {

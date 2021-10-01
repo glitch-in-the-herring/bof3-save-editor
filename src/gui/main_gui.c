@@ -71,6 +71,14 @@ void app_activate(GtkApplication *app, gpointer data)
     inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 128; j++)
+        {
+            inventory_fields->combo_boxes[i][j] = NULL;
+        }
+    }
+
     for (int i = 0; i < 3; i++)
     {
         save_slots[i] = g_new(struct SaveSlot, 1);
@@ -170,6 +178,14 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 128; j++)
+        {
+            inventory_fields->combo_boxes[i][j] = NULL;
+        }
+    }
+
     for (int i = 0; i < 3; i++)
     {
         save_slots[i] = g_new(struct SaveSlot, 1);
@@ -232,7 +248,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 create_inventory_grid(inventory_data_fields);
                 load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
                 gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
-                g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), inventory_data_fields);
+                g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), slot_page_ids);
                 enable_character_fields(character_fields);
                 loadable->not_sensitive = 0;
 
@@ -316,6 +332,15 @@ void app_shutdown(GtkApplication *app, gpointer data)
 
     g_free(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields);
     g_free(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields);
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 128; j++)
+        {
+            if (free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->combo_boxes[i][j] != NULL)
+                g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->combo_boxes[i][j]);
+        }
+    }
 
     for (int i = 0; i < INPUT_ID; i++)
         g_free(free_struct->slot_page_ids[i]);
