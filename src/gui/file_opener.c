@@ -23,17 +23,19 @@ void file_opener(GtkWidget *widget, gpointer data)
     struct FreeStruct *free_struct = loadable->free_struct;
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
     GtkWidget *app_window = loadable->parent;
-    GtkWidget *open_dialog = gtk_file_chooser_dialog_new("Open File", GTK_WINDOW(loadable->parent), action, "Cancel", GTK_RESPONSE_CANCEL, "Open", GTK_RESPONSE_ACCEPT, NULL);
     GtkWidget *status_bar = loadable->status_bar;
     GFile *file;
 
+    GtkWidget *open_dialog = gtk_file_chooser_dialog_new("Open File", GTK_WINDOW(loadable->parent), action, "Cancel", GTK_RESPONSE_CANCEL, "Open", GTK_RESPONSE_ACCEPT, NULL);
     g_object_set(open_dialog, "select-multiple", FALSE, NULL);
-
     int response =  gtk_dialog_run(GTK_DIALOG(open_dialog));
 
     if (response == GTK_RESPONSE_ACCEPT)
     {
         file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(open_dialog));
+        GtkWidget *loading_dialog; 
+        loading_dialog = gtk_message_dialog_new(GTK_WINDOW(app_window), GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, "%s", "Loading...");    
+        gtk_widget_show(loading_dialog);
 
         unsigned char *memory_card;
         char *filename;
@@ -82,12 +84,14 @@ void file_opener(GtkWidget *widget, gpointer data)
                     character_data_fields->character_data = save_slots[0]->character_data;
                     character_data_fields->character_id = 0;
                     inventory_data_fields->inventory_data = save_slots[0]->inventory_data;
-                    inventory_data_fields->inv_id = 0;                    
+                    inventory_data_fields->inv_id = 0;
+
                     load_slot_name(slot_page, 0);
                     load_character_names(slot_page_ids);
                     load_character_fields(slot_page_ids, character_data_fields, 0);
                     load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
                     load_vital_box(slot_page_ids, inventory_data_fields);
+                    load_skill_notes(slot_page_ids, inventory_data_fields);
                     gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
                     g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), slot_page_ids);
                     g_object_unref(file);
@@ -122,6 +126,7 @@ void file_opener(GtkWidget *widget, gpointer data)
                 assert_error(GTK_WINDOW(app_window), "Invalid Memory Card");
 
             g_free(memory_card);
+            gtk_widget_destroy(open_dialog);
         }
         else
         {
@@ -133,6 +138,6 @@ void file_opener(GtkWidget *widget, gpointer data)
         }
 
         free_struct->save_slot_count = save_slot_count;
-        gtk_widget_destroy(open_dialog);
+        gtk_widget_destroy(loading_dialog);
     }
 }

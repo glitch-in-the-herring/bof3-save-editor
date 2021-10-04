@@ -13,14 +13,11 @@
 
 struct InventoryData
 {
+    uint32_t zennies;
     uint8_t item_ids[4][128];
     uint8_t item_counts[4][128];
     uint8_t vital_item_ids[32];
-};
-
-struct SkillNotesData
-{
-    uint8_t skill_ids[128];
+    uint8_t skill_note_ids[128];
 };
 
 struct InventoryData *get_inventory_data(unsigned char *memory_card, int start);

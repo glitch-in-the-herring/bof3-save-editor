@@ -20,6 +20,8 @@ void app_activate(GtkApplication *app, gpointer data)
     GtkWidget *status_bar;
     GtkWidget *inventory_grid;
     GtkWidget *vital_box;
+    GtkWidget *skill_notes_box;
+    GtkWidget *loading_dialog;    
 
     static struct SaveSlot *save_slots[3];
     static struct SlotPage *slot_page;
@@ -30,6 +32,14 @@ void app_activate(GtkApplication *app, gpointer data)
     static struct InventoryDataFields *inventory_data_fields;
     static struct CardStream *card_stream;
     static struct Loadable *loadable;
+
+    builder = gtk_builder_new_from_file("layout.ui");
+        
+    app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
+    gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
+
+    loading_dialog = gtk_message_dialog_new(GTK_WINDOW(app_window), GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, "%s", "Loading...");    
+    gtk_widget_show(loading_dialog);    
 
     slot_page = g_new(struct SlotPage, 1);
     slot_page_ids = g_new(struct SlotPageID *, INPUT_ID);
@@ -47,13 +57,9 @@ void app_activate(GtkApplication *app, gpointer data)
         slot_page_ids[i]->slot_page = slot_page;
     }
 
-    builder = gtk_builder_new_from_file("layout.ui");
-        
-    app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
-    gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
-
     inventory_grid = GTK_WIDGET(gtk_builder_get_object(builder, "inventory_grid"));
     vital_box = GTK_WIDGET(gtk_builder_get_object(builder, "vital_box"));
+    skill_notes_box = GTK_WIDGET(gtk_builder_get_object(builder, "skill_notes_box"));
     status_bar = GTK_WIDGET(gtk_builder_get_object(builder, "status_bar"));
 
     slot_page->open_button = GTK_WIDGET(gtk_builder_get_object(builder, "open_button"));
@@ -70,17 +76,10 @@ void app_activate(GtkApplication *app, gpointer data)
     loadable->card_stream = card_stream;
 
     inventory_fields->inventory_grid = inventory_grid;
-    inventory_fields->vital_box = vital_box;    
+    inventory_fields->vital_box = vital_box;
+    inventory_fields->skill_notes_box = skill_notes_box;    
     inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 128; j++)
-        {
-            inventory_fields->combo_boxes[i][j] = NULL;
-        }
-    }
 
     for (int i = 0; i < 3; i++)
     {
@@ -118,7 +117,9 @@ void app_activate(GtkApplication *app, gpointer data)
     g_signal_connect(slot_page->save_button, "clicked", G_CALLBACK(save_card), card_stream);
     g_signal_connect(slot_page->prev_button, "clicked", G_CALLBACK(prev_save_slot), slot_page_ids);
     g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_save_slot), slot_page_ids);    
-    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);    
+    g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);
+
+    gtk_widget_destroy(loading_dialog);
 
     gtk_widget_show(app_window);
 }
@@ -130,6 +131,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     GtkWidget *status_bar;
     GtkWidget *inventory_grid; 
     GtkWidget *vital_box;
+    GtkWidget *skill_notes_box;
+    GtkWidget *loading_dialog;
 
     static struct SaveSlot *save_slots[3];
     static struct SlotPage *slot_page;
@@ -140,6 +143,14 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     static struct InventoryDataFields *inventory_data_fields;
     static struct CardStream *card_stream;
     static struct Loadable *loadable;
+
+    builder = gtk_builder_new_from_file("layout.ui");
+        
+    app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
+    gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
+
+    loading_dialog = gtk_message_dialog_new(GTK_WINDOW(app_window), GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, "%s", "Loading...");    
+    gtk_widget_show(loading_dialog);
 
     slot_page = g_new(struct SlotPage, 1);
     slot_page_ids = g_new(struct SlotPageID *, INPUT_ID);
@@ -157,13 +168,9 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
         slot_page_ids[i]->slot_page = slot_page;
     }
 
-    builder = gtk_builder_new_from_file("layout.ui");
-        
-    app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app_window"));
-    gtk_window_set_application(GTK_WINDOW(app_window), GTK_APPLICATION(app));
-
     inventory_grid = GTK_WIDGET(gtk_builder_get_object(builder, "inventory_grid"));
-    vital_box = GTK_WIDGET(gtk_builder_get_object(builder, "vital_box"));    
+    vital_box = GTK_WIDGET(gtk_builder_get_object(builder, "vital_box"));  
+    skill_notes_box = GTK_WIDGET(gtk_builder_get_object(builder, "skill_notes_box"));  
     status_bar = GTK_WIDGET(gtk_builder_get_object(builder, "status_bar"));
 
     slot_page->open_button = GTK_WIDGET(gtk_builder_get_object(builder, "open_button"));
@@ -181,16 +188,10 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 
     inventory_fields->inventory_grid = inventory_grid;
     inventory_fields->vital_box = vital_box;
+    inventory_fields->skill_notes_box = skill_notes_box;
     inventory_fields->inv_id_combo_box = GTK_WIDGET(gtk_builder_get_object(builder, "inv_id_combo_box"));
     inventory_data_fields->inventory_fields = inventory_fields;
 
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 128; j++)
-        {
-            inventory_fields->combo_boxes[i][j] = NULL;
-        }
-    }
 
     for (int i = 0; i < 3; i++)
     {
@@ -220,6 +221,7 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
 
     load_equipment_combo_boxes(character_fields);
     load_ability_combo_boxes(character_fields);
+    create_inventory_grid(inventory_data_fields);
 
     if (g_file_load_contents(files[0], NULL, (char **) &memory_card, NULL, NULL, NULL))
     {
@@ -248,16 +250,17 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
                 character_data_fields->character_data = save_slots[0]->character_data;
                 inventory_data_fields->inventory_data = save_slots[0]->inventory_data;
                 character_data_fields->character_id = 0;
+                loadable->not_sensitive = 0;
+
                 load_slot_name(slot_page, 0);
                 load_character_names(slot_page_ids);
                 load_character_fields(slot_page_ids, character_data_fields, 0);
-                create_inventory_grid(inventory_data_fields);
                 load_inventory_grid(slot_page_ids, inventory_data_fields, 0);
                 load_vital_box(slot_page_ids, inventory_data_fields);
+                load_skill_notes(slot_page_ids, inventory_data_fields);
                 gtk_combo_box_set_active(GTK_COMBO_BOX(inventory_fields->inv_id_combo_box), 0);
                 g_signal_connect(inventory_fields->inv_id_combo_box, "changed", G_CALLBACK(combo_box_load_inventory_grid), slot_page_ids);
                 enable_character_fields(character_fields);
-                loadable->not_sensitive = 0;
 
                 g_snprintf(buffer, 128, "Slot %i of %i", slot_page->position + 1, save_slot_count);
                 gtk_statusbar_push(GTK_STATUSBAR(status_bar), 1, buffer);
@@ -311,6 +314,8 @@ void app_open(GtkApplication *app, GFile **files, gint n_files, gchar *hint, gpo
     g_signal_connect(slot_page->next_button, "clicked", G_CALLBACK(next_save_slot), slot_page_ids);    
     g_signal_connect(app, "shutdown", G_CALLBACK(app_shutdown), free_struct);
 
+    gtk_widget_destroy(loading_dialog);
+
     gtk_widget_show(app_window);
 }
 
@@ -334,20 +339,17 @@ void app_shutdown(GtkApplication *app, gpointer data)
         g_free(free_struct->slot_page_ids[0]->slot_page->save_slots[i]);
     }
 
+    g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->item_model);
+    g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->weapon_model);
+    g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->armor_model);
+    g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->option_model);
+    g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->abil_model);
+
     g_free(free_struct->slot_page_ids[0]->slot_page->character_data_fields->character_fields);
     g_free(free_struct->slot_page_ids[0]->slot_page->character_data_fields);
 
     g_free(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields);
     g_free(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields);
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 128; j++)
-        {
-            if (free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->combo_boxes[i][j] != NULL)
-                g_object_unref(free_struct->slot_page_ids[0]->slot_page->inventory_data_fields->inventory_fields->combo_boxes[i][j]);
-        }
-    }
 
     for (int i = 0; i < INPUT_ID; i++)
         g_free(free_struct->slot_page_ids[i]);

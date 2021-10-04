@@ -67,6 +67,7 @@ void save_inventory(GOutputStream *stream, struct SaveSlot *save_slot)
     int id_base_address = save_slot->address + 0x974;
     int count_base_address = save_slot->address + 0xB74;
     int vitals_base_address = save_slot->address + 0xD74;
+    int skill_note_base_address = save_slot->address + 0xD94;
 
     for (int i = 0; i < 4; i++)
     {
@@ -83,6 +84,12 @@ void save_inventory(GOutputStream *stream, struct SaveSlot *save_slot)
     {
         g_seekable_seek(G_SEEKABLE(stream), vitals_base_address + i, G_SEEK_SET, NULL, NULL);
         g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->inventory_data->vital_item_ids + i, 1, NULL, NULL);
+    }
+
+    for (int i = 0; i < 128; i++)
+    {
+        g_seekable_seek(G_SEEKABLE(stream), skill_note_base_address + i, G_SEEK_SET, NULL, NULL);
+        g_output_stream_write(G_OUTPUT_STREAM(stream), save_slot->inventory_data->skill_note_ids + i, 1, NULL, NULL);        
     }
 }
 
