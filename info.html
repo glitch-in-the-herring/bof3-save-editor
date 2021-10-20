@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Breath of Fire III Save Editor</title>
+    </head>
+    <body>
+        <h1>Breath of Fire III Save Editor</h1>
+        <h2>About</h2>
+        <p>This tool allows you to edit Breath of Fire III save files inside a PS1 memory card file.</p>
+        <h2>Info</h2>
+        <p>There are some important things to know when using this tool: </p>
+        <ul>
+            <li>This tool accepts most memory card formats used by emulators (.mcd, .mcr, etc).</li>
+            <li>This tool does not permanently store a copy of your memory card file.</li>
+            <li>Stats are clipped if they exceed the byte range. For example, giving a character 1000 PWR works,<br/>
+                but trying to give a character 100000 PWR will not work, as that exceeds the 16-bit unsigned integer<br/>
+                limit, which is 65535.</li>
+            <li>Current HP/AP is the amount of HP/AP the character currently has. Current max HP/AP is the current maximum<br/>
+                HP/AP the character can have. Current max HP is affected when a character dies mid-battle and is not<br/>
+                revived, using certain healing items, and not drinking in the Desert of Death. Current max AP is not<br/>
+                affected by anything to my knowledge. True max HP/AP is the value which the current HP/AP will recover to<br/>
+                after being afflicted by a non-permanent change, such as the ones mentioned above affecting current max HP.<br/>
+                Levelling up and using life/magic shards are the only way to increase true maximum HP/AP.</li>
+            <li>Yes, you can equip the LifeArmor as a shield on Nina, which you can't normally do on a non-hacked game.<br/>
+                No, I won't stop you from doing that, because the game clearly allows that to work.<br/>
+                Yes, there are issues with this. For example, with the LifeArmor equipped on Nina as a shield, it will not<br/>
+                regenerate any HP in battle, but it will when walking. I won't list every issue by using mismatched equipment<br/>
+                so go ahead and try it yourself.</li>
+            <li>Yes, you can have two stacks of healing herb in the OPTIONS inventory. I'm not going to prevent you from doing that.</li>
+            <li>I will, however, give you some more warnings. Certain skills will not work with certain characters. Accession does <br/>
+                not work with any party member except Ryu, and Weretiger only works with Rei. It won't break your save file immediately<br/>
+                but if you decided to use these abilities, then the game will crash.</li>
+            <li>If you want some more information on the statistics and resistances, check out ZC_Liu's <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">Breath of Fire III Secrets FAQ</a>
+            </li>
+        </ul>
+        <h2>Bug Report/Feature Request/Feedback/Contact</h2>
+        <p>Please put all bug reports, feature requests and feedback in the Github repository. You may contact me on Discord (red herring#5078).</p>
+        <a href="index.html">Back</a>
+    </body>
+</html>

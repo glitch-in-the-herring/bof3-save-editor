@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="memcard.js"></script>
+        <script src="utils.js"></script>
+        <script src="data.js"></script>
+        <script src="save.js"></script>
+        <script src="characters.js"></script>
+        <title>Breath of Fire III Save Editor</title>
+    </head>
+    <body>
+        <h1>Breath of Fire III Save Editor</h1>
+        <a href="info.html">Info</a>
+        <form name="upload_memcard">
+            <div>
+                <input id="upload_input" type="file" name="memcard_file">
+            </div>
+        </form>
+        <br/>
+        <label for="prev_slot">Prev</label> <button id="prev_slot" disabled><</button> <label id="position_indicator"></label> <button id="next_slot" disabled>></button> <label for="next_slot">Next</label>
+        <h2>Character Editor</h2>
+        <form name="character_editor">
+            <label for="character_select">Character:</label>
+            <select name="character_select" id="character_select" class="disabled" disabled>
+                <option value="-">-</option>
+            </select>
+            <br/>
+            <label for="character_name">New Name:</label>
+            <input type="text" name="character_name" id="character_name" class="disabled" maxlength=5 disabled>
+            <br/>
+            <label for="character_name">Level:</label>
+            <input type="number" name="character_lvl" id="character_lvl" class="disabled" min=0 max=255 disabled>
+            <label for="character_name">EXP:</label>
+            <input type="number" name="character_lvl" id="character_exp" class="disabled" min=0 max=4294967295 disabled>
+            <br/>
+            <label for="character_name">Current HP:</label>
+            <input type="number" name="character_lvl" id="character_chp" class="disabled" min=0 max=255 disabled>
+            <label for="character_name">Current AP:</label>
+            <input type="number" name="character_lvl" id="character_cap" class="disabled" min=0 max=4294967295 disabled>            
+        </form>
+        <br/>
+        <button id="save_button" disabled>Save</button>
+        <p>Special credits to ZC_Liu from GameFAQs for his <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">Breath of Fire III Secrets FAQ</a>, which helped a lot with finding the hidden stats.</p>
+        <script src="main.js"></script>
+    </body>
+</html>
