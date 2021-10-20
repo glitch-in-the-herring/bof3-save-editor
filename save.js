@@ -20,14 +20,36 @@ function save_character_data(byte_array, slot)
     {
         base_address = slot.address + 0x290 + 0xa4 * i;
         buffer = ascii_encoder(slot.characters[i].name);
-        console.log(buffer);
         for (let j = 0; j < 5; j++)
             byte_array[base_address + j] = buffer[j];
 
-        byte_array[base_address + 6] = byte_safety(Number(slot.characters[i].lvl), 1);
+        byte_array[base_address + 6] = byte_safety(slot.characters[i].lvl, 1);
         buffer = to_little_endian(slot.characters[i].exp, 4);
-
         for (let j = 0; j < 4; j++)
             byte_array[base_address + 8 + j] = buffer[j];
+
+        buffer = to_little_endian(slot.characters[i].chp, 2);
+        buffer = buffer.concat(to_little_endian(slot.characters[i].cap, 2));
+        for (let j = 0; j < 4; j++)
+            byte_array[base_address + 20 + j] = buffer[j];
+
+        buffer = to_little_endian(slot.characters[i].cmhp, 2);
+        buffer = buffer.concat(to_little_endian(slot.characters[i].cmap, 2));
+        for (let j = 0; j < 4; j++)
+            byte_array[base_address + 28 + j] = buffer[j];
+
+        buffer = to_little_endian(slot.characters[i].tmhp, 2);
+        buffer =buffer.concat(to_little_endian(slot.characters[i].tmap, 2));
+        for (let j = 0; j < 4; j++)
+            byte_array[base_address + 60 + j] = buffer[j];
+
+        buffer = to_little_endian(slot.characters[i].pwr, 2);
+        buffer = buffer.concat(to_little_endian(slot.characters[i].def, 2));
+        buffer = buffer.concat(to_little_endian(slot.characters[i].agl, 2));
+        buffer = buffer.concat(to_little_endian(slot.characters[i].int, 2));
+        for (let j = 0; j < 8; j++)
+            byte_array[base_address + 64 + j] = buffer[j];        
+
+        buffer = to_little_endian();
     }
 }

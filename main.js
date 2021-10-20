@@ -1,7 +1,7 @@
 const upload_input = document.getElementById("upload_input");
 const character_select = document.getElementById("character_select");
 const disabled_elements = document.getElementsByClassName("disabled");
-const character_elements = get_character_elements();
+const character_elements = get_character_elements(document.getElementById("character_editor"));
 
 let filename;
 let addresses;
@@ -38,9 +38,7 @@ function on_file_open()
         }
 
         for (let i = 0; i < addresses.length; i++)
-        {
             slots.push(load_slot(memcard_view, addresses[i]));
-        }
 
         show_character_names(character_select, slots[0].characters);
         show_character(slots[0].characters[0], character_elements);

@@ -1,10 +1,14 @@
-function get_character_elements()
+function get_character_elements(form)
 {
-    const ids = ["character_name", "character_lvl", "character_exp", "character_chp", "character_cap"];
+    const elements = Array.from(form.childNodes).filter(function(x) 
+    {
+        let string_id = String(x.id);
+        return string_id.startsWith("character_") && string_id != "character_select";
+    });
     let output = {};
 
-    for (let i = 0; i < ids.length; i++)
-        output[ids[i]] = document.getElementById(ids[i]);
+    for (let i = 0; i < elements.length; i++)
+        output[String(elements[i].id)] = elements[i];
 
     return output;
 }

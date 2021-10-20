@@ -11,7 +11,6 @@
     </head>
     <body>
         <h1>Breath of Fire III Save Editor</h1>
-        <a href="info.html">Info</a>
         <form name="upload_memcard">
             <div>
                 <input id="upload_input" type="file" name="memcard_file">
@@ -20,7 +19,7 @@
         <br/>
         <label for="prev_slot">Prev</label> <button id="prev_slot" disabled><</button> <label id="position_indicator"></label> <button id="next_slot" disabled>></button> <label for="next_slot">Next</label>
         <h2>Character Editor</h2>
-        <form name="character_editor">
+        <form id="character_editor">
             <label for="character_select">Character:</label>
             <select name="character_select" id="character_select" class="disabled" disabled>
                 <option value="-">-</option>
@@ -35,13 +34,33 @@
             <input type="number" name="character_lvl" id="character_exp" class="disabled" min=0 max=4294967295 disabled>
             <br/>
             <label for="character_name">Current HP:</label>
-            <input type="number" name="character_lvl" id="character_chp" class="disabled" min=0 max=255 disabled>
+            <input type="number" name="character_lvl" id="character_chp" class="disabled" min=0 max=4294967295 disabled>
             <label for="character_name">Current AP:</label>
-            <input type="number" name="character_lvl" id="character_cap" class="disabled" min=0 max=4294967295 disabled>            
+            <input type="number" name="character_lvl" id="character_cap" class="disabled" min=0 max=4294967295 disabled>
+            <br/>
+            <label for="character_name">Current max HP:</label>
+            <input type="number" name="character_lvl" id="character_cmhp" class="disabled" min=0 max=4294967295 disabled>
+            <label for="character_name">Current max AP:</label>
+            <input type="number" name="character_lvl" id="character_cmap" class="disabled" min=0 max=4294967295 disabled>  
+            <br/>
+            <label for="character_name">True max HP:</label>
+            <input type="number" name="character_lvl" id="character_tmhp" class="disabled" min=0 max=4294967295 disabled>
+            <label for="character_name">True max AP:</label>
+            <input type="number" name="character_lvl" id="character_tmap" class="disabled" min=0 max=4294967295 disabled>
+            <br/>
+            <label for="character_name">Base PWR:</label>
+            <input type="number" name="character_lvl" id="character_pwr" class="disabled" min=0 max=4294967295 disabled>
+            <label for="character_name">Base INT:</label>
+            <input type="number" name="character_lvl" id="character_int" class="disabled" min=0 max=4294967295 disabled>
+            <br/>
+            <label for="character_name">Base DEF:</label>
+            <input type="number" name="character_lvl" id="character_def" class="disabled" min=0 max=4294967295 disabled>
+            <label for="character_name">Base AGL:</label>
+            <input type="number" name="character_lvl" id="character_agl" class="disabled" min=0 max=4294967295 disabled>
         </form>
         <br/>
         <button id="save_button" disabled>Save</button>
-        <p>Special credits to ZC_Liu from GameFAQs for his <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">Breath of Fire III Secrets FAQ</a>, which helped a lot with finding the hidden stats.</p>
+        <p><a href="info.html">Info</a><br/>Special credits to ZC_Liu from GameFAQs for his <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">Breath of Fire III Secrets FAQ</a>, which helped a lot with finding the hidden stats.</p>
         <script src="main.js"></script>
     </body>
 </html>

@@ -23,7 +23,14 @@ function load_characters(byte_array)
         character["exp"] = String(from_little_endian(byte_array.slice(base_address + 8, base_address + 12)));
         character["chp"] = String(from_little_endian(byte_array.slice(base_address + 20, base_address + 22)));
         character["cap"] = String(from_little_endian(byte_array.slice(base_address + 22, base_address + 24)));
-
+        character["cmhp"] = String(from_little_endian(byte_array.slice(base_address + 28, base_address + 30)));
+        character["cmap"] = String(from_little_endian(byte_array.slice(base_address + 30, base_address + 32)));
+        character["tmhp"] = String(from_little_endian(byte_array.slice(base_address + 60, base_address + 62)));
+        character["tmap"] = String(from_little_endian(byte_array.slice(base_address + 62, base_address + 64)));
+        character["pwr"] = String(from_little_endian(byte_array.slice(base_address + 64, base_address + 66)));
+        character["def"] = String(from_little_endian(byte_array.slice(base_address + 66, base_address + 68)));
+        character["agl"] = String(from_little_endian(byte_array.slice(base_address + 68, base_address + 70)));
+        character["int"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));        
         character_array.push(character);
     }
 

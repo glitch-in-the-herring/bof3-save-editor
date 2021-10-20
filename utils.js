@@ -43,10 +43,11 @@ function from_little_endian(byte_array)
 function to_little_endian(n, bytes)
 {
     let output = [];
-
+    let k = byte_safety(n, bytes);
+    
     for (let i = 0; i < bytes; i++)
     {
-        output.push((n & (0xff << i * 8)) >> i * 8);
+        output.push((k & (0xff << i * 8)) >> i * 8);
     }
 
     return output;
