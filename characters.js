@@ -45,6 +45,7 @@ function get_character_eqp_e(form)
 
 function show_character_names(combo_box, characters)
 {
+    combo_box.textContent = "";
     for (let i = 0; i < 8; i++)
     {
         combo_box.innerHTML += "<option value=\"" + i.toString()  + "\">" + characters[i].name +  "</option>\n";
