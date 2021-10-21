@@ -55,7 +55,7 @@ function save_character_data(byte_array, slot)
         buffer = [slot.chars[i].sprs, slot.chars[i].rprs, slot.chars[i].crit, slot.chars[i].dodg, slot.chars[i].hits];
 
         for (let j = 0; j < 5; j++)
-            byte_array[base_address + 84 + j] = byte_safety(buffer[i]);
+            byte_array[base_address + 84 + j] = byte_safety(buffer[j]);
 
         for (let j = 0; j < 9; j++)
             byte_array[base_address + 75 + j] = byte_safety(slot.chars[i].res[j]);
