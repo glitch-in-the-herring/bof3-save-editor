@@ -21,14 +21,20 @@
                 affected by anything to my knowledge. True max HP/AP is the value which the current HP/AP will recover to<br/>
                 after being afflicted by a non-permanent change, such as the ones mentioned above affecting current max HP.<br/>
                 Levelling up and using life/magic shards are the only way to increase true maximum HP/AP.</li>
+            <li>A "base" stat is a stat before it is modified by other factors, such as equipment. The reason why I'm showing<br/>
+                base stats instead of "net" stat is because the game will automatically override net stats calculations, which<br/>
+                makes that kinda useless in the save file? I think? For example, if Ryu's base PWR is 250 and is equipped with the<br/>
+                GooKingSword (180 PWR), and assuming nothing else is modifying his power at the moment, his net PWR will be 250 + 180,<br/>
+                or 430. The values "250" and "430" appear in the save data, but trying to change "430" will be useless, since the game<br/>
+                will recalculate that upon loading the save file.</li>
             <li>Certain limitations, such as equipability of an item, is not present in this editor. For example, you can <br/>
                 equip a LifeArmor as a shield on Nina, or give the KaiserBreath ability to Rei. However, there may be glitches<br/>
-            especially with the skills, so watch out for that</li>
+                especially with the skills, so watch out for that</li>
             <li>If you want some more information on the statistics and resistances, check out ZC_Liu's <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">Breath of Fire III Secrets FAQ</a>
             </li>
         </ul>
         <h2>Bug Report/Feature Request/Feedback/Contact</h2>
-        <p>Please put all bug reports, feature requests and feedback in the Github repository. You may contact me on Discord (red herring#5078).</p>
+        <p>Please put all bug reports, feature requests and feedback in the <a href="https://github.com/glitch-in-the-herring/bof3-save-editor">Github repository.</a> You may contact me on Discord (red herring#5078).</p>
         <a href="index.html">Back</a>
     </body>
 </html>
