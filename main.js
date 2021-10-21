@@ -81,7 +81,7 @@ function on_character_change()
 
 function prev_slot(e)
 {
-    store_character(slots[char_e.cur_slot].chars[char_e.cur_char], char_e);
+    store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
     char_e.cur_char = 0;
     if (char_e.cur_slot == addresses.length - 1)
     {

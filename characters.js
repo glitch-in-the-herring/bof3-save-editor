@@ -62,7 +62,7 @@ function get_char_e(form)
     output["abil"] = abil;
     output["abil_label"] = document.getElementById("skill_type_indicator");
     output["abil_prev_button"] = document.getElementById("abil_prev_button");
-    output["abil_prev_button"] = document.getElementById("abil_prev_button");
+    output["abil_next_button"] = document.getElementById("abil_next_button");
     output["cur_slot"] = 0;
     output["cur_char"] = 0;
     output["cur_abil"] = 0;
