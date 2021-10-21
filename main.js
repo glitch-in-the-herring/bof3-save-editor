@@ -84,16 +84,12 @@ function prev_slot(e)
     store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
     char_e.cur_char = 0;
     if (char_e.cur_slot == addresses.length - 1)
-    {
         next_buttons.forEach(x => x.removeAttribute("disabled"));
-    }
 
     char_e.cur_slot--; 
 
     if (char_e.cur_slot == 0)
-    {
         e.target.setAttribute("disabled", "");
-    }
 
     show_character_names(char_select, slots[char_e.cur_slot].chars);
     show_character(char_e, slots[char_e.cur_slot].chars[0]);
@@ -105,16 +101,12 @@ function next_slot(e)
     store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
     char_e.cur_char = 0;    
     if (char_e.cur_slot == 0)
-    {
         prev_buttons.forEach(x => x.removeAttribute("disabled"));
-    }
 
     char_e.cur_slot++;    
     
     if (char_e.cur_slot == addresses.length - 1)
-    {
         e.target.setAttribute("disabled", "");
-    }
 
     show_character_names(char_select, slots[char_e.cur_slot].chars);
     show_character(char_e, slots[char_e.cur_slot].chars[0]);
@@ -124,41 +116,31 @@ function next_slot(e)
 function prev_abil(e)
 {
     if (char_e.cur_abil == 3)
-    {
         char_e.abil_next_button.removeAttribute("disabled");
-    }
 
     char_e.cur_abil--;
 
     if (char_e.cur_abil == 0)
-    {
         e.target.setAttribute("disabled");
-    }
 
     for (let i = 0; i < 10; i++)
-    {
         char_e.abil[i] = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
-    }
 }
 
 function next_abil(e)
 {
     if (char_e.cur_abil == 0)
-    {
         char_e.abil_prev_button.removeAttribute("disabled");
-    }
 
     char_e.cur_abil++;
 
     if (char_e.cur_abil == 3)
-    {
         e.target.setAttribute("disabled");
-    }
 
     for (let i = 0; i < 10; i++)
-    {
         char_e.abil[i] = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
-    }
+
+    console.log("NOTICE ME");
 }
 
 upload_input.addEventListener("change", on_file_open, false);
