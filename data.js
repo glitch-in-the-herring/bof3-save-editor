@@ -43,6 +43,10 @@ function load_characters(byte_array)
         for (let j = 0; j < 9; j++)
             character.resistances[j] = String(byte_array[base_address + 75 + j]);
 
+        character["equipment"] = [];
+        for (let j = 0; j < 6; j++)
+            character.equipment[j] = String(byte_array[base_address + 14 + j]);
+
         character_array.push(character);
     }
 

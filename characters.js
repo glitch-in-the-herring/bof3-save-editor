@@ -52,7 +52,7 @@ function show_character_names(combo_box, characters)
     }
 }
 
-function show_character(character, stats_e, resist_e)
+function show_character(character, stats_e, resist_e, eqp_e)
 {
     let index;
     let keys = Object.keys(stats_e);
@@ -68,4 +68,11 @@ function show_character(character, stats_e, resist_e)
         index = keys[i];
         resist_e[index].value = character.resistances[i];
     }
+
+    keys = Object.keys(eqp_e);
+    for (let i = 0; i < keys.length; i++)
+    {
+        index = keys[i];
+        eqp_e[index].value = character.equpiment[i];
+    }    
 }
