@@ -6,6 +6,7 @@ const slot_pos_labels = Array.from(document.getElementsByClassName("slot_positio
 const disabled_elements = document.getElementsByClassName("disabled");
 const char_select = document.getElementById("character_select");
 const char_e = get_char_e(editor);
+const abil_cat = ["Heal", "Assist", "Attack", "Skill"];
 
 let filename;
 let addresses;
@@ -116,11 +117,53 @@ function next_slot(e)
     }
 
     show_character_names(char_select, slots[char_e.cur_slot].chars);
-    show_character(char_e, slots[char_e.cur_slot].characters[0]);
+    show_character(char_e, slots[char_e.cur_slot].chars[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur_slot + 1) + " / " + String(addresses.length));    
+}
+
+function prev_abil(e)
+{
+    if (char_e.cur_abil == 3)
+    {
+        char_e.abil_next_button.removeAttribute("disabled");
+    }
+
+    char_e.cur_abil--;
+
+    if (char_e.cur_abil == 0)
+    {
+        e.target.setAttribute("disabled");
+    }
+
+    for (let i = 0; i < 10; i++)
+    {
+        char_e.abil[i] = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
+    }
+}
+
+function next_abil(e)
+{
+    if (char_e.cur_abil == 0)
+    {
+        char_e.abil_prev_button.removeAttribute("disabled");
+    }
+
+    char_e.cur_abil++;
+
+    if (char_e.cur_abil == 3)
+    {
+        e.target.setAttribute("disabled");
+    }
+
+    for (let i = 0; i < 10; i++)
+    {
+        char_e.abil[i] = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
+    }
 }
 
 upload_input.addEventListener("change", on_file_open, false);
 char_select.addEventListener("change", on_character_change, false);
 prev_buttons.forEach(x => x.addEventListener("click", prev_slot, false));
 next_buttons.forEach(x => x.addEventListener("click", next_slot, false));
+char_e.abil_prev_button.addEventListener("click", prev_abil, false);
+char_e.abil_next_button.addEventListener("click", next_abil, false);
