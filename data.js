@@ -53,7 +53,7 @@ function load_characters(byte_array)
     return character_array;
 }
 
-function store_character(character, stats_e, resist_e)
+function store_character(character, stats_e, resist_e, eqp_e)
 {
     let index;
     let keys = Object.keys(stats_e);
@@ -68,5 +68,12 @@ function store_character(character, stats_e, resist_e)
     {
         index = keys[i];
         character.resistances[i] = resist_e[index].value;
+    }
+
+    keys = Object.keys(eqp_e);
+    for (let i = 0; i < keys.length; i++)
+    {
+        index = keys[i];
+        character.equpiment[i] = eqp_e[index].value;
     }    
 }
