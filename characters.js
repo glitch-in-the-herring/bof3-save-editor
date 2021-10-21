@@ -102,5 +102,5 @@ function show_character(character, stats_e, resist_e, eqp_e, abil_e)
     {
         index = keys[i];
         abil_e[index].value = character.abilities[0][i];
-    }        
+    }
 }
