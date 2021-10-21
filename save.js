@@ -13,7 +13,7 @@ function save_file(e)
 
 function save_character_data(byte_array, slot)
 {
-    console.log(byte_array);
+    console.log(byte_array[0]);
     let buffer;
     let base_address;
     for (let i = 0; i < 8; i++)
