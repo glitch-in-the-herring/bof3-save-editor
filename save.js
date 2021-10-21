@@ -13,12 +13,11 @@ function save_file(e)
 
 function save_character_data(byte_array, slot)
 {
-    console.log(byte_array[0]);
     let buffer;
     let base_address;
     for (let i = 0; i < 8; i++)
     {
-        base_address = slot.address + 0x290 + 0xa4 * i;
+        base_address = slot.addr + 0x290 + 0xa4 * i;
         buffer = ascii_encoder(slot.chars[i].name);
         for (let j = 0; j < 5; j++)
             byte_array[base_address + j] = buffer[j];
