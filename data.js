@@ -73,6 +73,7 @@ function store_character(char_e, char)
 
     store_parts(char_e.res, char.res);
     store_parts(char_e.eqp, char.eqp);
+    store_parts(char_e.abil, char.abil[char_e.cur_abil]);    
 }
 
 function store_parts(e, data)
@@ -80,7 +81,6 @@ function store_parts(e, data)
     let index;
     let keys = Object.keys(e);
 
-    keys = Object.keys(resist_e);
     for (let i = 0; i < keys.length; i++)
     {
         index = keys[i];

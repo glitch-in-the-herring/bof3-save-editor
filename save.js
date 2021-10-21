@@ -1,6 +1,6 @@
 function save_file(e)
 {
-    store_character(e.target.slots[e.target.s[0]].chars[e.target.s[1]], e.target.char_e);
+    store_character(e.target.slots[e.target.char_e.cur_slot].chars[e.target.char_e.cur_char], e.target.char_e);
     for (let i = 0; i < e.target.slots.length; i++)
     {
         save_character_data(e.target.byte_array, e.target.slots[i]);

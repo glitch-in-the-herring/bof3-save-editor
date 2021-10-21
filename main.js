@@ -12,8 +12,6 @@ let addresses;
 let byte_array;
 let memcard_file;
 let slots = [];
-let active_slot = 0;
-let active_character = 0;
 
 load_item_select([char_e.eqp[0]], weapon_array);
 load_item_select([char_e.eqp[1], char_e.eqp[2], char_e.eqp[3]], armor_array);
@@ -66,7 +64,6 @@ function on_file_open()
             x.slots = slots;
             x.filename = filename;
             x.char_e = char_e;
-            x.s = [active_slot, active_character];
         });
     }
 
@@ -76,51 +73,51 @@ function on_file_open()
 function on_character_change()
 {
     let index = Number(this.value);
-    store_character(char_e, slots[active_slot].chars[active_character]);
-    active_character = index;
-    show_character(char_e, slots[active_slot].chars[index]);
+    store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
+    char_e.cur_char = index;
+    show_character(char_e, slots[char_e.cur_slot].chars[index]);
 }
 
 function prev_slot(e)
 {
-    store_character(slots[active_slot].chars[active_character], char_e);
-    active_character = 0;    
-    if (active_slot == addresses.length - 1)
+    store_character(slots[char_e.cur_slot].chars[char_e.cur_char], char_e);
+    char_e.cur_char = 0;
+    if (char_e.cur_slot == addresses.length - 1)
     {
         next_buttons.forEach(x => x.removeAttribute("disabled"));
     }
 
-    active_slot--; 
+    char_e.cur_slot--; 
 
-    if (active_slot == 0)
+    if (char_e.cur_slot == 0)
     {
         e.target.setAttribute("disabled", "");
     }
 
-    show_character_names(char_select, slots[active_slot].chars);
-    show_character(char_e, slots[active_slot].chars[0]);
-    slot_pos_labels.forEach(x => x.textContent = "Slot " + String(active_slot + 1) + " / " + String(addresses.length));
+    show_character_names(char_select, slots[char_e.cur_slot].chars);
+    show_character(char_e, slots[char_e.cur_slot].chars[0]);
+    slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur_slot + 1) + " / " + String(addresses.length));
 }
 
 function next_slot(e)
 {
-    store_character(char_e, slots[active_slot].chars[active_character]);
-    active_character = 0;    
-    if (active_slot == 0)
+    store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
+    char_e.cur_char = 0;    
+    if (char_e.cur_slot == 0)
     {
         prev_buttons.forEach(x => x.removeAttribute("disabled"));
     }
 
-    active_slot++;    
+    char_e.cur_slot++;    
     
-    if (active_slot == addresses.length - 1)
+    if (char_e.cur_slot == addresses.length - 1)
     {
         e.target.setAttribute("disabled", "");
     }
 
-    show_character_names(char_select, slots[active_slot].chars);
-    show_character(char_e, slots[active_slot].characters[0]);
-    slot_pos_labels.forEach(x => x.textContent = "Slot " + String(active_slot + 1) + " / " + String(addresses.length));    
+    show_character_names(char_select, slots[char_e.cur_slot].chars);
+    show_character(char_e, slots[char_e.cur_slot].characters[0]);
+    slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur_slot + 1) + " / " + String(addresses.length));    
 }
 
 upload_input.addEventListener("change", on_file_open, false);
