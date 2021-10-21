@@ -1,5 +1,6 @@
-function save_file(byte_array, slots, filename)
+function save_file(byte_array, slots, filename, e, s)
 {
+    store_character(slots[s[0]].characters[s[1]], e[0], e[1], e[2]);
     for (let i = 0; i < slots.length; i++)
     {
         save_character_data(byte_array, slots[i]);

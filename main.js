@@ -5,6 +5,9 @@ const disabled_elements = document.getElementsByClassName("disabled");
 const character_stats_e = get_character_stats_e(editor);
 const character_resist_e = get_character_resist_e(editor);
 const character_eqp_e = get_character_eqp_e(editor);
+const prev_buttons = Array.from(document.getElementsByClassName("prev_button"));
+const next_buttons = Array.from(document.getElementsByClassName("next_button"));
+const position_indicators = Array.from(document.getElementsByClassName("position_indicator"));
 
 let filename;
 let addresses;
@@ -51,6 +54,13 @@ function on_file_open()
 
         show_character_names(character_select, slots[0].characters);
         show_character(slots[0].characters[0], character_stats_e, character_resist_e, character_eqp_e);
+
+        if (addresses.length > 1)
+        {
+            next_buttons.forEach(x => x.removeAttribute("disabled"));
+        }
+
+        position_indicators.forEach(x => x.textContent = "Slot 1 / " + String(addresses.length));
     }
 
     reader.readAsArrayBuffer(memcard_file);
@@ -66,4 +76,8 @@ function on_character_change()
 
 upload_input.addEventListener("change", on_file_open, false);
 character_select.addEventListener("change", on_character_change, false);
-document.getElementsByClassName("save_button").forEach(x => x.addEventListener("click", save_file(memcard_view, slots, filename), false));
+Array.from(document.getElementsByClassName("save_button")).forEach(x => x.addEventListener("click", 
+    save_file(memcard_view, slots, filename, [character_stats_e, character_resist_e, character_eqp_e], [active_slot, active_character]), false)
+);
+prev_buttons.forEach(x => x.addEventListener("click", prev_page, false));
+next_buttons.forEach(x => x.addEventListener("click", next_page, false));
