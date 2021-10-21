@@ -1,6 +1,5 @@
 function save_file(e)
 {
-    console.log(e.target.byte_array);
     store_character(e.target.char_e, e.target.slots[e.target.char_e.cur_slot].chars[e.target.char_e.cur_char]);
     for (let i = 0; i < e.target.slots.length; i++)
         save_character_data(e.target.byte_array, e.target.slots[i]);
@@ -14,6 +13,7 @@ function save_file(e)
 
 function save_character_data(byte_array, slot)
 {
+    console.log(byte_array);
     let buffer;
     let base_address;
     for (let i = 0; i < 8; i++)
@@ -21,10 +21,7 @@ function save_character_data(byte_array, slot)
         base_address = slot.address + 0x290 + 0xa4 * i;
         buffer = ascii_encoder(slot.chars[i].name);
         for (let j = 0; j < 5; j++)
-        {
             byte_array[base_address + j] = buffer[j];
-            console.log(byte_array[base_address + j]);
-        }
 
         byte_array[base_address + 6] = byte_safety(slot.chars[i].lvl, 1);
         buffer = to_little_endian(slot.chars[i].exp, 4);
