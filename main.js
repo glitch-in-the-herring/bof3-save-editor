@@ -101,14 +101,14 @@ function prev_slot(e)
 
     show_character_names(character_select, slots[active_slot].characters);
     show_character(slots[active_slot].characters[0], character_stats_e, character_resist_e, character_eqp_e);
-    position_indicators.forEach(x => x.textContent = "Slot " + String(active_slot) + " / " + String(addresses.length));
+    position_indicators.forEach(x => x.textContent = "Slot " + String(active_slot + 1) + " / " + String(addresses.length));
 }
 
 function next_slot(e)
 {
     if (active_slot == 0)
     {
-        next_buttons.forEach(x => x.removeAttribute("disabled"));
+        prev_buttons.forEach(x => x.removeAttribute("disabled"));
     }
 
     console.log(active_slot);
@@ -122,7 +122,7 @@ function next_slot(e)
 
     show_character_names(character_select, slots[active_slot].characters);
     show_character(slots[active_slot].characters[0], character_stats_e, character_resist_e, character_eqp_e);
-    position_indicators.forEach(x => x.textContent = "Slot " + String(active_slot) + " / " + String(addresses.length));    
+    position_indicators.forEach(x => x.textContent = "Slot " + String(active_slot + 1) + " / " + String(addresses.length));    
 }
 
 upload_input.addEventListener("change", on_file_open, false);
