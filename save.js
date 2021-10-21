@@ -48,8 +48,17 @@ function save_character_data(byte_array, slot)
         buffer = buffer.concat(to_little_endian(slot.characters[i].agl, 2));
         buffer = buffer.concat(to_little_endian(slot.characters[i].int, 2));
         for (let j = 0; j < 8; j++)
-            byte_array[base_address + 64 + j] = buffer[j];        
+            byte_array[base_address + 64 + j] = buffer[j];
 
-        buffer = to_little_endian();
+        byte_array[base_address + 74] = byte_safety(slot.characters[i].wpwr);
+        byte_array[base_address + 25] = byte_safety(slot.characters[i].fatg);
+
+        buffer = [slot.characters[i].sprs, slot.characters[i].rprs, slot.characters[i].crit, slot.characters[i].dodg, slot.characters[i].hits];
+
+        for (let j = 0; j < 5; j++)
+            byte_array[base_address + 84 + j] = byte_safety(buffer[i]);
+
+        for (let j = 0; j < 9; j++)
+            byte_array[base_address + 75 + j] = byte_safety(slot.characters[i].resistances[j]);
     }
 }
