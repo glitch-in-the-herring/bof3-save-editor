@@ -50,7 +50,7 @@ function save_character_data(byte_array, slot)
             byte_array[base_address + 64 + j] = buffer[j];
 
         byte_array[base_address + 74] = byte_safety(slot.chars[i].wpwr);
-        byte_array[base_w + 25] = byte_safety(slot.chars[i].fatg);
+        byte_array[base_address + 25] = byte_safety(slot.chars[i].fatg);
 
         buffer = [slot.chars[i].sprs, slot.chars[i].rprs, slot.chars[i].crit, slot.chars[i].dodg, slot.chars[i].hits];
 
