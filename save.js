@@ -1,16 +1,15 @@
 function save_file(e)
 {
-    store_character(e.target.slots[e.target.s[0]].characters[e.target.s[1]], e.target.e[0], e.target.e[1], e.target.e[2]);
-    console.log(e.target.slots);
-    for (let i = 0; i < e.target.slots.length; i++)
+    store_character(e.currentTarget.slots[e.currentTarget.s[0]].characters[e.currentTarget.s[1]], e.currentTarget.e[0], e.currentTarget.e[1], e.currentTarget.e[2]);
+    for (let i = 0; i < e.currentTarget.slots.length; i++)
     {
-        save_character_data(e.target.byte_array, e.target.slots[i]);
+        save_character_data(e.currentTarget.byte_array, e.currentTarget.slots[i]);
     }
 
-    let output_file = new File([e.target.byte_array], e.target.filename);
+    let output_file = new File([e.currentTarget.byte_array], e.currentTarget.filename);
     let link = document.createElement('a');
     link.href = window.URL.createObjectURL(output_file);
-    link.download = e.target.filename;
+    link.download = e.currentTarget.filename;
     link.click();
 }
 
