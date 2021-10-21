@@ -23,7 +23,10 @@ function save_character_data(byte_array, slot)
         base_address = slot.address + 0x290 + 0xa4 * i;
         buffer = ascii_encoder(slot.chars[i].name);
         for (let j = 0; j < 5; j++)
+        {
             byte_array[base_address + j] = buffer[j];
+            console.log(byte_array[base_address + j]);
+        }
 
         byte_array[base_address + 6] = byte_safety(slot.chars[i].lvl, 1);
         buffer = to_little_endian(slot.chars[i].exp, 4);
@@ -65,7 +68,6 @@ function save_character_data(byte_array, slot)
 
         for (let j = 0; j < 6; j++)
         {
-            console.log(slot.chars[i].eqp[j]);
             byte_array[base_address + 14 + j] = byte_safety(slot.chars[i].eqp[j]);
         }
 
