@@ -1,106 +1,103 @@
-function get_character_stats_e(form)
+function get_char_e(form)
 {
-    const elements = Array.from(form.childNodes).filter(function(x) 
+    let output = {};
+
+    //stats
+    const stat_e = Array.from(form.childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_") && !string_id.startsWith("character_res") && !string_id.startsWith("character_eqp");
     });
-    let output = {};
 
-    for (let i = 0; i < elements.length; i++)
-        output[String(elements[i].id)] = elements[i];
+    let stat = {};
+    for (let i = 0; i < stat_e.length; i++)
+        stat[String(stat_e[i].id)] = stat_e[i];
 
-    return output;
-}
+    output["stat"] = stat;
 
-function get_character_resist_e(form)
-{
-    const elements = Array.from(form.childNodes).filter(function(x) 
+    //resistances
+    const res_e = Array.from(form.childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_res");
     });
-    let output = {};
 
-    for (let i = 0; i < elements.length; i++)
-        output[String(elements[i].id)] = elements[i];
+    let res = [];
+    for (let i = 0; i < res_e.length; i++)
+        res[i] = res_e[i];
 
-    return output;
-}
+    output["res"] = res;   
 
-function get_character_eqp_e(form)
-{
-    const elements = Array.from(form.childNodes).filter(function(x) 
+    //equipment
+    const eqp_e = Array.from(form.childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_eqp");
     });
-    let output = {};
 
-    for (let i = 0; i < elements.length; i++)
-        output[String(elements[i].id)] = elements[i];
+    let eqp = [];
+    for (let i = 0; i < eqp_e.length; i++)
+        eqp[i] = eqp_e[i];
 
-    return output;
-}
+    output["eqp"] = eqp;
 
-function get_character_abil_e()
-{
+    //abilities
     let skill_list = document.getElementById("skill_list");
     let select;
     let li;
-    let output = [];
+    let abil = [];
 
     for (let j = 0; j < 10; j++)
     {
         li = document.createElement("li");
         select = document.createElement("select");
         select.classList.add("disabled");
+        select.setAttribute("disabled", "");
         load_item_select([select], abil_array);
         li.appendChild(select);
         skill_list.appendChild(li);
-        output[j] = select;
+        abil[j] = select;
     }
 
-    return output;
+    output["abil"] = abil;
+    output["abil_label"] = document.getElementById("skill_type_indicator");
+
+    return output;    
 }
 
-function show_character_names(combo_box, characters)
+function show_character_names(select, chars)
 {
-    combo_box.textContent = "";
+    select.textContent = "";
     for (let i = 0; i < 8; i++)
     {
-        combo_box.innerHTML += "<option value=\"" + i.toString()  + "\">" + characters[i].name +  "</option>\n";
+        select.innerHTML += "<option value=\"" + i.toString()  + "\">" + chars[i].name +  "</option>\n";
     }
 }
 
-function show_character(character, stats_e, resist_e, eqp_e, abil_e)
+function show_character(char_e, char)
 {
     let index;
-    let keys = Object.keys(stats_e);
+    let keys = Object.keys(char_e.stat);
     for (let i = 0; i < keys.length; i++)
     {
         index = keys[i];
-        stats_e[index].value = character[index.split("_")[1]];
+        char_e.stat[index].value = char[index.split("_")[1]];
     }
 
-    keys = Object.keys(resist_e);
-    for (let i = 0; i < keys.length; i++)
-    {
-        index = keys[i];
-        resist_e[index].value = character.resistances[i];
-    }
+    show_parts(char_e.res, char.res);
+    show_parts(char_e.eqp, char.eqp);
+    show_parts(char_e.abil, char.abil[0]);
 
-    keys = Object.keys(eqp_e);
-    for (let i = 0; i < keys.length; i++)
-    {
-        index = keys[i];
-        eqp_e[index].value = character.equipment[i];
-    }  
+    char_e.abil_label.value = "HEAL";
+}
 
-    keys = Object.keys(abil_e);
+function show_parts(e, data)
+{
+    let index;
+    let keys = Object.keys(e);
     for (let i = 0; i < keys.length; i++)
     {
         index = keys[i];
-        abil_e[index].value = character.abilities[0][i];
+        e[index].value = data[i];
     }
 }

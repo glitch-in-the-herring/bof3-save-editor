@@ -18,11 +18,11 @@ const fishing_array = load_file("items/fishing.txt").split("\n");
 const abil_array = load_file("items/abils.txt").split("\n");
 const vitals_array = load_file("items/vitals.txt").split("\n");
 
-function load_item_select(combo_boxes, array)
+function load_item_select(select, data)
 {
-    for (let i = 0; i < array.length; i++)
+    for (let i = 0; i < data.length; i++)
     {
-        for (let j = 0; j < combo_boxes.length; j++)
-            combo_boxes[j].innerHTML += "<option value=\"" + i.toString()  + "\">" + array[i] +  "</option>\n";
+        for (let j = 0; j < select.length; j++)
+            select[j].innerHTML += "<option value=\"" + i.toString()  + "\">" + data[i] +  "</option>\n";
     }    
 }
