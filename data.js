@@ -52,7 +52,7 @@ function load_characters(byte_array)
         {
             character.abilities[j] = [];
             for (let k = 0; k < 10; k++)
-                character.abilities[j][k]  = String(byte_array[base_address + 92 + j * 10 + k]);
+                character.abilities[j][k] = String(byte_array[base_address + 92 + j * 10 + k]);
         }
 
         character_array.push(character);
