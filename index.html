@@ -5,6 +5,7 @@
         <script src="memcard.js"></script>
         <script src="utils.js"></script>
         <script src="data.js"></script>
+        <script src="items.js"></script>
         <script src="save.js"></script>
         <script src="characters.js"></script>
         <link href="main.css" rel="stylesheet">
@@ -18,7 +19,7 @@
             </div>
         </form>
         <br/>
-        <label for="prev_slot">Prev</label> <button class="prev_button" disabled><</button> <label class="position_indicator"></label> <button class="next_button" disabled>></button> <label for="next_slot">Next</label>
+        <label for="slot_prev_button">Prev</label> <button class="slot_prev_button" disabled><</button> <label class="slot_position_indicator">Slot ... / ...</label> <button class="slot_next_button" disabled>></button> <label for="slot_next_button">Next</label>
         <br/>
         <button class="disabled save_button" disabled>Save</button>
         <h2>Character Editor</h2>
@@ -26,7 +27,7 @@
         <select name="character_select" id="character_select" class="disabled" disabled></select>
         <form id="character_editor">
             <h3>Stats</h3>
-            <label for="character_name">New Name:</label>
+            <label for="character_name">Name:</label>
             <input type="text" name="character_name" id="character_name" class="disabled" autocomplete="off" maxlength=5 disabled>
             <br/>
             <label for="character_lvl">Level:</label>
@@ -116,13 +117,20 @@
             <select name="character_eqp_acc1" id="character_eqp_acc1" class="disabled" autocomplete="off" disabled></select>
             <label for="character_eqp_acc2"><img src="img/accessory.png" height=16> Accessory 1</label>
             <select name="character_eqp_acc2" id="character_eqp_acc2" class="disabled" autocomplete="off" disabled></select>
+            <br/>
+            <br/>
+            <h3>Abilities</h3>
+            <button id="abil_prev_button"><</button> <label id="skill_type_indicator"></label> <button id="abil_next_button">></button>
+            <ol id="skill_list">
+
+            </ol>
         </form>
         <br/>
-        <label for="prev_slot">Prev</label> <button class="prev_button" disabled><</button> <label class="position_indicator"></label> <button class="next_button" disabled>></button> <label for="next_slot">Next</label>
+        <label for="slot_prev_button">Prev</label> <button class="slot_prev_button" disabled><</button> <label class="slot_position_indicator">Slot ... / ...</label> <button class="slot_next_button" disabled>></button> <label for="slot_next_button">Next</label>
         <br/>
         <button class="disabled save_button" disabled>Save</button>
         <p><a href="info.html">Info</a><br/>Special credits to ZC_Liu from GameFAQs for his <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">Breath of Fire III Secrets FAQ</a>, which helped a lot with finding the hidden stats.</p>
-        <script src="items.js"></script>
+
         <script src="main.js"></script>
     </body>
 </html>

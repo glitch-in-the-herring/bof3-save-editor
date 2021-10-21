@@ -5,9 +5,11 @@ const disabled_elements = document.getElementsByClassName("disabled");
 const character_stats_e = get_character_stats_e(editor);
 const character_resist_e = get_character_resist_e(editor);
 const character_eqp_e = get_character_eqp_e(editor);
-const prev_buttons = Array.from(document.getElementsByClassName("prev_button"));
-const next_buttons = Array.from(document.getElementsByClassName("next_button"));
-const position_indicators = Array.from(document.getElementsByClassName("position_indicator"));
+const character_abil_e = get_character_abil_e();
+const prev_buttons = Array.from(document.getElementsByClassName("slot_prev_button"));
+const next_buttons = Array.from(document.getElementsByClassName("slot_next_button"));
+const position_indicators = Array.from(document.getElementsByClassName("slot_position_indicator"));
+const ability_indicator = document.getElementById("skill_type_indicator");
 
 let filename;
 let addresses;

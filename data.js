@@ -47,6 +47,14 @@ function load_characters(byte_array)
         for (let j = 0; j < 6; j++)
             character.equipment[j] = String(byte_array[base_address + 14 + j]);
 
+        character["abilities"] = [];
+        for (let j = 0; j < 4; j++)
+        {
+            character.abilities[j] = [];
+            for (let k = 0; k < 10; k++)
+                character.abilities[j][k] = String(byte_array[base_address + 92 + i * 10 + j]);
+        }
+
         character_array.push(character);
     }
 

@@ -43,6 +43,27 @@ function get_character_eqp_e(form)
     return output;
 }
 
+function get_character_abil_e()
+{
+    let skill_list = document.getElementById("skill_list");
+    let select;
+    let li;
+    let output = [];
+
+    for (let j = 0; j < 10; j++)
+    {
+        li = document.createElement("li");
+        select = document.createElement("select");
+        select.class = "disabled";
+        load_item_select([select], abil_array);
+        li.appendChild(select);
+        skill_list.appendChild(li);
+        output[j] = select;
+    }
+
+    return output;
+}
+
 function show_character_names(combo_box, characters)
 {
     combo_box.textContent = "";
