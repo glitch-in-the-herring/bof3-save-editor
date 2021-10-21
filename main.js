@@ -77,7 +77,7 @@ function on_character_change()
 function prev_slot(e)
 {
 
-    if (active slot == addresses.length - 1)
+    if (active_slot == addresses.length - 1)
     {
         next_buttons.forEach(x => x.removeAttribute("disabled"));
     }
