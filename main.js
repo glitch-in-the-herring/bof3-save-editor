@@ -1,8 +1,10 @@
+const editor = document.getElementById("character_editor");
 const upload_input = document.getElementById("upload_input");
 const character_select = document.getElementById("character_select");
 const disabled_elements = document.getElementsByClassName("disabled");
-const character_stats_e = get_character_stats_e(document.getElementById("character_editor"));
-const character_resist_e = get_character_resist_e(document.getElementById("character_editor"));
+const character_stats_e = get_character_stats_e(editor);
+const character_resist_e = get_character_resist_e(editor);
+const character_eqp_e = get_character_eqp_e(editor);
 
 let filename;
 let addresses;
@@ -11,6 +13,9 @@ let memcard_file;
 let slots = [];
 let active_slot = 0;
 let active_character = 0;
+
+load_item_select(character_eqp_e["character_eqp_weapon"], weapon_array);
+load_item_select([character_eqp_e["character_eqp_helm"], character_eqp_e["character_eqp_shield"], character_eqp_e["character_eqp_armor"]], armor_array);
 
 function on_file_open()
 {

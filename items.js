@@ -26,11 +26,3 @@ function load_item_select(combo_boxes, array)
             combo_boxes[j].innerHTML += "<option value=\"" + i.toString()  + "\">" + array[i] +  "</option>\n";
     }    
 }
-
-const character_eqp_weapon = document.getElementById("character_eqp_weapon");
-const character_eqp_helm = document.getElementById("character_eqp_helm");
-const character_eqp_shield = document.getElementById("character_eqp_shield");
-const character_eqp_armor = document.getElementById("character_eqp_armor");
-
-load_item_select([character_eqp_weapon], weapon_array);
-load_item_select([character_eqp_helm, character_eqp_shield, character_eqp_armor], armor_array);

@@ -3,7 +3,7 @@ function get_character_stats_e(form)
     const elements = Array.from(form.childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
-        return string_id.startsWith("character_") && !string_id.startsWith("character_res");
+        return string_id.startsWith("character_") && !string_id.startsWith("character_res") && !string_id.startsWith("character_eqp");
     });
     let output = {};
 
@@ -19,6 +19,21 @@ function get_character_resist_e(form)
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_res");
+    });
+    let output = {};
+
+    for (let i = 0; i < elements.length; i++)
+        output[String(elements[i].id)] = elements[i];
+
+    return output;
+}
+
+function get_character_eqp_e(form)
+{
+    const elements = Array.from(form.childNodes).filter(function(x) 
+    {
+        let string_id = String(x.id);
+        return string_id.startsWith("character_eqp");
     });
     let output = {};
 
