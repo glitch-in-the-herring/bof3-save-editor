@@ -127,5 +127,5 @@ function next_slot(e)
 
 upload_input.addEventListener("change", on_file_open, false);
 character_select.addEventListener("change", on_character_change, false);
-prev_buttons.forEach(x => x.addEventListener("click", prev_page, false));
-next_buttons.forEach(x => x.addEventListener("click", next_page, false));
+prev_buttons.forEach(x => x.addEventListener("click", prev_slot, false));
+next_buttons.forEach(x => x.addEventListener("click", next_slot, false));
