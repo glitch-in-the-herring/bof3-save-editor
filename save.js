@@ -2,9 +2,7 @@ function save_file(e)
 {
     store_character(e.target.char_e, e.target.slots[e.target.char_e.cur_slot].chars[e.target.char_e.cur_char]);
     for (let i = 0; i < e.target.slots.length; i++)
-    {
         save_character_data(e.target.byte_array, e.target.slots[i]);
-    }
 
     let output_file = new File([e.target.byte_array], e.target.filename);
     let link = document.createElement('a');
@@ -24,7 +22,7 @@ function save_character_data(byte_array, slot)
         for (let j = 0; j < 5; j++)
         {
             byte_array[base_address + j] = buffer[j];
-            console.log(byte_array[base_address + j]);
+            console.log(byte_array[base_address + j].toString());
         }
 
         byte_array[base_address + 6] = byte_safety(slot.chars[i].lvl, 1);
