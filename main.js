@@ -55,7 +55,7 @@ function on_file_open()
             slots.push(load_slot(memcard_view, addresses[i]));
 
         show_character_names(character_select, slots[0].characters);
-        show_character(slots[0].characters[0], character_stats_e, character_resist_e, character_eqp_e);
+        show_character(slots[0].characters[0], character_stats_e, character_resist_e, character_eqp_e, character_abil_e);
 
         if (addresses.length > 1)
         {
@@ -69,7 +69,7 @@ function on_file_open()
             x.byte_array = memcard_view;
             x.slots = slots;
             x.filename = filename;
-            x.e = [character_stats_e, character_resist_e, character_eqp_e];
+            x.e = [character_stats_e, character_resist_e, character_eqp_e, character_abil_e];
             x.s = [active_slot, active_character];
         });
     }
