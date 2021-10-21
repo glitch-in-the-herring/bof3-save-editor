@@ -60,5 +60,8 @@ function save_character_data(byte_array, slot)
 
         for (let j = 0; j < 9; j++)
             byte_array[base_address + 75 + j] = byte_safety(slot.characters[i].resistances[j]);
+
+        for (let j = 0; j < 6; j++)
+            byte_array[base_address + 14 + j] = byte_safety(slot.characters[i].equipment[j]);        
     }
 }

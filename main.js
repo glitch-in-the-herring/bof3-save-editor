@@ -66,3 +66,4 @@ function on_character_change()
 
 upload_input.addEventListener("change", on_file_open, false);
 character_select.addEventListener("change", on_character_change, false);
+document.getElementsByClassName("save_button").forEach(x => x.addEventListener("click", save_file(memcard_view, slots, filename), false));
