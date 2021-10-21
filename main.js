@@ -28,12 +28,14 @@ function on_file_open()
         else
         {
             alert("Not a valid memory card file!");
+            upload_input.value = "";
             return;
         }
 
         if ((addresses = browse_toc(memcard_view)).length == 0)
         {
             alert("No save file found!");
+            upload_input.value = "";
             return;
         }
 
