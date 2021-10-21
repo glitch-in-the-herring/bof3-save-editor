@@ -54,7 +54,7 @@ function get_character_abil_e()
     {
         li = document.createElement("li");
         select = document.createElement("select");
-        select.class = "disabled";
+        select.classList.add("disabled");
         load_item_select([select], abil_array);
         li.appendChild(select);
         skill_list.appendChild(li);
@@ -73,7 +73,7 @@ function show_character_names(combo_box, characters)
     }
 }
 
-function show_character(character, stats_e, resist_e, eqp_e)
+function show_character(character, stats_e, resist_e, eqp_e, abil_e)
 {
     let index;
     let keys = Object.keys(stats_e);
@@ -95,5 +95,12 @@ function show_character(character, stats_e, resist_e, eqp_e)
     {
         index = keys[i];
         eqp_e[index].value = character.equipment[i];
-    }    
+    }  
+
+    keys = Object.keys(abil_e);
+    for (let i = 0; i < keys.length; i++)
+    {
+        index = keys[i];
+        abil_e[index].value = character.abil_e[0][i];
+    }        
 }

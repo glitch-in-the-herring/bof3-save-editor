@@ -83,5 +83,5 @@ function store_character(character, stats_e, resist_e, eqp_e)
     {
         index = keys[i];
         character.equipment[i] = eqp_e[index].value;
-    }    
+    }  
 }
