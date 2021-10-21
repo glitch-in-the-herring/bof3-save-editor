@@ -1,7 +1,6 @@
 function save_file(e)
 {
     store_character(e.target.char_e, e.target.slots[e.target.char_e.cur_slot].chars[e.target.char_e.cur_char]);
-    console.log(e.target.slots[e.target.char_e.cur_slot].chars[e.target.char_e.cur_char]);
     for (let i = 0; i < e.target.slots.length; i++)
     {
         save_character_data(e.target.byte_array, e.target.slots[i]);
@@ -67,9 +66,7 @@ function save_character_data(byte_array, slot)
             byte_array[base_address + 75 + j] = byte_safety(slot.chars[i].res[j]);
 
         for (let j = 0; j < 6; j++)
-        {
             byte_array[base_address + 14 + j] = byte_safety(slot.chars[i].eqp[j]);
-        }
 
         for (let j = 0; j < 4; j++)
         {
