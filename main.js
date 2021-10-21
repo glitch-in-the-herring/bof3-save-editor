@@ -122,10 +122,10 @@ function prev_abil(e)
     char_e.abil_label.textContent = abil_cat[char_e.cur_abil];
 
     if (char_e.cur_abil == 0)
-        e.target.setAttribute("disabled");
+        e.target.setAttribute("disabled", "");
 
     for (let i = 0; i < 10; i++)
-        char_e.abil[i] = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
+        char_e.abil[i].value = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
 }
 
 function next_abil(e)
@@ -137,12 +137,10 @@ function next_abil(e)
     char_e.abil_label.textContent = abil_cat[char_e.cur_abil];    
 
     if (char_e.cur_abil == 3)
-        e.target.setAttribute("disabled");
+        e.target.setAttribute("disabled", "");
 
     for (let i = 0; i < 10; i++)
-        char_e.abil[i] = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
-
-    console.log("NOTICE ME");
+        char_e.abil[i].value = slots[char_e.cur_slot].chars[char_e.cur_char].abil[char_e.cur_abil][i];
 }
 
 upload_input.addEventListener("change", on_file_open, false);
