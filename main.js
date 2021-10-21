@@ -51,7 +51,7 @@ function on_file_open()
             slots.push(load_slot(byte_array, addresses[i]));
 
         show_character_names(char_select, slots[0].chars);
-        show_character(slots[0].chars[0], char_e);
+        show_character(char_e, slots[0].chars[0]);
 
         if (addresses.length > 1)
         {
@@ -76,9 +76,9 @@ function on_file_open()
 function on_character_change()
 {
     let index = Number(this.value);
-    store_character(slots[active_slot].chars[active_character], char_e);
+    store_character(char_e, slots[active_slot].chars[active_character]);
     active_character = index;
-    show_character(slots[active_slot].chars[index], char_e);
+    show_character(char_e, slots[active_slot].chars[index]);
 }
 
 function prev_slot(e)
@@ -98,13 +98,13 @@ function prev_slot(e)
     }
 
     show_character_names(char_select, slots[active_slot].chars);
-    show_character(slots[active_slot].chars[0], char_e);
+    show_character(char_e, slots[active_slot].chars[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(active_slot + 1) + " / " + String(addresses.length));
 }
 
 function next_slot(e)
 {
-    store_character(slots[active_slot].chars[active_character], char_e);
+    store_character(char_e, slots[active_slot].chars[active_character]);
     active_character = 0;    
     if (active_slot == 0)
     {
@@ -119,7 +119,7 @@ function next_slot(e)
     }
 
     show_character_names(char_select, slots[active_slot].chars);
-    show_character(slots[active_slot].characters[0], char_e);
+    show_character(char_e, slots[active_slot].characters[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(active_slot + 1) + " / " + String(addresses.length));    
 }
 
