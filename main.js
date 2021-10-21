@@ -116,8 +116,14 @@ function next_slot(e)
 
 upload_input.addEventListener("change", on_file_open, false);
 character_select.addEventListener("change", on_character_change, false);
-Array.from(document.getElementsByClassName("save_button")).forEach(x => x.addEventListener("click", 
-    save_file(memcard_view, slots, filename, [character_stats_e, character_resist_e, character_eqp_e], [active_slot, active_character]), false)
-);
+Array.from(document.getElementsByClassName("save_button")).forEach(function(x)
+{
+    x.addEventListener("click", save_file, false);
+    x.byte_array = memcard_view;
+    x.slots = slots;
+    x.filename = filename;
+    x.e = [character_stats_e, character_resist_e, character_eqp_e];
+    x.s = [active_slot, active_character];
+});
 prev_buttons.forEach(x => x.addEventListener("click", prev_page, false));
 next_buttons.forEach(x => x.addEventListener("click", next_page, false));
