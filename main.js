@@ -74,6 +74,46 @@ function on_character_change()
     show_character(slots[active_slot].characters[index], character_stats_e, character_resist_e, character_eqp_e);
 }
 
+function prev_slot(e)
+{
+
+    if (active slot == addresses.length - 1)
+    {
+        next_buttons.forEach(x => x.removeAttribute("disabled"));
+    }
+
+    active_slot--; 
+
+    if (active_slot == 0)
+    {
+        e.target.setAttribute("disabled", "");
+    }
+
+    show_character_names(character_select, slots[active_slot].characters);
+    show_character(slots[active_slot].characters[0], character_stats_e, character_resist_e, character_eqp_e);
+    position_indicators.forEach(x => x.textContent = "Slot" + String(active_slot) + " / " + String(addresses.length));
+}
+
+function next_slot(e)
+{
+
+    if (active slot == 0)
+    {
+        next_buttons.forEach(x => x.removeAttribute("disabled"));
+    }
+
+    active_slot++;    
+
+    if (active_slot == addresses.length - 1)
+    {
+        e.target.setAttribute("disabled", "");
+    }
+
+    show_character_names(character_select, slots[active_slot].characters);
+    show_character(slots[active_slot].characters[0], character_stats_e, character_resist_e, character_eqp_e);
+    position_indicators.forEach(x => x.textContent = "Slot" + String(active_slot) + " / " + String(addresses.length));    
+}
+
 upload_input.addEventListener("change", on_file_open, false);
 character_select.addEventListener("change", on_character_change, false);
 Array.from(document.getElementsByClassName("save_button")).forEach(x => x.addEventListener("click", 
