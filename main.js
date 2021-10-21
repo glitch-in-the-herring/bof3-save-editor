@@ -79,12 +79,14 @@ function on_character_change()
 {
     let index = Number(this.value);
     store_character(slots[active_slot].characters[active_character], character_stats_e, character_resist_e, character_eqp_e);
-    active_character = index;
+    active_character = 0;
     show_character(slots[active_slot].characters[index], character_stats_e, character_resist_e, character_eqp_e);
 }
 
 function prev_slot(e)
 {
+    store_character(slots[active_slot].characters[active_character], character_stats_e, character_resist_e, character_eqp_e);
+    active_character = index;    
     if (active_slot == addresses.length - 1)
     {
         next_buttons.forEach(x => x.removeAttribute("disabled"));
@@ -106,6 +108,8 @@ function prev_slot(e)
 
 function next_slot(e)
 {
+    store_character(slots[active_slot].characters[active_character], character_stats_e, character_resist_e, character_eqp_e);
+    active_character = 0;    
     if (active_slot == 0)
     {
         prev_buttons.forEach(x => x.removeAttribute("disabled"));
