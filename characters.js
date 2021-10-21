@@ -93,6 +93,7 @@ function show_character(char_e, char)
     show_parts(char_e.eqp, char.eqp);
     show_parts(char_e.abil, char.abil[0]);
 
+    char_e.cur_abil = 0;
     char_e.abil_prev_button.setAttribute("disabled", "");
     char_e.abil_next_button.removeAttribute("disabled");
     char_e.abil_label.innerHTML = "Heal";

@@ -1,11 +1,11 @@
 const upload_input = document.getElementById("upload_input");
-const editor = document.getElementById("character_editor");
+const char_editor = document.getElementById("character_editor");
 const prev_buttons = Array.from(document.getElementsByClassName("slot_prev_button"));
 const next_buttons = Array.from(document.getElementsByClassName("slot_next_button"));
 const slot_pos_labels = Array.from(document.getElementsByClassName("slot_position_indicator"));
 const disabled_elements = document.getElementsByClassName("disabled");
 const char_select = document.getElementById("character_select");
-const char_e = get_char_e(editor);
+const char_e = get_char_e(char_editor);
 const abil_cat = ["Heal", "Assist", "Attack", "Skill"];
 
 let filename;
