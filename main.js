@@ -119,6 +119,7 @@ function prev_abil(e)
         char_e.abil_next_button.removeAttribute("disabled");
 
     char_e.cur_abil--;
+    char_e.abil_label.textContent = abil_cat[char_e.cur_abil];
 
     if (char_e.cur_abil == 0)
         e.target.setAttribute("disabled");
@@ -133,6 +134,7 @@ function next_abil(e)
         char_e.abil_prev_button.removeAttribute("disabled");
 
     char_e.cur_abil++;
+    char_e.abil_label.textContent = abil_cat[char_e.cur_abil];    
 
     if (char_e.cur_abil == 3)
         e.target.setAttribute("disabled");
