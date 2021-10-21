@@ -49,7 +49,7 @@ function on_file_open()
             slots.push(load_slot(memcard_view, addresses[i]));
 
         show_character_names(character_select, slots[0].characters);
-        show_character(slots[0].characters[0], character_stats_e, character_resist_e);
+        show_character(slots[0].characters[0], character_stats_e, character_resist_e, character_eqp_e);
     }
 
     reader.readAsArrayBuffer(memcard_file);
