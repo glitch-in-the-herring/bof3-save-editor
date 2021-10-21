@@ -30,7 +30,14 @@ function load_characters(byte_array)
         character["pwr"] = String(from_little_endian(byte_array.slice(base_address + 64, base_address + 66)));
         character["def"] = String(from_little_endian(byte_array.slice(base_address + 66, base_address + 68)));
         character["agl"] = String(from_little_endian(byte_array.slice(base_address + 68, base_address + 70)));
-        character["int"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));        
+        character["int"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["wpwr"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["sprs"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["rprs"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["crit"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["dodg"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["hits"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["fatg"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
         character_array.push(character);
     }
 
