@@ -73,6 +73,6 @@ function show_character(character, stats_e, resist_e, eqp_e)
     for (let i = 0; i < keys.length; i++)
     {
         index = keys[i];
-        eqp_e[index].value = character.equpiment[i];
+        eqp_e[index].value = character.equipment[i];
     }    
 }

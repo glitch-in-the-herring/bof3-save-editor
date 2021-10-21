@@ -16,6 +16,7 @@ let active_character = 0;
 
 load_item_select([character_eqp_e["character_eqp_weapon"]], weapon_array);
 load_item_select([character_eqp_e["character_eqp_helm"], character_eqp_e["character_eqp_shield"], character_eqp_e["character_eqp_armor"]], armor_array);
+load_item_select([character_eqp_e["character_eqp_acc1"], character_eqp_e["character_eqp_acc2"]], acc_array);
 
 function on_file_open()
 {
