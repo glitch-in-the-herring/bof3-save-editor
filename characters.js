@@ -93,6 +93,7 @@ function show_character(char_e, char)
     show_parts(char_e.eqp, char.eqp);
     show_parts(char_e.abil, char.abil[0]);
 
+    abil_next_button.removeAttribute("disable");
     char_e.abil_label.innerHTML = "Heal";
 }
 
