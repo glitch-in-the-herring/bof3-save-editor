@@ -1,7 +1,8 @@
 const upload_input = document.getElementById("upload_input");
 const character_select = document.getElementById("character_select");
 const disabled_elements = document.getElementsByClassName("disabled");
-const character_elements = get_character_elements(document.getElementById("character_editor"));
+const character_stats_e = get_character_stats_e(document.getElementById("character_editor"));
+const character_resist_e = get_character_resist_e(document.getElementById("character_editor"));
 
 let filename;
 let addresses;
@@ -43,7 +44,7 @@ function on_file_open()
             slots.push(load_slot(memcard_view, addresses[i]));
 
         show_character_names(character_select, slots[0].characters);
-        show_character(slots[0].characters[0], character_elements);
+        show_character(slots[0].characters[0], character_stats_e, character_resist_e);
     }
 
     reader.readAsArrayBuffer(memcard_file);
@@ -52,9 +53,9 @@ function on_file_open()
 function on_character_change()
 {
     let index = Number(this.value);
-    store_character(slots[active_slot].characters[active_character], character_elements);
+    store_character(slots[active_slot].characters[active_character], character_stats_e, character_resist_e);
     active_character = index;
-    show_character(slots[active_slot].characters[index], character_elements);
+    show_character(slots[active_slot].characters[index], character_stats_e, character_resist_e);
 }
 
 upload_input.addEventListener("change", on_file_open, false);

@@ -31,26 +31,38 @@ function load_characters(byte_array)
         character["def"] = String(from_little_endian(byte_array.slice(base_address + 66, base_address + 68)));
         character["agl"] = String(from_little_endian(byte_array.slice(base_address + 68, base_address + 70)));
         character["int"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["wpwr"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["sprs"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["rprs"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["crit"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["dodg"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["hits"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
-        character["fatg"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        character["wpwr"] = String(byte_array[base_address + 74]);
+        character["sprs"] = String(byte_array[base_address + 84]);
+        character["rprs"] = String(byte_array[base_address + 85]);
+        character["crit"] = String(byte_array[base_address + 86]);
+        character["dodg"] = String(byte_array[base_address + 87]);
+        character["hits"] = String(byte_array[base_address + 88]);
+        character["fatg"] = String(byte_array[base_address + 25]);
+
+        character["resistances"] = [];
+        for (let j = 0; j < 9; j++)
+            character.resistances[j] = String(byte_array[base_address + 75 + j]);
+
         character_array.push(character);
     }
 
     return character_array;
 }
 
-function store_character(character, e)
+function store_character(character, stats_e, resist_e)
 {
     let index;
-    let keys = Object.keys(e);
+    let keys = Object.keys(stats_e);
     for (let i = 0; i < keys.length; i++)
     {
         index = keys[i];
-        character[index.split("_")[1]] = e[index].value;
+        character[index.split("_")[1]] = stats_e[index].value;
     }
+
+    keys = Object.keys(resist_e);
+    for (let i = 0; i < keys.length; i++)
+    {
+        index = keys[i];
+        character.resistances[i] = resist_e[index].value;
+    }    
 }

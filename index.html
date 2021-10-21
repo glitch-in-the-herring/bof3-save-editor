@@ -7,6 +7,7 @@
         <script src="data.js"></script>
         <script src="save.js"></script>
         <script src="characters.js"></script>
+        <link href="main.css" rel="stylesheet">
         <title>Breath of Fire III Save Editor</title>
     </head>
     <body>
@@ -19,12 +20,12 @@
         <br/>
         <label for="prev_slot">Prev</label> <button id="prev_slot" disabled><</button> <label id="position_indicator"></label> <button id="next_slot" disabled>></button> <label for="next_slot">Next</label>
         <h2>Character Editor</h2>
+        <label for="character_select">Character:</label>
+        <select name="character_select" id="character_select" class="disabled" disabled>
+            <option value="-">-</option>
+        </select>
         <form id="character_editor">
-            <label for="character_select">Character:</label>
-            <select name="character_select" id="character_select" class="disabled" disabled>
-                <option value="-">-</option>
-            </select>
-            <br/>
+            <h3>Stats</h3>
             <label for="character_name">New Name:</label>
             <input type="text" name="character_name" id="character_name" class="disabled" autocomplete="off" maxlength=5 disabled>
             <br/>
@@ -59,22 +60,45 @@
             <input type="number" name="character_agl" id="character_agl" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
             <br/>
             <label for="character_wpwr">Base Willpower</label>
-            <input type="number" name="character_wpwr" id="character_wpwr" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+            <input type="number" name="character_wpwr" id="character_wpwr" class="disabled" autocomplete="off" min=0 max=255 disabled>
             <label for="character_sprs">Base Surprise</label>
-            <input type="number" name="character_sprs" id="character_sprs" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+            <input type="number" name="character_sprs" id="character_sprs" class="disabled" autocomplete="off" min=0 max=255 disabled>
             <br/>
             <label for="character_rprs">Base Reprisal</label>
-            <input type="number" name="character_rprs" id="character_rprs" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+            <input type="number" name="character_rprs" id="character_rprs" class="disabled" autocomplete="off" min=0 max=255 disabled>
             <label for="character_crit">Base Critical</label>
-            <input type="number" name="character_crit" id="character_crit" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+            <input type="number" name="character_crit" id="character_crit" class="disabled" autocomplete="off" min=0 max=255 disabled>
             <br/>
             <label for="character_dodg">Base Dodge</label>
-            <input type="number" name="character_dodg" id="character_dodg" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+            <input type="number" name="character_dodg" id="character_dodg" class="disabled" autocomplete="off" min=0 max=255 disabled>
             <label for="character_hits">Base To-Hit</label>
-            <input type="number" name="character_hits" id="character_hits" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+            <input type="number" name="character_hits" id="character_hits" class="disabled" autocomplete="off" min=0 max=255 disabled>
             <br/>
             <label for="character_fatg">Fatigue</label>
-            <input type="number" name="character_fatg" id="character_fatg" class="disabled" autocomplete="off" min=0 max=4294967295 disabled> 
+            <input type="number" name="character_fatg" id="character_fatg" class="disabled" autocomplete="off" min=0 max=255 disabled>
+            <br/>
+            <br/>
+            <h3>Resistances</h3>            
+            <label for="character_res_fire"><img src="img/fire.png" height=16> Fire</label>
+            <input type="number" name="character_res_fire" id="character_res_fire" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <label for="character_res_ice"><img src="img/ice.png" height=16> Ice</label>
+            <input type="number" name="character_res_ice" id="character_res_ice" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <label for="character_res_elec"><img src="img/lightning.png" height=16> Fire</label>
+            <input type="number" name="character_res_elec" id="character_res_elec" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <br/>
+            <label for="character_res_earth"><img src="img/earth.png" height=16> Earth</label>
+            <input type="number" name="character_res_earth" id="character_res_earth" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <label for="character_res_wind"><img src="img/wind.png" height=16> Wind</label>
+            <input type="number" name="character_res_wind" id="character_res_wind" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <label for="character_res_holy"><img src="img/holy.png" height=16> Holy</label>
+            <input type="number" name="character_res_holy" id="character_res_holy" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <br/>
+            <label for="character_res_psionic"><img src="img/psionic.png" height=16> Psionic</label>
+            <input type="number" name="character_res_psionic" id="character_res_psionic" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <label for="character_res_status"><img src="img/status.png" height=16> Status</label>
+            <input type="number" name="character_res_status" id="character_res_status" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+            <label for="character_res_death"><img src="img/death.png" height=16> Death</label>
+            <input type="number" name="character_res_death" id="character_res_death" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
         </form>
         <br/>
         <button id="save_button" disabled>Save</button>

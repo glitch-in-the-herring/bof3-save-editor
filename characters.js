@@ -1,9 +1,24 @@
-function get_character_elements(form)
+function get_character_stats_e(form)
 {
     const elements = Array.from(form.childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
-        return string_id.startsWith("character_") && string_id != "character_select";
+        return string_id.startsWith("character_") && !string_id.startsWith("character_res");
+    });
+    let output = {};
+
+    for (let i = 0; i < elements.length; i++)
+        output[String(elements[i].id)] = elements[i];
+
+    return output;
+}
+
+function get_character_resist_e(form)
+{
+    const elements = Array.from(form.childNodes).filter(function(x) 
+    {
+        let string_id = String(x.id);
+        return string_id.startsWith("character_res");
     });
     let output = {};
 
@@ -22,13 +37,20 @@ function show_character_names(combo_box, characters)
     }
 }
 
-function show_character(character, e)
+function show_character(character, stats_e, resist_e)
 {
     let index;
-    let keys = Object.keys(e);
+    let keys = Object.keys(stats_e);
     for (let i = 0; i < keys.length; i++)
     {
         index = keys[i];
-        e[index].value = character[index.split("_")[1]];
-    }    
+        stats_e[index].value = character[index.split("_")[1]];
+    }
+
+    keys = Object.keys(resist_e);
+    for (let i = 0; i < keys.length; i++)
+    {
+        index = keys[i];
+        resist_e[index].value = character.resistances[i];
+    }
 }
