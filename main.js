@@ -79,7 +79,7 @@ function on_character_change()
 {
     let index = Number(this.value);
     store_character(slots[active_slot].characters[active_character], character_stats_e, character_resist_e, character_eqp_e);
-    active_character = 0;
+    active_character = index;
     show_character(slots[active_slot].characters[index], character_stats_e, character_resist_e, character_eqp_e);
 }
 
