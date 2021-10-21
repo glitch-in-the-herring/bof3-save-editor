@@ -97,7 +97,7 @@ function prev_slot(e)
 function next_slot(e)
 {
 
-    if (active slot == 0)
+    if (active_slot == 0)
     {
         next_buttons.forEach(x => x.removeAttribute("disabled"));
     }
