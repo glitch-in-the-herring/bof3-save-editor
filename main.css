@@ -9,3 +9,13 @@
     height: 520px;
     overflow:  scroll;
 }
+
+#main
+{
+    display: none;
+}
+
+#loading
+{
+    display:  block;
+}
