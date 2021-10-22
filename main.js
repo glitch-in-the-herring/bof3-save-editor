@@ -63,6 +63,9 @@ function on_file_open()
         show_char(char_e, slots[0].chars[0]);
         show_inv(inv_e, slots[0].inv.inv[0]);
 
+        inv_e.inv_label.textContent = "Item";
+        inv_e.inv_next_button.removeAttribute("disabled");
+
         if (addresses.length > 1)
             next_buttons.forEach(x => x.removeAttribute("disabled"));
 
