@@ -28,7 +28,7 @@ load_item_select([char_e.eqp[0]], weapon_array);
 load_item_select([char_e.eqp[1], char_e.eqp[2], char_e.eqp[3]], armor_array);
 load_item_select([char_e.eqp[4], char_e.eqp[5]], acc_array);
 
-document.getElementById("loading").style.display = "none";
+//document.getElementById("loading").style.display = "none";
 //document.getElementById("main").style.display = "block";
 
 function on_file_open()
