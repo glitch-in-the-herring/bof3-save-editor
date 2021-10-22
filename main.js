@@ -49,8 +49,8 @@ function on_file_open()
         for (let i = 0; i < addresses.length; i++)
             slots.push(load_slot(byte_array, addresses[i]));
 
-        show_character_names(char_select, slots[0].chars);
-        show_character(char_e, slots[0].chars[0]);
+        show_char_names(char_select, slots[0].chars);
+        show_char(char_e, slots[0].chars[0]);
 
         if (addresses.length > 1)
         {
@@ -74,14 +74,14 @@ function on_file_open()
 function on_character_change()
 {
     let index = Number(this.value);
-    store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
+    store_char(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
     char_e.cur_char = index;
-    show_character(char_e, slots[char_e.cur_slot].chars[index]);
+    show_char(char_e, slots[char_e.cur_slot].chars[index]);
 }
 
 function prev_slot(e)
 {
-    store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
+    store_char(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
     char_e.cur_char = 0;
     if (char_e.cur_slot == addresses.length - 1)
         next_buttons.forEach(x => x.removeAttribute("disabled"));
@@ -91,14 +91,14 @@ function prev_slot(e)
     if (char_e.cur_slot == 0)
         e.target.setAttribute("disabled", "");
 
-    show_character_names(char_select, slots[char_e.cur_slot].chars);
-    show_character(char_e, slots[char_e.cur_slot].chars[0]);
+    show_char_names(char_select, slots[char_e.cur_slot].chars);
+    show_char(char_e, slots[char_e.cur_slot].chars[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur_slot + 1) + " / " + String(addresses.length));
 }
 
 function next_slot(e)
 {
-    store_character(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
+    store_char(char_e, slots[char_e.cur_slot].chars[char_e.cur_char]);
     char_e.cur_char = 0;    
     if (char_e.cur_slot == 0)
         prev_buttons.forEach(x => x.removeAttribute("disabled"));
@@ -108,8 +108,8 @@ function next_slot(e)
     if (char_e.cur_slot == addresses.length - 1)
         e.target.setAttribute("disabled", "");
 
-    show_character_names(char_select, slots[char_e.cur_slot].chars);
-    show_character(char_e, slots[char_e.cur_slot].chars[0]);
+    show_char_names(char_select, slots[char_e.cur_slot].chars);
+    show_char(char_e, slots[char_e.cur_slot].chars[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur_slot + 1) + " / " + String(addresses.length));    
 }
 

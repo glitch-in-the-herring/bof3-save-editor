@@ -2,3 +2,9 @@
 {
     width: 5em;
 }
+
+#inv_overflow
+{
+    width: 400px;
+    overflow:  scroll;
+}

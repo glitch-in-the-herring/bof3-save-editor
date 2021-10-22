@@ -3,12 +3,14 @@ function load_slot(byte_array, address)
     let slot = {};
 
     slot["addr"] = address;
-    slot["chars"] = load_characters(byte_array.slice(address + 0x290, address + 0x7B0));
+    slot["chars"] = load_char(byte_array.slice(address + 0x290, address + 0x7B0));
+    slot["inv"] = load_inv(byte_array.slice(address + 0x974, address + 0xe14));
+    slot["inv"].zenny = String(from_little_endian(byte_array.slice(address + 0x878, address + 0x87c)));
 
     return slot;
 }
 
-function load_characters(byte_array)
+function load_char(byte_array)
 {
     let char_array = []; 
     let char;
@@ -61,7 +63,35 @@ function load_characters(byte_array)
     return char_array;
 }
 
-function store_character(char_e, char)
+function load_inv(byte_array)
+{
+    let inv = {};
+    let keys = ["item", "weapon", "armor", "option"]
+    let id_base_addr;
+    let n_base_addr;
+
+    for (let i = 0; i < 4; i++)
+    {
+        id_base_addr = 128 * i;
+        n_base_addr = 512 + id_base_addr
+        inv[keys[i]] = [];
+        for (let j = 0; j < 128; j++)
+        {
+            inv[keys[i]][j][0] = String(byte_array[id_base_addr + j]);
+            inv[keys[i]][j][1] = String(byte_array[n_base_addr + j]);
+        }
+    }
+
+    for (let i = 0; i < 32; i++)
+        inv["vital"][i] = String(byte_array[1024 + j]);
+
+    for (let i = 0; i < 128; i++)
+        inv["skill"][i] = String(byte_array[1056 + j]);
+
+    return inv;
+}
+
+function store_char(char_e, char)
 {
     let index;
     let keys = Object.keys(char_e.stat);

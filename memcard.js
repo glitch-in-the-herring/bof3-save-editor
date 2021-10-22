@@ -1,9 +1,6 @@
 function is_memcard(byte_array)
 {
-    if (byte_array[0] == 0x4D && byte_array[1] == 0x43)
-        return true;
-
-    return false;
+    return byte_array[0] == 0x4D && byte_array[1] == 0x43;
 }
 
 function browse_toc(byte_array)
@@ -15,9 +12,7 @@ function browse_toc(byte_array)
     {
         current_address += 0x80;
         if (byte_array[current_address] != 0xA0 && check_toc_entry(byte_array, current_address))
-        {
             addresses.push(0x2000 * (current_address / 0x80));
-        }
     }
 
     return addresses;

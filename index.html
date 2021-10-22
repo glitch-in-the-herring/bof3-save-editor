@@ -120,14 +120,17 @@
             <br/>
             <br/>
             <h3>Abilities</h3>
-            <button id="abil_prev_button" type="button" disabled><</button> <label id="skill_type_indicator"></label> <button id="abil_next_button" type="button" disabled>></button>
-            <ol id="skill_list"></ol>
+            <button id="abil_prev_button" type="button" disabled><</button> <label id="abil_type_indicator"></label> <button id="abil_next_button" type="button" disabled>></button>
+            <ol id="abil_list"></ol>
         </form>
         <br/>
         <h2>Inventory Editor</h2>
         <br/>
         <form id="inventory_edior">
-            <div id="main_inventory">
+            <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>
+            <div id="inv_overflow">
+                <ol id="inv_list">
+                </ol>
             </div>
         </form>
         <label for="slot_prev_button">Prev</label> <button class="slot_prev_button" disabled><</button> <label class="slot_position_indicator">Slot ... / ...</label> <button class="slot_next_button" disabled>></button> <label for="slot_next_button">Next</label>

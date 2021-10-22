@@ -42,7 +42,7 @@ function get_char_e(form)
     output["eqp"] = eqp;
 
     //abilities
-    let skill_list = document.getElementById("skill_list");
+    let abil_list = document.getElementById("abil_list");
     let select;
     let li;
     let abil = [];
@@ -55,12 +55,12 @@ function get_char_e(form)
         select.setAttribute("disabled", "");
         load_item_select([select], abil_array);
         li.appendChild(select);
-        skill_list.appendChild(li);
+        abil_list.appendChild(li);
         abil[j] = select;
     }
 
     output["abil"] = abil;
-    output["abil_label"] = document.getElementById("skill_type_indicator");
+    output["abil_label"] = document.getElementById("abil_type_indicator");
     output["abil_prev_button"] = document.getElementById("abil_prev_button");
     output["abil_next_button"] = document.getElementById("abil_next_button");
     output["cur_slot"] = 0;
@@ -70,7 +70,7 @@ function get_char_e(form)
     return output;    
 }
 
-function show_character_names(select, chars)
+function show_char_names(select, chars)
 {
     select.textContent = "";
     for (let i = 0; i < 8; i++)
@@ -79,7 +79,7 @@ function show_character_names(select, chars)
     }
 }
 
-function show_character(char_e, char)
+function show_char(char_e, char)
 {
     let index;
     let keys = Object.keys(char_e.stat);
