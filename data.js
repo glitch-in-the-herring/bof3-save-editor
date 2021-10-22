@@ -66,19 +66,20 @@ function load_char(byte_array)
 function load_inv(byte_array)
 {
     let inv = {};
-    let keys = ["item", "weapon", "armor", "option"]
     let id_base_addr;
     let n_base_addr;
+
+    inv["inv"] = [];
 
     for (let i = 0; i < 4; i++)
     {
         id_base_addr = 128 * i;
         n_base_addr = 512 + id_base_addr
-        inv[keys[i]] = [];
+        inv.inv[i] = [];
         for (let j = 0; j < 128; j++)
         {
-            inv[keys[i]][j][0] = String(byte_array[id_base_addr + j]);
-            inv[keys[i]][j][1] = String(byte_array[n_base_addr + j]);
+            inv.inv[i][j][0] = String(byte_array[id_base_addr + j]);
+            inv.inv[i][j][1] = String(byte_array[n_base_addr + j]);
         }
     }
 
@@ -103,7 +104,16 @@ function store_char(char_e, char)
 
     store_parts(char_e.res, char.res);
     store_parts(char_e.eqp, char.eqp);
-    store_parts(char_e.abil, char.abil[char_e.cur_abil]);   
+    store_parts(char_e.abil, char.abil[char_e.cur.abil]);   
+}
+
+function store_inv(inv_e, inv)
+{
+    for (let i = 0; i < inv_e.length; i++)
+    {
+        inv[i][0] = inv_e.inv[i][0].value;
+        inv[i][1] = inv_e.inv[i][1].value;
+    }
 }
 
 function store_parts(e, data)

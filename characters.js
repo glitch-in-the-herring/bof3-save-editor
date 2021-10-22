@@ -63,9 +63,6 @@ function get_char_e(form)
     output["abil_label"] = document.getElementById("abil_type_indicator");
     output["abil_prev_button"] = document.getElementById("abil_prev_button");
     output["abil_next_button"] = document.getElementById("abil_next_button");
-    output["cur_slot"] = 0;
-    output["cur_char"] = 0;
-    output["cur_abil"] = 0;
 
     return output;    
 }
@@ -93,7 +90,7 @@ function show_char(char_e, char)
     show_parts(char_e.eqp, char.eqp);
     show_parts(char_e.abil, char.abil[0]);
 
-    char_e.cur_abil = 0;
+    char_e.cur.abil = 0;
     char_e.abil_prev_button.setAttribute("disabled", "");
     char_e.abil_next_button.removeAttribute("disabled");
     char_e.abil_label.innerHTML = "Heal";

@@ -1,30 +1,22 @@
-async function load_file(filename)
+function load_file(filename)
 {
-    let promise = new Promise(function(resolve)
+    let xhr = new XMLHttpRequest();
+    let result = null;
+    xhr.open("GET", filename, false);
+    xhr.send();
+    if (xhr.readyState === 4 && xhr.status === 200)
     {
-        let xhr = new XMLHttpRequest();
-        let result;
-        xhr.open("GET", filename, false);
-        xhr.onload = function()
-        {
-            if (xhr.readyState === 4 && xhr.status === 200)
-            {
-                resolve(xhr.responseText);
-            }
-        }
-        xhr.send();
-    });
+        return xhr.responseText;
+    }
 }
 
-let [weapon_array, armor_array, acc_array, item_array, fishing_array, abil_array, vitals_array] = await Promise.all([
-    load_file("items/weapons.txt").split("\n")
-    load_file("items/armor.txt").split("\n"),
-    load_file("items/accs.txt").split("\n")
-    load_file("items/items.txt").split("\n"),
-    load_file("items/fishing.txt").split("\n"),
-    load_file("items/abils.txt").split("\n"),
-    load_file("items/vitals.txt").split("\n")
-]);
+const weapon_array = load_file("items/weapons.txt").split("\n");
+const armor_array = load_file("items/armor.txt").split("\n");
+const acc_array = load_file("items/accs.txt").split("\n");
+const item_array = load_file("items/items.txt").split("\n");
+const fishing_array = load_file("items/fishing.txt").split("\n");
+const abil_array = load_file("items/abils.txt").split("\n");
+const vitals_array = load_file("items/vitals.txt").split("\n");
 
 function load_item_select(select, data)
 {
