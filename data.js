@@ -84,9 +84,11 @@ function load_inv(byte_array)
         }
     }
 
+    inv["vital"] = [];
     for (let i = 0; i < 32; i++)
         inv["vital"][i] = String(byte_array[1024 + i]);
 
+    inv["skill"] = [];
     for (let i = 0; i < 128; i++)
         inv["skill"][i] = String(byte_array[1056 + i]);
 
