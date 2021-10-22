@@ -66,7 +66,7 @@ function on_file_open()
         show_char(char_e, slots[0].chars[0]);
         console.log("3");
         show_inv(inv_e, slots[0].inv.inv[0]);
-
+        console.log("4");
         inv_e.inv_label.textContent = "Item";
         inv_e.inv_next_button.removeAttribute("disabled");
 
