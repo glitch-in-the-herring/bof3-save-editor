@@ -6,6 +6,7 @@ const slot_pos_labels = Array.from(document.getElementsByClassName("slot_positio
 const disabled_elements = document.getElementsByClassName("disabled");
 const char_select = document.getElementById("character_select");
 const char_e = get_char_e(char_editor);
+const inv_e = get_inv_e();
 const abil_cat = ["Heal", "Assist", "Attack", "Skill"];
 
 let filename;
