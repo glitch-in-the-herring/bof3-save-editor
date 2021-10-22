@@ -38,6 +38,8 @@ function get_inv_e()
 function show_inv(inv_e, inv)
 {
     for (let i = 0; i < 128; i++)
+    {
         inv_e.inv[i][0].value = inv[i][0];
         inv_e.inv[i][1].value = inv[i][1];
+    }
 }
