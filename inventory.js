@@ -27,5 +27,6 @@ function get_inv_e()
         li.appendChild(select);        
         output["inv"][i][0] = select;
         output["inv"][i][1] = tbox;
+        inv_list.appendChild(li);
     }
 }
