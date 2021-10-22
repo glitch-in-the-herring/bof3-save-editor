@@ -16,7 +16,7 @@ async function load_file(filename)
     });
 }
 
-const [weapon_array, armor_array, acc_array, item_array, fishing_array, abil_array, vitals_array] = await Promise.all([
+let [weapon_array, armor_array, acc_array, item_array, fishing_array, abil_array, vitals_array] = await Promise.all([
     load_file("items/weapons.txt").split("\n")
     load_file("items/armor.txt").split("\n"),
     load_file("items/accs.txt").split("\n")
