@@ -23,7 +23,7 @@ function get_inv_e()
         tbox.classList.add("disabled");
         tbox.classList.add("narrow");
         tbox.setAttribute("disabled", "");
-        load_item_select(select, item_array);
+        load_item_select([select], item_array);
         li.appendChild(select);
         li.appendChild(tbox);
         output["inv"][i][0] = select;
