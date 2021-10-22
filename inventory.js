@@ -20,7 +20,7 @@ function get_inv_e()
         tbox.classList.add("disabled");
         tbox.classList.add("narrow");
         tbox.setAttribute("disabled", "");
-        load_item_select([select], item_array);
+        load_item_select([select], item_array[0]);
         li.appendChild(select);
         li.appendChild(tbox);
         inv_list.appendChild(li);        
@@ -37,8 +37,15 @@ function get_inv_e()
 
 function show_inv(inv_e, inv)
 {
+    let load_array;
+    if (inv_e.cur.inv != 3)
+        load_array = item_array[inv_e.cur.inv];
+    else
+        load_array = item_array[3].concat(item_array[4]);
+
     for (let i = 0; i < 128; i++)
     {
+        load_item_select(inv_e.inv[i], load_array);
         inv_e.inv[i][0].value = inv[i][0];
         inv_e.inv[i][1].value = inv[i][1];
     }

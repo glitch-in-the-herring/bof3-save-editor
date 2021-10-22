@@ -24,9 +24,9 @@ let inv_e = get_inv_e();
 char_e["cur"] = cur;
 inv_e["cur"] = cur;
 
-load_item_select([char_e.eqp[0]], weapon_array);
-load_item_select([char_e.eqp[1], char_e.eqp[2], char_e.eqp[3]], armor_array);
-load_item_select([char_e.eqp[4], char_e.eqp[5]], acc_array);
+load_item_select([char_e.eqp[0]], item_array[1]);
+load_item_select([char_e.eqp[1], char_e.eqp[2], char_e.eqp[3]], item_array[2]);
+load_item_select([char_e.eqp[4], char_e.eqp[5]], item_array[3]);
 
 function on_file_open()
 {
