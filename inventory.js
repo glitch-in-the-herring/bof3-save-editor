@@ -11,6 +11,7 @@ function get_inv_e()
 
     for (let i = 0; i < 128; i++)
     {
+        output["inv"][i] = [];
         li = document.createElement("li");
         select = document.createElement("select");
         tbox = document.createElement("input");
