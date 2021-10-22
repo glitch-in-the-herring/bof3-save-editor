@@ -78,6 +78,7 @@ function load_inv(byte_array)
         inv.inv[i] = [];
         for (let j = 0; j < 128; j++)
         {
+            inv.inv[i][j] = [];
             inv.inv[i][j][0] = String(byte_array[id_base_addr + j]);
             inv.inv[i][j][1] = String(byte_array[n_base_addr + j]);
         }
