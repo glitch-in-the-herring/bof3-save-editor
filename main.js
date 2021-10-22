@@ -56,17 +56,12 @@ function on_file_open()
             return;
         }
 
-        console.log("0");
         for (let i = 0; i < addresses.length; i++)
             slots.push(load_slot(byte_array, addresses[i]));
 
-        console.log("1");
         show_char_names(char_select, slots[0].chars);
-        console.log("2");
         show_char(char_e, slots[0].chars[0]);
-        console.log("3");
         show_inv(inv_e, slots[0].inv.inv[0]);
-        console.log("4");
         inv_e.inv_label.textContent = "Item";
         inv_e.inv_next_button.removeAttribute("disabled");
 
