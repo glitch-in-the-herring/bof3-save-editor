@@ -7,7 +7,7 @@
 {
     width: 400px;
     height: 520px;
-    overflow:  scroll;
+    overflow: scroll;
 }
 
 #main
@@ -17,5 +17,5 @@
 
 #loading
 {
-    display:  block;
+    display: block;
 }
