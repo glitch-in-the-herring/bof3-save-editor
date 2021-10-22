@@ -6,5 +6,6 @@
 #inv_overflow
 {
     width: 400px;
+    height: 520px;
     overflow:  scroll;
 }
