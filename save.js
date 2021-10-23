@@ -27,7 +27,7 @@ function checksum(byte_array, addr)
     for (let i = 0; i < 0x1e00; i++)
     {
         sum += byte_array[addr + 0x200 + i];
-        if (sum > 65536) console.log(i);
+        if (i == 1311) console.log(sum);
     }
 
     buffer = to_little_endian(sum, 2);
