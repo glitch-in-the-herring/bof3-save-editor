@@ -26,7 +26,7 @@
 .grid-container3
 {
     display: grid;
-    grid-template-columns: 100px 100px;
+    grid-template-columns: 250px 250px;
     grid-column-gap: 10px;
     align-items: end;    
 }
