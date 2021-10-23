@@ -75,8 +75,8 @@ function get_inv_e()
     output["inv_next_button"] = document.getElementById("inv_next_button");
     output["inv_label"] = document.getElementById("inv_type_indicator");
     output["inv_info"] = document.getElementById("inv_info");
-    output["vital_info"] = document.getElementById("inv_info");
-    output["skill_info"] = document.getElementById("inv_info"); 
+    output["vital_info"] = document.getElementById("vital_info");
+    output["skill_info"] = document.getElementById("skill_info"); 
 
     return output;
 }
