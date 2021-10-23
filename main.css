@@ -18,7 +18,7 @@
 .grid-container1
 {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 600px auto;
     grid-column-gap: 10px;
 }
 
