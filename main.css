@@ -13,6 +13,7 @@
     display: grid;
     grid-template-columns: 400px 400px;
     grid-column-gap: 10px;
+    align-items: end;
 }
 
 .grid-container1
