@@ -49,6 +49,7 @@ function get_inv_e()
 
         li.appendChild(select);
         skill_list.appendChild(li);
+        output["skill"][i] = select;
     }
 
     output["vital"] = [];
