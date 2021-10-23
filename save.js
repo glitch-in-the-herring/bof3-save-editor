@@ -2,7 +2,7 @@ function save_file(e)
 {
     store_char(e.target.char_e, e.target.slots[e.target.char_e.cur.slot].chars[e.target.char_e.cur.char]);
     store_inv(e.target.inv_e, e.target.slots[e.target.inv_e.cur.slot].inv.inv[e.target.inv_e.cur.inv]);
-    store_vital_and_skills(e.target.inv.e, e.target.slots[e.target.inv_e.cur.slot].inv);
+    store_vital_and_skills(e.target.inv_e, e.target.slots[e.target.inv_e.cur.slot].inv);
     for (let i = 0; i < e.target.slots.length; i++)
     {
         save_char(e.target.byte_array, e.target.slots[i]);
