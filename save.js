@@ -7,6 +7,7 @@ function save_file(e)
     {
         save_char(e.target.byte_array, e.target.slots[i]);
         save_inv(e.target.byte_array, e.target.slots[i]);
+        checksum(e.target.byte_array, e.target.slots[i].addr);
     }
 
     let output_file = new File([e.target.byte_array], e.target.filename);
@@ -14,6 +15,21 @@ function save_file(e)
     link.href = window.URL.createObjectURL(output_file);
     link.download = e.target.filename;
     link.click();
+}
+
+function checksum(byte_array, addr)
+{
+    let sum = 0;
+    let buffer;
+    byte_array[addr + 0x270] = 0;
+    byte_array[addr + 0x271] = 0;
+
+    for (let i = 0; i < 0x1e00; i++)
+        sum += byte_array[addr + 0x200 + i];
+
+    buffer = to_little_endian(sum, 2);
+    byte_array[addr + 0x270] = buffer[0];
+    byte_array[addr + 0x271] = buffer[1];
 }
 
 function save_char(byte_array, slot)
