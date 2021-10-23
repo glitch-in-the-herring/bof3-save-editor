@@ -76,6 +76,7 @@ function on_file_open()
             x.slots = slots;
             x.filename = filename;
             x.char_e = char_e;
+            x.inv_e = inv_e;
         });
     }
 
