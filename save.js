@@ -26,7 +26,7 @@ function checksum(byte_array, addr)
 
     for (let i = 0; i < 0x1e00; i++)
     {
-        if (i < 16) console.log(byte_array[addr + 0x200 + i]);
+        if (i == 4146) console.log(sum);
         sum += byte_array[addr + 0x200 + i];
     }
 
