@@ -27,109 +27,111 @@
             <h2>Character Editor</h2>
             <label for="character_select">Character:</label>
             <select name="character_select" id="character_select" class="disabled" disabled></select>
-            <form id="character_editor">
-                <h3>Stats</h3>
-                <label for="character_name">Name:</label>
-                <input type="text" name="character_name" id="character_name" class="disabled" autocomplete="off" maxlength=5 disabled>
-                <br/>
-                <label for="character_lvl">Level:</label>
-                <input type="number" name="character_lvl" id="character_lvl" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <label for="character_exp">EXP:</label>
-                <input type="number" name="character_exp" id="character_exp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <br/>
-                <label for="character_chp">Current HP:</label>
-                <input type="number" name="character_chp" id="character_chp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <label for="character_cap">Current AP:</label>
-                <input type="number" name="character_cap" id="character_cap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <br/>
-                <label for="character_cmhp">Current max HP:</label>
-                <input type="number" name="character_cmhp" id="character_cmhp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <label for="character_cmap">Current max AP:</label>
-                <input type="number" name="character_cmap" id="character_cmap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>  
-                <br/>
-                <label for="character_tmhp">True max HP:</label>
-                <input type="number" name="character_tmhp" id="character_tmhp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <label for="character_tmap">True max AP:</label>
-                <input type="number" name="character_tmap" id="character_tmap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <br/>
-                <label for="character_pwr">Base PWR:</label>
-                <input type="number" name="character_pwr" id="character_pwr" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <label for="character_int">Base INT:</label>
-                <input type="number" name="character_int" id="character_int" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <br/>
-                <label for="character_def">Base DEF:</label>
-                <input type="number" name="character_def" id="character_def" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <label for="character_agl">Base AGL:</label>
-                <input type="number" name="character_agl" id="character_agl" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                <br/>
-                <label for="character_wpwr">Base Willpower</label>
-                <input type="number" name="character_wpwr" id="character_wpwr" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <label for="character_sprs">Base Surprise</label>
-                <input type="number" name="character_sprs" id="character_sprs" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <br/>
-                <label for="character_rprs">Base Reprisal</label>
-                <input type="number" name="character_rprs" id="character_rprs" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <label for="character_crit">Base Critical</label>
-                <input type="number" name="character_crit" id="character_crit" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <br/>
-                <label for="character_dodg">Base Dodge</label>
-                <input type="number" name="character_dodg" id="character_dodg" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <label for="character_hits">Base To-Hit</label>
-                <input type="number" name="character_hits" id="character_hits" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <br/>
-                <label for="character_fatg">Fatigue</label>
-                <input type="number" name="character_fatg" id="character_fatg" class="disabled" autocomplete="off" min=0 max=255 disabled>
-                <br/>
-                <br/>
-                <h3>Resistances</h3>            
-                <label for="character_res_fire"><img src="img/fire.png" height=16> Fire</label>
-                <input type="number" name="character_res_fire" id="character_res_fire" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <label for="character_res_ice"><img src="img/ice.png" height=16> Ice</label>
-                <input type="number" name="character_res_ice" id="character_res_ice" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <label for="character_res_elec"><img src="img/lightning.png" height=16> Electric</label>
-                <input type="number" name="character_res_elec" id="character_res_elec" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <br/>
-                <label for="character_res_earth"><img src="img/earth.png" height=16> Earth</label>
-                <input type="number" name="character_res_earth" id="character_res_earth" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <label for="character_res_wind"><img src="img/wind.png" height=16> Wind</label>
-                <input type="number" name="character_res_wind" id="character_res_wind" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <label for="character_res_holy"><img src="img/holy.png" height=16> Holy</label>
-                <input type="number" name="character_res_holy" id="character_res_holy" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <br/>
-                <label for="character_res_psionic"><img src="img/psionic.png" height=16> Psionic</label>
-                <input type="number" name="character_res_psionic" id="character_res_psionic" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <label for="character_res_status"><img src="img/status.png" height=16> Status</label>
-                <input type="number" name="character_res_status" id="character_res_status" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <label for="character_res_death"><img src="img/death.png" height=16> Death</label>
-                <input type="number" name="character_res_death" id="character_res_death" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
-                <br/>
-                <br/>
-                <h3>Equipment</h3>
-                <label for="character_eqp_weapon"><img src="img/weapon.png" height=16> Weapon</label>
-                <select name="character_eqp_weapon" id="character_eqp_weapon" class="disabled" autocomplete="off" disabled></select>
-                <label for="character_eqp_shield"><img src="img/shield.png" height=16> Shield</label>
-                <select name="character_eqp_shield" id="character_eqp_shield" class="disabled" autocomplete="off" disabled></select>            
-                <br/>
-                <label for="character_eqp_helm"><img src="img/helm.png" height=16> Helm</label>
-                <select name="character_eqp_helm" id="character_eqp_helm" class="disabled" autocomplete="off" disabled></select>
-                <label for="character_eqp_armor"><img src="img/armor.png" height=16> Armor</label>
-                <select name="character_eqp_armor" id="character_eqp_armor" class="disabled" autocomplete="off" disabled></select>
-                <br/>
-                <label for="character_eqp_acc1"><img src="img/accessory.png" height=16> Accessory 1</label>
-                <select name="character_eqp_acc1" id="character_eqp_acc1" class="disabled" autocomplete="off" disabled></select>
-                <label for="character_eqp_acc2"><img src="img/accessory.png" height=16> Accessory 2</label>
-                <select name="character_eqp_acc2" id="character_eqp_acc2" class="disabled" autocomplete="off" disabled></select>
-                <br/>
-                <br/>
-                <h3>Abilities</h3>
-                <button id="abil_prev_button" type="button" disabled><</button> <label id="abil_type_indicator"></label> <button id="abil_next_button" type="button" disabled>></button>
-                <ol id="abil_list"></ol>
-            </form>
+            <div id="character_editor" class="grid-container1">
+                <div class="grid-item span2">
+                    <h3>Stats</h3>
+                    <label for="character_name">Name:</label>
+                    <input type="text" name="character_name" id="character_name" class="disabled" autocomplete="off" maxlength=5 disabled>
+                    <br/>
+                    <label for="character_lvl">Level:</label>
+                    <input type="number" name="character_lvl" id="character_lvl" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <label for="character_exp">EXP:</label>
+                    <input type="number" name="character_exp" id="character_exp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <br/>
+                    <label for="character_chp">Current HP:</label>
+                    <input type="number" name="character_chp" id="character_chp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <label for="character_cap">Current AP:</label>
+                    <input type="number" name="character_cap" id="character_cap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <br/>
+                    <label for="character_cmhp">Current max HP:</label>
+                    <input type="number" name="character_cmhp" id="character_cmhp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <label for="character_cmap">Current max AP:</label>
+                    <input type="number" name="character_cmap" id="character_cmap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>  
+                    <br/>
+                    <label for="character_tmhp">True max HP:</label>
+                    <input type="number" name="character_tmhp" id="character_tmhp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <label for="character_tmap">True max AP:</label>
+                    <input type="number" name="character_tmap" id="character_tmap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <br/>
+                    <label for="character_pwr">Base PWR:</label>
+                    <input type="number" name="character_pwr" id="character_pwr" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <label for="character_int">Base INT:</label>
+                    <input type="number" name="character_int" id="character_int" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <br/>
+                    <label for="character_def">Base DEF:</label>
+                    <input type="number" name="character_def" id="character_def" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <label for="character_agl">Base AGL:</label>
+                    <input type="number" name="character_agl" id="character_agl" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                    <br/>
+                    <label for="character_wpwr">Base Willpower</label>
+                    <input type="number" name="character_wpwr" id="character_wpwr" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <label for="character_sprs">Base Surprise</label>
+                    <input type="number" name="character_sprs" id="character_sprs" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <br/>
+                    <label for="character_rprs">Base Reprisal</label>
+                    <input type="number" name="character_rprs" id="character_rprs" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <label for="character_crit">Base Critical</label>
+                    <input type="number" name="character_crit" id="character_crit" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <br/>
+                    <label for="character_dodg">Base Dodge</label>
+                    <input type="number" name="character_dodg" id="character_dodg" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <label for="character_hits">Base To-Hit</label>
+                    <input type="number" name="character_hits" id="character_hits" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                    <br/>
+                    <label for="character_fatg">Fatigue</label>
+                    <input type="number" name="character_fatg" id="character_fatg" class="disabled" autocomplete="off" min=0 max=255 disabled>
+                </div>
+                <div class="grid-item">
+                    <h3>Resistances</h3>
+                    <label for="character_res_fire"><img src="img/fire.png" height=16> Fire</label>
+                    <input type="number" name="character_res_fire" id="character_res_fire" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <label for="character_res_ice"><img src="img/ice.png" height=16> Ice</label>
+                    <input type="number" name="character_res_ice" id="character_res_ice" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <label for="character_res_elec"><img src="img/lightning.png" height=16> Electric</label>
+                    <input type="number" name="character_res_elec" id="character_res_elec" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <br/>
+                    <label for="character_res_earth"><img src="img/earth.png" height=16> Earth</label>
+                    <input type="number" name="character_res_earth" id="character_res_earth" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <label for="character_res_wind"><img src="img/wind.png" height=16> Wind</label>
+                    <input type="number" name="character_res_wind" id="character_res_wind" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <label for="character_res_holy"><img src="img/holy.png" height=16> Holy</label>
+                    <input type="number" name="character_res_holy" id="character_res_holy" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <br/>
+                    <label for="character_res_psionic"><img src="img/psionic.png" height=16> Psionic</label>
+                    <input type="number" name="character_res_psionic" id="character_res_psionic" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <label for="character_res_status"><img src="img/status.png" height=16> Status</label>
+                    <input type="number" name="character_res_status" id="character_res_status" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                    <label for="character_res_death"><img src="img/death.png" height=16> Death</label>
+                    <input type="number" name="character_res_death" id="character_res_death" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
+                </div>
+                <div class="grid-item">
+                    <h3>Equipment</h3>
+                    <label for="character_eqp_weapon"><img src="img/weapon.png" height=16> Weapon</label>
+                    <select name="character_eqp_weapon" id="character_eqp_weapon" class="disabled" autocomplete="off" disabled></select>
+                    <label for="character_eqp_shield"><img src="img/shield.png" height=16> Shield</label>
+                    <select name="character_eqp_shield" id="character_eqp_shield" class="disabled" autocomplete="off" disabled></select>            
+                    <br/>
+                    <label for="character_eqp_helm"><img src="img/helm.png" height=16> Helm</label>
+                    <select name="character_eqp_helm" id="character_eqp_helm" class="disabled" autocomplete="off" disabled></select>
+                    <label for="character_eqp_armor"><img src="img/armor.png" height=16> Armor</label>
+                    <select name="character_eqp_armor" id="character_eqp_armor" class="disabled" autocomplete="off" disabled></select>
+                    <br/>
+                    <label for="character_eqp_acc1"><img src="img/accessory.png" height=16> Accessory 1</label>
+                    <select name="character_eqp_acc1" id="character_eqp_acc1" class="disabled" autocomplete="off" disabled></select>
+                    <label for="character_eqp_acc2"><img src="img/accessory.png" height=16> Accessory 2</label>
+                    <select name="character_eqp_acc2" id="character_eqp_acc2" class="disabled" autocomplete="off" disabled></select>
+                </div>
+                <div class="grid-item">
+                    <h3>Abilities</h3>
+                    <button id="abil_prev_button" type="button" disabled><</button> <label id="abil_type_indicator"></label> <button id="abil_next_button" type="button" disabled>></button>
+                    <ol id="abil_list"></ol>
+                </div>
+            </div>
             <br/>
             <h2>Inventory Editor</h2>
-            <div class="grid-container">
+            <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>            
+            <div class="grid-container2">
                 <div class="grid-item">
-                    <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>
                     <div class="overflow">
                         <ol id="inv_list">
                         </ol>

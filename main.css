@@ -8,10 +8,23 @@
     display: block;
 }
 
-.grid-container
+.grid-container2
 {
     display: grid;
     grid-template-columns: 400px 400px;
+    grid-column-gap: 10px;
+}
+
+.grid-container2
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 10px;
+}
+
+.span2
+{
+    grid-row: 1 / span 2;
 }
 
 .narrow
