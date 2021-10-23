@@ -11,7 +11,7 @@
 .grid-container
 {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 400px 400px;
 }
 
 .narrow
