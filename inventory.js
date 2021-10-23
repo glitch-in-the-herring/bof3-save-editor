@@ -63,6 +63,6 @@ function show_inv(inv_e, inv)
     {
         li = document.createElement("li");
         li.innerHTML = load_array[i];
-        inv_e.appendChild(li);
+        inv_e.inv_info.appendChild(li);
     }
 }
