@@ -127,11 +127,22 @@
             </form>
             <br/>
             <h2>Inventory Editor</h2>
+
             <form id="inventory_edior">
-                <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>
-                <div id="inv_overflow">
-                    <ol id="inv_list">
-                    </ol>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>
+                        <div class="inv_overflow">
+                            <ol id="inv_list">
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="overflow">
+                            <ol start="0" id="inv_info">
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </form>
             <label for="slot_prev_button">Prev</label> <button class="slot_prev_button" disabled><</button> <label class="slot_position_indicator">Slot ... / ...</label> <button class="slot_next_button" disabled>></button> <label for="slot_next_button">Next</label>
