@@ -8,6 +8,13 @@
     display: block;
 }
 
+.grid-container1
+{
+    display: grid;
+    grid-template-columns: 600px auto;
+    grid-column-gap: 10px;
+}
+
 .grid-container2
 {
     display: grid;
@@ -16,11 +23,12 @@
     align-items: end;
 }
 
-.grid-container1
+.grid-container3
 {
     display: grid;
-    grid-template-columns: 600px auto;
+    grid-template-columns: 100px 100px;
     grid-column-gap: 10px;
+    align-items: end;    
 }
 
 .rowspan2
@@ -41,6 +49,6 @@
 .overflow
 {
     width: 250px;
-    height: 520px;
+    height: 320px;
     overflow: scroll;
 }
