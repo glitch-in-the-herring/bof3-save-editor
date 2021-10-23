@@ -18,7 +18,7 @@ let cur = {
     "abil" : 0,
     "inv" : 0
 };
-let char_e = get_char_e(char_editor);
+let char_e = get_char_e();
 let inv_e = get_inv_e();
 char_e["cur"] = cur;
 inv_e["cur"] = cur;
