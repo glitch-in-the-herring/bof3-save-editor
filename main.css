@@ -11,7 +11,7 @@
 .grid-container2
 {
     display: grid;
-    grid-template-columns: 400px 400px;
+    grid-template-columns: 250px 250px;
     grid-column-gap: 10px;
     align-items: end;
 }
@@ -40,7 +40,7 @@
 
 .overflow
 {
-    width: 400px;
+    width: 250px;
     height: 520px;
     overflow: scroll;
 }
