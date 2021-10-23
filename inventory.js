@@ -40,21 +40,18 @@ function show_inv(inv_e, inv)
     console.log("4");
     let load_array;
     if (inv_e.cur.inv != 3)
-    {
-        console.log("5");
         load_array = item_array[inv_e.cur.inv];
-    }
     else
-    {
-        console.log("6");
         load_array = item_array[3].concat(item_array[4]);
-    }
 
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("main").style.display = "none";
     for (let i = 0; i < 128; i++)
     {
-        console.log(i);
         load_item_select(inv_e.inv[i], load_array);
         inv_e.inv[i][0].value = inv[i][0];
         inv_e.inv[i][1].value = inv[i][1];
     }
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("main").style.display = "block";
 }
