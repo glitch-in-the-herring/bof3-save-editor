@@ -112,8 +112,7 @@ function store_char(char_e, char)
 
 function store_inv(inv_e, inv)
 {
-    console.log("test");
-    for (let i = 0; i < inv_e.length; i++)
+    for (let i = 0; i < 128; i++)
     {
         inv[i][0] = inv_e.inv[i][0].value;
         inv[i][1] = inv_e.inv[i][1].value;
