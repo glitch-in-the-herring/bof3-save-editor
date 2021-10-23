@@ -71,6 +71,7 @@ function on_file_open()
         slot_pos_labels.forEach(x => x.textContent = "Slot 1 / " + String(addresses.length));
         Array.from(document.getElementsByClassName("save_button")).forEach(function(x)
         {
+            x.removeEventListener("click", save_file, false);
             x.addEventListener("click", save_file, false);
             x.byte_array = byte_array;
             x.slots = slots;
