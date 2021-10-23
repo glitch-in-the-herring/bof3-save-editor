@@ -1,9 +1,9 @@
-function get_char_e(form)
+function get_char_e()
 {
     let output = {};
 
     //stats
-    const stat_e = Array.from(form.childNodes).filter(function(x) 
+    const stat_e = Array.from(document.getElementById("character_stats").childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_") && !string_id.startsWith("character_res") && !string_id.startsWith("character_eqp");
@@ -16,7 +16,7 @@ function get_char_e(form)
     output["stat"] = stat;
 
     //resistances
-    const res_e = Array.from(form.childNodes).filter(function(x) 
+    const res_e = Array.from(document.getElementById("character_res").childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_res");
@@ -29,7 +29,7 @@ function get_char_e(form)
     output["res"] = res;   
 
     //equipment
-    const eqp_e = Array.from(form.childNodes).filter(function(x) 
+    const eqp_e = Array.from(document.getElementById("character_eqp").childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_eqp");

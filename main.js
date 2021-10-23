@@ -1,5 +1,4 @@
 const upload_input = document.getElementById("upload_input");
-const char_editor = document.getElementById("character_editor");
 const prev_buttons = Array.from(document.getElementsByClassName("slot_prev_button"));
 const next_buttons = Array.from(document.getElementsByClassName("slot_next_button"));
 const slot_pos_labels = Array.from(document.getElementsByClassName("slot_position_indicator"));

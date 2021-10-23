@@ -27,8 +27,8 @@
             <h2>Character Editor</h2>
             <label for="character_select">Character:</label>
             <select name="character_select" id="character_select" class="disabled" disabled></select>
-            <div id="character_editor" class="grid-container1">
-                <div class="grid-item span2">
+            <div class="grid-container1">
+                <div id="character_stats" class="grid-item span2">
                     <h3>Stats</h3>
                     <label for="character_name">Name:</label>
                     <input type="text" name="character_name" id="character_name" class="disabled" autocomplete="off" maxlength=5 disabled>
@@ -81,7 +81,7 @@
                     <label for="character_fatg">Fatigue</label>
                     <input type="number" name="character_fatg" id="character_fatg" class="disabled" autocomplete="off" min=0 max=255 disabled>
                 </div>
-                <div class="grid-item">
+                <div id="character_res" class="grid-item">
                     <h3>Resistances</h3>
                     <label for="character_res_fire"><img src="img/fire.png" height=16> Fire</label>
                     <input type="number" name="character_res_fire" id="character_res_fire" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
@@ -104,7 +104,7 @@
                     <label for="character_res_death"><img src="img/death.png" height=16> Death</label>
                     <input type="number" name="character_res_death" id="character_res_death" class="disabled narrow" autocomplete="off" min=0 max=7 disabled>
                 </div>
-                <div class="grid-item">
+                <div id="character_eqp" class="grid-item">
                     <h3>Equipment</h3>
                     <label for="character_eqp_weapon"><img src="img/weapon.png" height=16> Weapon</label>
                     <select name="character_eqp_weapon" id="character_eqp_weapon" class="disabled" autocomplete="off" disabled></select>
