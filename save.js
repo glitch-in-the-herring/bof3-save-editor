@@ -28,8 +28,10 @@ function checksum(byte_array, addr)
         sum += byte_array[addr + 0x200 + i];
 
     buffer = to_little_endian(sum, 2);
-    byte_array[addr + 0x270] = buffer[0];
-    byte_array[addr + 0x271] = buffer[1];
+    console.log(buffer);
+    console.log(sum);
+    //byte_array[addr + 0x270] = buffer[0];
+    //byte_array[addr + 0x271] = buffer[1];
 }
 
 function save_char(byte_array, slot)
