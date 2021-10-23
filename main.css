@@ -23,9 +23,14 @@
     grid-column-gap: 10px;
 }
 
-.span2
+.rowspan2
 {
     grid-row: 1 / span 2;
+}
+
+.colspan2
+{
+    grid-column: 1 / span 2;
 }
 
 .narrow

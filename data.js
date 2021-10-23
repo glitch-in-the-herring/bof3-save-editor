@@ -119,6 +119,16 @@ function store_inv(inv_e, inv)
     }
 }
 
+function store_vital_and_skills(inv_e, inv)
+{
+    inv.zenny = inv_e.zenny.value;
+    for (let i = 0; i < 32; i++)
+        inv.vital[i] = inv_e.vital[i].value;
+
+    for (let i = 0; i < 128; i++)
+        inv.skill[i] = inv_e.skill[i].value;
+}
+
 function store_parts(e, data)
 {
     let index;

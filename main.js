@@ -61,6 +61,7 @@ function on_file_open()
         show_char_names(char_select, slots[0].chars);
         show_char(char_e, slots[0].chars[0]);
         show_inv(inv_e, slots[0].inv.inv[0]);
+        show_vital_and_skills(inv_e, slots[0].inv);
         inv_e.inv_label.textContent = "Item";
         inv_e.inv_next_button.removeAttribute("disabled");
 
@@ -92,6 +93,8 @@ function on_character_change()
 function prev_slot(e)
 {
     store_char(char_e, slots[char_e.cur.slot].chars[char_e.cur.char]);
+    store_inv(inv_e, slots[inv_e.cur.slot].inv.inv[inv_e.cur.inv]);
+    store_vital_and_skills(inv_e, slots[inv_e.cur.slot].inv);    
     char_e.cur.char = 0;
     inv_e.cur.inv = 0;
     if (char_e.cur.slot == addresses.length - 1)
@@ -105,12 +108,15 @@ function prev_slot(e)
     show_char_names(char_select, slots[char_e.cur.slot].chars);
     show_char(char_e, slots[char_e.cur.slot].chars[0]);
     show_inv(inv_e, slots[char_e.cur.slot].inv.inv[0]);
+    show_vital_and_skills(inv_e, slots[char_e.cur.slot].inv.inv[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur.slot + 1) + " / " + String(addresses.length));
 }
 
 function next_slot(e)
 {
     store_char(char_e, slots[char_e.cur.slot].chars[char_e.cur.char]);
+    store_inv(inv_e, slots[inv_e.cur.slot].inv.inv[inv_e.cur.inv]);
+    store_vital_and_skills(inv_e, slots[inv_e.cur.slot].inv);
     char_e.cur.char = 0;
     inv_e.cur.inv = 0;
     if (char_e.cur.slot == 0)
@@ -124,6 +130,7 @@ function next_slot(e)
     show_char_names(char_select, slots[char_e.cur.slot].chars);
     show_char(char_e, slots[char_e.cur.slot].chars[0]);
     show_inv(inv_e, slots[char_e.cur.slot].inv.inv[0]);
+    show_vital_and_skills(inv_e, slots[char_e.cur.slot].inv.inv[0]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur.slot + 1) + " / " + String(addresses.length));    
 }
 

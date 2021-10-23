@@ -28,7 +28,7 @@
             <label for="character_select">Character:</label>
             <select name="character_select" id="character_select" class="disabled" disabled></select>
             <div class="grid-container1">
-                <div id="character_stats" class="grid-item span2">
+                <div id="character_stats" class="grid-item rowspan2">
                     <h3>Stats</h3>
                     <label for="character_name">Name:</label>
                     <input type="text" name="character_name" id="character_name" class="disabled" autocomplete="off" maxlength=5 disabled>
@@ -43,14 +43,14 @@
                     <label for="character_cap">Current AP:</label>
                     <input type="number" name="character_cap" id="character_cap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
                     <br/>
-                    <label for="character_cmhp">Current max HP:</label>
+                    <label for="character_cmhp">Current Max HP:</label>
                     <input type="number" name="character_cmhp" id="character_cmhp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                    <label for="character_cmap">Current max AP:</label>
+                    <label for="character_cmap">Current Max AP:</label>
                     <input type="number" name="character_cmap" id="character_cmap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>  
                     <br/>
-                    <label for="character_tmhp">True max HP:</label>
+                    <label for="character_tmhp">True Max HP:</label>
                     <input type="number" name="character_tmhp" id="character_tmhp" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
-                    <label for="character_tmap">True max AP:</label>
+                    <label for="character_tmap">True Max AP:</label>
                     <input type="number" name="character_tmap" id="character_tmap" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
                     <br/>
                     <label for="character_pwr">Base PWR:</label>
@@ -128,11 +128,15 @@
                 </div>
             </div>
             <br/>
-            <h2>Inventory Editor</h2>
-            <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>            
+            <h2>Inventory Editor</h2>           
             <div class="grid-container2">
+                <div class="grid-item colspan2">
+                    <label for="inv_zenny">Zenny:</label>
+                    <input type="number" name="inv_zenny" id="inv_zenny" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
+                </div>
                 <div class="grid-item">
                     <h3>Items</h3>
+                    <button id="inv_prev_button" type="button" disabled><</button> <label id="inv_type_indicator"></label> <button id="inv_next_button" type="button" disabled>></button>                    
                     <div class="overflow">
                         <ol id="inv_list">
                         </ol>
