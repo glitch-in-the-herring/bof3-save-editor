@@ -1,12 +1,14 @@
 function save_file(e)
 {
-    store_char(e.target.char_e, e.target.slots[e.target.char_e.cur.slot].chars[e.target.char_e.cur.char]);
-    store_inv(e.target.inv_e, e.target.slots[e.target.inv_e.cur.slot].inv.inv[e.target.inv_e.cur.inv]);
-    store_vital_and_skills(e.target.inv_e, e.target.slots[e.target.inv_e.cur.slot].inv);
+    store_char(e.target.char_e, e.target.slots[e.target.cur.slot].chars[e.target.cur.char]);
+    store_inv(e.target.inv_e, e.target.slots[e.target.cur.slot].inv.inv[e.target.cur.inv]);
+    store_vital_and_skills(e.target.inv_e, e.target.slots[e.target.cur.slot].inv);
+    store_party(e.target.party_e, e.target.slots[e.target.cur.slot].party);
     for (let i = 0; i < e.target.slots.length; i++)
     {
         save_char(e.target.byte_array, e.target.slots[i]);
         save_inv(e.target.byte_array, e.target.slots[i]);
+        save_party(e.target.byte_array, e.target.slots[i]);
         checksum(e.target.byte_array, e.target.slots[i].addr);
     }
 
@@ -120,4 +122,14 @@ function save_inv(byte_array, slot)
 
     for (let i = 0; i < 4; i++)
         byte_array[slot.addr + 0x878 + i] = buffer[i];
+}
+
+function save_party(byte_array, slot)
+{
+    let base_addr = slot.addr + 0x882;
+    for (let i = 0; i < 3; i++)
+    {
+        byte_array[base_addr + i] = byte_safety(slot.party.out[i]);
+        byte_array[base_addr + i + 3] = byte_safety(slot.party.in[i]);
+    }
 }

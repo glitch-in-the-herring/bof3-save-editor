@@ -151,7 +151,7 @@ function show_party(party_e, slot)
     for (let i = 0; i < 3; i++)
     {
         party_e["in"][i].innerHTML += "<option value=\"255\">--</option>";
-        party_e["out"][i].innerHTML += "<option value=\"255\">--</option>";          
+        party_e["out"][i].innerHTML += "<option value=\"255\">--</option>";        
         party_e["in"][i].value = slot.party.in[i];
         party_e["out"][i].value = slot.party.out[i];      
     }
