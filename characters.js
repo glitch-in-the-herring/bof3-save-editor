@@ -94,6 +94,8 @@ function get_party_list(chars)
 
     for (let i = 2; i < 7; i++)
         party_list[i] = chars[i].name;
+
+    return party_list;
 }
 
 function show_char_names(select, chars)
@@ -137,6 +139,13 @@ function show_parts(e, data)
 function show_party(party_e, slot)
 {
     party_list = get_party_list(slot.chars);
+
+    for (let i = 0; i < 3; i++)
+    {
+        party_e["in"][i].textContent = "";
+        party_e["out"][i].textContent = "";
+    }
+
     load_item_select(party_e["in"].concat(party_e["out"]), party_list);
 
     for (let i = 0; i < 3; i++)
