@@ -6,6 +6,7 @@ function load_slot(byte_array, address)
     slot["chars"] = load_char(byte_array.slice(address + 0x290, address + 0x7B0));
     slot["inv"] = load_inv(byte_array.slice(address + 0x974, address + 0xe14));
     slot["inv"].zenny = String(from_little_endian(byte_array.slice(address + 0x878, address + 0x87c)));
+    slot["party"] = load_party(byte_array.slice(address + 0x882, address + 0x888));
 
     return slot;
 }
@@ -93,6 +94,21 @@ function load_inv(byte_array)
         inv["skill"][i] = String(byte_array[1056 + i]);
 
     return inv;
+}
+
+function load_party(byte_array)
+{
+    let party = {};
+    party["out"] = [];
+    party["in"] = [];
+
+    for (let i = 0; i < 3; i++)
+    {
+        party.out[i] = String(byte_array[i]);
+        party.in[i] = String(byte_array[i + 3]);
+    }
+
+    return party;
 }
 
 function store_char(char_e, char)

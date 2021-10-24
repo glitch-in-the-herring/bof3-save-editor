@@ -67,13 +67,40 @@ function get_char_e()
     return output;    
 }
 
+function get_party_e()
+{
+    let output = {};
+    let editor = document.getElementById("party_editor");
+    output["in"] = [];
+    output["out"] = [];
+    for (let i = 0; i < 3; i++)
+    {
+        output["in"][i] = document.getElementById("party_in_" + String(i + 1));
+        output["out"][i] = document.getElementById("party_out_" + String(i + 1));
+    }
+
+    return output;
+}
+
+function get_party_list(chars)
+{
+    let party_list = [];
+
+    for (let i = 0; i < 2; i++)
+    {
+        party_list[i] = "Child " + chars[i].name;
+        party_list[i + 7] = "Adult " + chars[i].name;
+    }
+
+    for (let i = 2; i < 7; i++)
+        party_list[i] = chars[i].name;
+}
+
 function show_char_names(select, chars)
 {
     select.textContent = "";
     for (let i = 0; i < 8; i++)
-    {
         select.innerHTML += "<option value=\"" + i.toString()  + "\">" + chars[i].name +  "</option>\n";
-    }
 }
 
 function show_char(char_e, char)
@@ -104,5 +131,17 @@ function show_parts(e, data)
     {
         index = keys[i];
         e[index].value = data[i];
+    }
+}
+
+function show_party(party_e, slot)
+{
+    party_list = get_party_list(slot.chars);
+    load_item_select(party_e["in"].concat(party_e["out"]), party_list);
+
+    for (let i = 0; i < 3; i++)
+    {
+        party_e["in"][i].value = slot.party.in[i];
+        party_e["out"][i].value = slot.party.out[i];
     }
 }
