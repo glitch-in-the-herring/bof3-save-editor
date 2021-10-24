@@ -25,13 +25,9 @@ function checksum(byte_array, addr)
     byte_array[addr + 0x271] = 0;
 
     for (let i = 0; i < 0x1e00; i++)
-    {
         sum += byte_array[addr + 0x200 + i];
-    }
 
     buffer = to_little_endian(sum, 4);
-    console.log(buffer);
-    console.log(sum);
     byte_array[addr + 0x270] = buffer[0];
     byte_array[addr + 0x271] = buffer[1];
 }

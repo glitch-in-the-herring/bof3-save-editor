@@ -23,6 +23,7 @@ let inv_e = get_inv_e();
 let party_e = get_party_e();
 char_e["cur"] = cur;
 inv_e["cur"] = cur;
+party_e["cur"] = cur;
 
 load_item_select([char_e.eqp[0]], item_array[1]);
 load_item_select([char_e.eqp[1], char_e.eqp[2], char_e.eqp[3]], item_array[2]);
@@ -98,7 +99,8 @@ function prev_slot(e)
 {
     store_char(char_e, slots[char_e.cur.slot].chars[char_e.cur.char]);
     store_inv(inv_e, slots[inv_e.cur.slot].inv.inv[inv_e.cur.inv]);
-    store_vital_and_skills(inv_e, slots[inv_e.cur.slot].inv);    
+    store_vital_and_skills(inv_e, slots[inv_e.cur.slot].inv);
+    store_party(party_e, slots[party_e.cur.slot].party);
     char_e.cur.char = 0;
     inv_e.cur.inv = 0;
     if (char_e.cur.slot == addresses.length - 1)
@@ -113,6 +115,7 @@ function prev_slot(e)
     show_char(char_e, slots[char_e.cur.slot].chars[0]);
     show_inv(inv_e, slots[char_e.cur.slot].inv.inv[0]);
     show_vital_and_skills(inv_e, slots[char_e.cur.slot].inv);
+    show_party(party_e, slots[party_e.cur.slot]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur.slot + 1) + " / " + String(addresses.length));
 }
 
@@ -121,6 +124,7 @@ function next_slot(e)
     store_char(char_e, slots[char_e.cur.slot].chars[char_e.cur.char]);
     store_inv(inv_e, slots[inv_e.cur.slot].inv.inv[inv_e.cur.inv]);
     store_vital_and_skills(inv_e, slots[inv_e.cur.slot].inv);
+    store_party(party_e, slots[party_e.cur.slot].party);
     char_e.cur.char = 0;
     inv_e.cur.inv = 0;
     if (char_e.cur.slot == 0)
@@ -135,6 +139,7 @@ function next_slot(e)
     show_char(char_e, slots[char_e.cur.slot].chars[0]);
     show_inv(inv_e, slots[char_e.cur.slot].inv.inv[0]);
     show_vital_and_skills(inv_e, slots[char_e.cur.slot].inv);
+    show_party(party_e, slots[party_e.cur.slot]);    
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur.slot + 1) + " / " + String(addresses.length));    
 }
 

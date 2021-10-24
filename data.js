@@ -145,6 +145,15 @@ function store_vital_and_skills(inv_e, inv)
         inv.skill[i] = inv_e.skill[i].value;
 }
 
+function store_party(party_e, party)
+{
+    for (let i = 0; i < 3; i++)
+    {
+        party.in[i] = party_e.in[i].value;
+        party.out[i] = party_e.out[i].value;
+    }
+}
+
 function store_parts(e, data)
 {
     let index;
