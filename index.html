@@ -128,6 +128,23 @@
                     <button id="abil_prev_button" type="button" disabled><</button> <label id="abil_type_indicator"></label> <button id="abil_next_button" type="button" disabled>></button>
                     <ol id="abil_list"></ol>
                 </div>
+                <div class="grid-item">
+                    <h3>Stat Growth Modifier</h3>
+                    <label for="character_sg_hp">HP increase</label>
+                    <input type="number" name="character_sg_hp" id="character_sg_hp" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <label for="character_sg_ap">AP increase</label>
+                    <input type="number" name="character_sg_ap" id="character_sg_ap" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <br/>
+                    <label for="character_sg_pwr">PWR increase</label>
+                    <input type="number" name="character_sg_pwr" id="character_sg_pwr" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <label for="character_sg_def">DEF increase</label>
+                    <input type="number" name="character_sg_def" id="character_sg_def" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <br/>
+                    <label for="character_sg_agl">AGL increase</label>
+                    <input type="number" name="character_sg_agl" id="character_sg_agl" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <label for="character_sg_int">INT increase</label>
+                    <input type="number" name="character_sg_int" id="character_sg_int" class="disabled narrow" autocomplete="off" min=-128 max=127>                    
+                </div>
             </div>
             <br/>
             <h2>Inventory</h2>           
@@ -198,12 +215,21 @@
                 </div>                
             </div>
             <h2>Timers and Counters</h2>
-            <div>
-                <input type="checkbox" id="timer_celerity" name="timer_celerity" value="1">
-                <label for="timer_celerity">Reset Celerity timer</label>
-                <br/>
-                <input type="checkbox" id="timer_bonebreak" name="timer_bonebreak" value="1">
-                <label for="timer_celerity">Reset Bonebreak timer</label>                
+            <div class="grid-container3">
+                <div class="grid-item">
+                    <input type="checkbox" id="timer_celerity" name="timer_celerity" value="1">
+                    <label for="timer_celerity">Reset Celerity timer</label>
+                    <br/>
+                    <input type="checkbox" id="timer_bonebreak" name="timer_bonebreak" value="1">
+                    <label for="timer_celerity">Reset Bonebreak timer</label>
+                </div>
+                <div class="grid-item">
+                    <label for="battle_c_1"># of Battles (1)</label>
+                    <input type="number" id="battle_c_1" name="battle_c_1" value="1">
+                    <br/>
+                    <label for="battle_c_2"># of Battles (2)</label>
+                    <input type="number" id="battle_c_2" name="battle_c_2" value="1">                 
+                </div>
             </div>
             <label for="slot_prev_button">Prev</label> <button class="slot_prev_button" disabled><</button> <label class="slot_position_indicator">Slot ... / ...</label> <button class="slot_next_button" disabled>></button> <label for="slot_next_button">Next</label>
             <br/>
