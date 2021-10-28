@@ -4,35 +4,7 @@ function get_inv_e()
     const vital_list = document.getElementById("vital_list");
     const skill_list = document.getElementById("skill_list");
     const gene_tbl = document.getElementById("gene_table");
-    const masters_tbl = document.getElementById("masters_table");
-
-    const genes = 
-    [
-        "flame", "frost", "thunder",
-        "shadow", "radiance", "force",
-        "defender", "eldritch", "miracle",
-        "gross", "thorn", "reverse",
-        "mutant", "question", "trance",
-        "failure", "fusion", "infinity"
-    ];
-
-    const gene_names = 
-    [
-        "Flame", "Frost", "Thunder",
-        "Shadow", "Radiance", "Force",
-        "Defender", "Eldritch", "Miracle",
-        "Gross", "Thorn", "Reverse",
-        "Mutant", "???", "Trance",
-        "Failure", "Fusion", "Infinity"
-    ];
-
-    const masters =
-    [
-        "Bunyan", "Mygas", "Yggdrasil", "D'lonzo",
-        "Fahl", "Durandal", "Giotto", "Hondara",
-        "Emitai", "Deis", "Hachio", "Bais",
-        "Lang", "Lee", "Wynn", "Ladon", "Meryleep"
-    ]
+    const masters_tbl = document.getElementById("masters_table");   
 
     let output = {};
     output["inv"] = [];
@@ -151,6 +123,9 @@ function get_inv_e()
         select.setAttribute("type", "checkbox");
         select.setAttribute("value", "1");
         select.setAttribute("id", "master_" + masters[i]);
+
+        output["masters"][i] = select;
+
         label.setAttribute("for", "master_" + masters[i]);
         label.textContent = masters[i];
         masters_tbl.appendChild(select);

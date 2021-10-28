@@ -28,3 +28,31 @@ function load_item_select(select, data)
             select[j].innerHTML += "<option value=\"" + i.toString()  + "\">" + data[i] +  "</option>\n";
     }    
 }
+
+const genes = 
+[
+    "flame", "frost", "thunder",
+    "shadow", "radiance", "force",
+    "defender", "eldritch", "miracle",
+    "gross", "thorn", "reverse",
+    "mutant", "question", "trance",
+    "failure", "fusion", "infinity"
+];
+
+const gene_names = 
+[
+    "Flame", "Frost", "Thunder",
+    "Shadow", "Radiance", "Force",
+    "Defender", "Eldritch", "Miracle",
+    "Gross", "Thorn", "Reverse",
+    "Mutant", "???", "Trance",
+    "Failure", "Fusion", "Infinity"
+];
+
+const masters =
+[
+    "Bunyan", "Mygas", "Yggdrasil", "D'lonzo",
+    "Fahl", "Durandal", "Giotto", "Hondara",
+    "Emitai", "Deis", "Hachio", "Bais",
+    "Lang", "Lee", "Wynn", "Ladon", "Meryleep"
+];
