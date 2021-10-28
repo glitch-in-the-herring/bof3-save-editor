@@ -61,7 +61,7 @@ function byte_safety(n, bytes)
     }
     else if (n > 2 ** (bytes * 8) - 1)
     {
-        return 2 ** (bytes * 8 - 1);
+        return 2 ** (bytes * 8) - 1;
     }
 
     return n;
