@@ -131,28 +131,31 @@
                 <div class="grid-item">
                     <h3>Stat Growth Modifier</h3>
                     <label for="character_sg_hp">HP increase</label>
-                    <input type="number" name="character_sg_hp" id="character_sg_hp" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <input type="number" name="character_sg_hp" id="character_sg_hp" class="disabled narrow" autocomplete="off" min=-128 max=127 disabled>
                     <label for="character_sg_ap">AP increase</label>
-                    <input type="number" name="character_sg_ap" id="character_sg_ap" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <input type="number" name="character_sg_ap" id="character_sg_ap" class="disabled narrow" autocomplete="off" min=-128 max=127 disabled>
                     <br/>
                     <label for="character_sg_pwr">PWR increase</label>
-                    <input type="number" name="character_sg_pwr" id="character_sg_pwr" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <input type="number" name="character_sg_pwr" id="character_sg_pwr" class="disabled narrow" autocomplete="off" min=-128 max=127 disabled>
                     <label for="character_sg_def">DEF increase</label>
-                    <input type="number" name="character_sg_def" id="character_sg_def" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <input type="number" name="character_sg_def" id="character_sg_def" class="disabled narrow" autocomplete="off" min=-128 max=127 disabled>
                     <br/>
                     <label for="character_sg_agl">AGL increase</label>
-                    <input type="number" name="character_sg_agl" id="character_sg_agl" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <input type="number" name="character_sg_agl" id="character_sg_agl" class="disabled narrow" autocomplete="off" min=-128 max=127 disabled>
                     <label for="character_sg_int">INT increase</label>
-                    <input type="number" name="character_sg_int" id="character_sg_int" class="disabled narrow" autocomplete="off" min=-128 max=127>
+                    <input type="number" name="character_sg_int" id="character_sg_int" class="disabled narrow" autocomplete="off" min=-128 max=127 disabled>
                     <br/>
                     <label for="character_sg_apl">Apprenticing level</label>
-                    <input type="number" name="character_sg_apl" id="character_sg_apl" class="disabled narrow" autocomplete="off" min=0 max=255>
+                    <input type="number" name="character_sg_apl" id="character_sg_apl" class="disabled narrow" autocomplete="off" min=0 max=255 disabled>
+                    <label for="character_sg_master">Master</label>
+                    <select name="character_sg_master" id="character_sg_master" class="disabled" autocomplete="off" disabled>
+                    </select>
                 </div>
             </div>
             <br/>
             <h2>Inventory</h2>           
             <div class="grid-container2">
-                <div class="grid-item colspan2">
+                <div class="grid-item colspan4">
                     <label for="inv_zenny">Zenny:</label>
                     <input type="number" name="inv_zenny" id="inv_zenny" class="disabled" autocomplete="off" min=0 max=4294967295 disabled>
                 </div>
@@ -196,6 +199,18 @@
                         </ol>
                     </div>
                 </div>
+                <div class="grid-item">
+                    <h3>Dragon genes</h3>
+                    <div class="overflow">
+                        <table id="gene_table">
+                        </table>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <h3>Masters</h3>
+                    <div id="masters_table" class="overflow">
+                    </div>
+                </div>          
             </div>
             <br/>
             <h2>Party Members</h2>
@@ -220,18 +235,18 @@
             <h2>Timers and Counters</h2>
             <div class="grid-container3">
                 <div class="grid-item">
-                    <input type="checkbox" id="timer_celerity" name="timer_celerity" value="1">
+                    <input type="checkbox" id="timer_celerity" class="disabled" name="timer_celerity" value="1" disabled>
                     <label for="timer_celerity">Reset Celerity timer</label>
                     <br/>
-                    <input type="checkbox" id="timer_bonebreak" name="timer_bonebreak" value="1">
+                    <input type="checkbox" id="timer_bonebreak" class="disabled" name="timer_bonebreak" value="1" disabled>
                     <label for="timer_celerity">Reset Bonebreak timer</label>
                 </div>
                 <div class="grid-item">
                     <label for="battle_c_1"># of Battles (1)</label>
-                    <input type="number" id="battle_c_1" name="battle_c_1" value="1">
+                    <input type="number" id="battle_c_1" class="disabled" name="battle_c_1" disabled>
                     <br/>
                     <label for="battle_c_2"># of Battles (2)</label>
-                    <input type="number" id="battle_c_2" name="battle_c_2" value="1">                 
+                    <input type="number" id="battle_c_2" class="disabled" name="battle_c_2">                 
                 </div>
             </div>
             <label for="slot_prev_button">Prev</label> <button class="slot_prev_button" disabled><</button> <label class="slot_position_indicator">Slot ... / ...</label> <button class="slot_next_button" disabled>></button> <label for="slot_next_button">Next</label>

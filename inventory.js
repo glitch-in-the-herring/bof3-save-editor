@@ -3,6 +3,36 @@ function get_inv_e()
     const inv_list = document.getElementById("inv_list");
     const vital_list = document.getElementById("vital_list");
     const skill_list = document.getElementById("skill_list");
+    const gene_tbl = document.getElementById("gene_table");
+    const masters_tbl = document.getElementById("masters_table");
+
+    const genes = 
+    [
+        "flame", "frost", "thunder",
+        "shadow", "radiance", "force",
+        "defender", "eldritch", "miracle",
+        "gross", "thorn", "reverse",
+        "mutant", "question", "trance",
+        "failure", "fusion", "infinity"
+    ];
+
+    const gene_names = 
+    [
+        "Flame", "Frost", "Thunder",
+        "Shadow", "Radiance", "Force",
+        "Defender", "Eldritch", "Miracle",
+        "Gross", "Thorn", "Reverse",
+        "Mutant", "???", "Trance",
+        "Failure", "Fusion", "Infinity"
+    ];
+
+    const masters =
+    [
+        "Bunyan", "Mygas", "Yggdrasil", "D'lonzo",
+        "Fahl", "Durandal", "Giotto", "Hondara",
+        "Emitai", "Deis", "Hachio", "Bais",
+        "Lang", "Lee", "Wynn", "Ladon", "Meryleep"
+    ]
 
     let output = {};
     output["inv"] = [];
@@ -70,6 +100,64 @@ function get_inv_e()
         output["vital"][i] = select;
     }
 
+    output["genes"] = [];
+    let name_d;
+    let img;
+    let label;
+    for (let i = 0; i < 6; i++)
+    {
+        li = document.createElement("tr");
+        tbox = document.createElement("tr");
+        for (let j = 0; j < 3; j++)
+        {            
+            name_d = document.createElement("td");
+            select = document.createElement("input");
+            img = document.createElement("img");
+            label = document.createElement("label");
+            img.setAttribute("src", "img/genes/" + genes[3 * i + j] + ".gif");
+            label.appendChild(img);
+            
+            select.setAttribute("disabled", "");
+            select.setAttribute("type", "checkbox");
+            select.setAttribute("value", "1");
+            select.setAttribute("id", "gene_" + genes[3 * i + j]);
+            label.setAttribute("for", "gene_" + genes[3 * i + j]);
+
+            output["genes"].push(select);
+
+            name_d.appendChild(label);
+            name_d.appendChild(select);
+
+            li.appendChild(name_d);
+
+            name_d = document.createElement("td");
+            label = document.createElement("label");
+            label.textContent = gene_names[3 * i + j];
+            label.setAttribute("for", "gene_" + genes[3 * i + j]);
+
+            name_d.append(label);
+            tbox.appendChild(name_d);
+        }
+        gene_tbl.appendChild(li);
+        gene_tbl.appendChild(tbox);
+    }
+
+    output["masters"] = [];
+    for (let i = 0; i < masters.length; i++)
+    {
+        select = document.createElement("input");
+        label = document.createElement("label");
+        select.setAttribute("disabled", "");
+        select.setAttribute("type", "checkbox");
+        select.setAttribute("value", "1");
+        select.setAttribute("id", "master_" + masters[i]);
+        label.setAttribute("for", "master_" + masters[i]);
+        label.textContent = masters[i];
+        masters_tbl.appendChild(select);
+        masters_tbl.appendChild(label);
+        masters_tbl.innerHTML += "<br/>";
+    }
+
     output["zenny"] = document.getElementById("inv_zenny");
     output["inv_prev_button"] = document.getElementById("inv_prev_button");
     output["inv_next_button"] = document.getElementById("inv_next_button");
@@ -112,21 +200,6 @@ function show_vital_and_skills(inv_e, inv)
     for (let i = 0; i < 32; i++)
         inv_e.vital[i].value = inv.vital[i];
 
-    let li;
-    for (let i = 0; i < 16; i++)
-    {
-        li = document.createElement("li");
-        li.textContent = item_array[5][i];
-        inv_e.vital_info.appendChild(li);
-    }
-
     for (let i = 0; i < 128; i++)
         inv_e.skill[i].value = inv.skill[i];
-
-    for (let i = 0; i < 228; i++)
-    {
-        li = document.createElement("li");
-        li.textContent = item_array[6][i];
-        inv_e.skill_info.appendChild(li);
-    }    
 }

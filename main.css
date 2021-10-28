@@ -11,14 +11,14 @@
 .grid-container1
 {
     display: grid;
-    grid-template-columns: 600px auto;
+    grid-template-columns: 600px 600px;
     grid-column-gap: 10px;
 }
 
 .grid-container2
 {
     display: grid;
-    grid-template-columns: 250px 250px;
+    grid-template-columns: 250px 250px 250px 250px;
     grid-column-gap: 10px;
     align-items: end;
 }
@@ -27,8 +27,7 @@
 {
     display: grid;
     grid-template-columns: 250px 250px;
-    grid-column-gap: 10px;
-    align-items: end;    
+    grid-column-gap: 10px;  
 }
 
 .rowspan2
@@ -36,9 +35,9 @@
     grid-row: 1 / span 2;
 }
 
-.colspan2
+.colspan4
 {
-    grid-column: 1 / span 2;
+    grid-column: 1 / span 4;
 }
 
 .narrow
@@ -51,4 +50,5 @@
     width: 250px;
     height: 320px;
     overflow: scroll;
+    overflow-x: hidden;
 }
