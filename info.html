@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Breath of Fire III Save Editor</title>
         <style>
@@ -10,6 +10,7 @@
     </head>
     <body>
         <h1>Breath of Fire III Save Editor</h1>
+        <a href="index.html">Return to editor</a>
         <h2>About</h2>
         <p>
             This tool allows you to edit Breath of Fire III save files inside a PS1 memory card file. <br/>
@@ -18,15 +19,15 @@
         </p>
         <h2>Instructions</h2>
         <h3>Characters</h3>
-        <img src="img/info/character.png" width="500px">
-        <p>
-            1 - Character picker. Switches between each character in your party which you want to edit.<br/>
-            2 - Stats editor. Most of the inputs here should be self-explanatory. However the terms<br/>
+        <img src="img/info/character.png" width="500" alt="character editor interface">
+        <ol>
+            <li><b>Character picker</b>. Switches between each character in your party which you want to edit.</li>
+            <li><b>Stats editor</b>. Most of the inputs here should be self-explanatory. However the terms
             current, true, base, and fatigue might need a bit of explanation:
             <ul>
-                <li><b>Current HP/AP</b> is the amount of HP/AP the character has currently</li>
+                <li><i>Current HP/AP</i> is the amount of HP/AP the character has currently</li>
                 <li>
-                    <b>Current max HP/AP</b> is the maximum cap of HP/AP the character can have currently.<br/>
+                    <i>Current max HP/AP</i> is the maximum cap of HP/AP the character can have currently.<br/>
                     Current max HP decreases when the character is KO'd mid-battle and is not revived, <br/>
                     Mandrake is used to heal the character, forgetting to drink water in the<br/>
                     Desert of Death, or using the Disembowel ability. Current max HP recovers to<br/>
@@ -34,7 +35,7 @@
                     affects current max AP.
                 </li>
                 <li>
-                    <b>Base PWR/DEF/INT/AGL</b> is the character's PWR/DEF/INT/AGL before being modified<br/>
+                    <i>Base PWR/DEF/INT/AGL</i> is the character's PWR/DEF/INT/AGL before being modified<br/>
                     by equipment/in-battle spells and items. For example, if Ryu's base PWR is currently<br/>
                     320, equipping him with the GKS, Aries Gloves, and Titan Belt will increase his PWR by<br/>
                     180 (GKS) + 10 (Aries Gloves) + 10 (Titan Belt) = 200, thereby setting his total PWR to 520.<br/>
@@ -46,7 +47,7 @@
                     and set that as his base PWR instead. So it's no use to change the total PWR.
                 </li>
                 <li>
-                    <b>Fatigue</b> the term ZC_Liu uses to describe this stat, as there isn't any official<br/>
+                    <i>Fatigue</i> the term ZC_Liu uses to describe this stat, as there isn't any official<br/>
                     term for this stat. It determines how much a character's current max HP is reduced after<br/>
                     being KO'd mid-battle and not revived, using Mandrake, forgetting to drink in the<br/>
                     Desert of Death, or using the Disembowel ability.
@@ -54,8 +55,8 @@
             </ul>
             Stats have internal limitations built in them to prevent overflow. For example, trying to set the<br/>
             level above 255 will cause the editor to treat it as 255. In this case, level is a single-byte stat,<br/>
-            and so the largest value it can theoretically have is 255.<br/>
-            3 - Resistances. Resistances determine how strong a character is against a certain element.<br/>
+            and so the largest value it can theoretically have is 255.</li>
+            <li><b>Resistances</b>. Resistances determine how strong a character is against a certain element.<br/>
             Fire, Ice, Electric, Earth, anad Wind resistance behave like so:<br/>
             <table>
                 <tr>
@@ -176,6 +177,7 @@
                         </tr>
                     </table>
                 </div>
+                <div>
                     <table>
                         <tr>
                             <th>Lvl</th>
@@ -216,20 +218,22 @@
                     </table>
                 </div>
             </div>
-            <br/>
-            4 - Equipment. Game-restricted limitations can be bypassed here. For example, it is possible<br/>
+            </li>
+            <li>Equipment. Game-restricted limitations can be bypassed here. For example, it is possible<br/>
             to equip Nina with a LifeArmor as a shield. Do note that there are some equipments which do not<br/>
             work properly when equipped "illegally", such as the LifeArmor not recovering HP during battle<br/>
-            when equipped as anything but armor.<br/>
-            5 - Abilities. Use the [<] and [>] buttons to navigate between the ability pages. Be wary when adding<br/>
+            when equipped as anything but armor.</li>
+            <li>Abilities. Use the [&lt;] and [&gt;] buttons to navigate between the ability pages. Be wary when adding<br/>
             certain abilities to a character. For example, Accession will never work properly on anyone but<br/>
-            Ryu, and the ability "Paralyze" crashes the game when used (which makes "Paralyze" a fitting name).<br/>
-            6 - Stat Growth Modifier. When a character is apprenticed under a master, their stat growth will be <br/>
+            Ryu, and the ability "Paralyze" crashes the game when used (which makes "Paralyze" a fitting name).</li>
+            <li>Stat Growth Modifier. When a character is apprenticed under a master, their stat growth will be <br/>
             modified according to who their master is. Apprenticing level is the level which the character starts<br/>
             apprenticing under that master. This is used by the game to calculate when certain skills/items/formations<br/>
-            are unlocked.
-        </p>
+            are unlocked. A master can only be selected if the master has been unlocked. See the section below about<br/>
+            inventory on how to unlock masters.</li>
+        </ol>
         <h2>Bug Report/Feature Request/Feedback/Contact</h2>
+        
         <p>Please put all bug reports, feature requests and feedback in the <a href="https://github.com/glitch-in-the-herring/bof3-save-editor">Github repository.</a> You may contact me on Discord (red herring#5078).</p>
         <a href="index.html">Back</a>
     </body>
