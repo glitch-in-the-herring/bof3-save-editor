@@ -8,3 +8,13 @@
 {
     background-color: white;
 }
+
+.spoiler:hover .spoiler-link
+{
+    color: blue;
+}
+
+.spoiler-link
+{
+    color: black;
+}
