@@ -148,9 +148,14 @@ function store_vital_and_skills(inv_e, inv)
     for (let i = 0; i < 128; i++)
         inv.skill[i] = inv_e.skill[i].value;
 
+    let gene_group;
     for (let i = 0; i < 18; i++)
     {
-        console.log(inv_e.genes[i].checked);
+        gene_group = i >> 3;
+        if (inv_e.genes[i].checked)
+            inv.genes[gene_group] = inv.genes[gene_group] | (0b1 << (i % 8));
+        else
+            inv.genes[gene_group] = inv.genes[gene_group] & (logical_not(0b1 << (i % 8), 1));
     }
 }
 

@@ -82,3 +82,24 @@ function byte_safety_u(n, bytes)
 
     return n;
 }
+
+function logical_not(n, bytes) {
+    if (n > 2 ** (bytes * 8) - 1)
+        return 0;
+    else if (n < 0)
+        return 0;
+
+    let result = 0;
+    let mask;
+    for (let i = 0; i < bytes * 8; i++)
+    {
+        mask = n & (0b1 << i);
+
+        if (!mask)
+        {
+            result = result | (0b1 << i);
+        }
+    }
+
+    return result;
+}
