@@ -148,9 +148,9 @@ function store_vital_and_skills(inv_e, inv)
     for (let i = 0; i < 128; i++)
         inv.skill[i] = inv_e.skill[i].value;
 
-    for (let i = 0; i < 128; i++)
+    for (let i = 0; i < 18; i++)
     {
-        console.log(inv_e.genes.value);
+        console.log(inv_e.genes[i].value);
     }
 }
 
