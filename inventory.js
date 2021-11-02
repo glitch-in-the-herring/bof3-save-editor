@@ -93,6 +93,8 @@ function get_inv_e()
             select.setAttribute("type", "checkbox");
             select.setAttribute("value", "1");
             select.setAttribute("id", "gene_" + genes[3 * i + j]);
+            select.classList.add("disabled");
+
             label.setAttribute("for", "gene_" + genes[3 * i + j]);
 
             output["genes"].push(select);
@@ -166,6 +168,16 @@ function show_inv(inv_e, inv)
         li = document.createElement("li");
         li.textContent = load_array[i];
         inv_e.inv_info.appendChild(li);
+    }
+
+    let gene_group;
+    for (let i = 0; i < 18; i++)
+    {
+        gene_group = i >> 3;
+        if (inv.genes[gene_group] & (0b1 << (i % 8)))
+        {
+            inv_e["genes"][i].setAttribute("checked", "");
+        }
     }
 }
 
