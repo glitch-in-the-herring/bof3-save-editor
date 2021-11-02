@@ -119,9 +119,11 @@ function save_inv(byte_array, slot)
         byte_array[base_addr + 1056 + i] = byte_safety(slot.inv.skill[i]);
 
     buffer = to_little_endian(slot.inv.zenny, 4);
-
     for (let i = 0; i < 4; i++)
         byte_array[slot.addr + 0x878 + i] = buffer[i];
+
+    for (let i = 0; i < 3; i++)
+        byte_array[slot.addr + 0xe70 + i] = slot.inv.genes[i];
 }
 
 function save_party(byte_array, slot)
