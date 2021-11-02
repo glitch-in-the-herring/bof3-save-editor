@@ -186,11 +186,11 @@ function show_vital_and_skills(inv_e, inv)
         gene_group = i >> 3;
         if (inv.genes[gene_group] & (0b1 << (i % 8)))
         {
-            inv_e["genes"][i].setAttribute("checked", "");
+            inv_e["genes"][i].checked = true;
         }
         else
         {
-            inv_e["genes"][i].removeAttribute("checked");
+            inv_e["genes"][i].checked = false;
         }
     }
 }
