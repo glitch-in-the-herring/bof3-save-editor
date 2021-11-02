@@ -188,5 +188,9 @@ function show_vital_and_skills(inv_e, inv)
         {
             inv_e["genes"][i].setAttribute("checked", "");
         }
+        else
+        {
+            inv_e["genes"][i].removeAttribute("checked");
+        }
     }
 }
