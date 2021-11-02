@@ -169,16 +169,6 @@ function show_inv(inv_e, inv)
         li.textContent = load_array[i];
         inv_e.inv_info.appendChild(li);
     }
-
-    let gene_group;
-    for (let i = 0; i < 18; i++)
-    {
-        gene_group = i >> 3;
-        if (inv.genes[gene_group] & (0b1 << (i % 8)))
-        {
-            inv_e["genes"][i].setAttribute("checked", "");
-        }
-    }
 }
 
 function show_vital_and_skills(inv_e, inv)
@@ -189,4 +179,14 @@ function show_vital_and_skills(inv_e, inv)
 
     for (let i = 0; i < 128; i++)
         inv_e.skill[i].value = inv.skill[i];
+
+    let gene_group;
+    for (let i = 0; i < 18; i++)
+    {
+        gene_group = i >> 3;
+        if (inv.genes[gene_group] & (0b1 << (i % 8)))
+        {
+            inv_e["genes"][i].setAttribute("checked", "");
+        }
+    }
 }
