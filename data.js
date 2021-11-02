@@ -150,7 +150,7 @@ function store_vital_and_skills(inv_e, inv)
 
     for (let i = 0; i < 18; i++)
     {
-        console.log(inv_e.genes[i].value);
+        console.log(inv_e.genes[i].getAttribute("checked"));
     }
 }
 
