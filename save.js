@@ -29,7 +29,7 @@ function checksum(byte_array, addr)
     for (let i = 0; i < 0x1e00; i++)
         sum += byte_array[addr + 0x200 + i];
 
-    buffer = to_little_endian(sum, 4);
+    buffer = to_little_endian_u(sum, 4);
     byte_array[addr + 0x270] = buffer[0];
     byte_array[addr + 0x271] = buffer[1];
 }
@@ -46,29 +46,29 @@ function save_char(byte_array, slot)
             byte_array[base_addr + j] = buffer[j];
 
         byte_array[base_addr + 6] = byte_safety_u(slot.chars[i].lvl, 1);
-        buffer = to_little_endian(slot.chars[i].exp, 4);
+        buffer = to_little_endian_u(slot.chars[i].exp, 4);
         for (let j = 0; j < 4; j++)
             byte_array[base_addr + 8 + j] = buffer[j];
 
-        buffer = to_little_endian(slot.chars[i].chp, 2);
-        buffer = buffer.concat(to_little_endian(slot.chars[i].cap, 2));
+        buffer = to_little_endian_u(slot.chars[i].chp, 2);
+        buffer = buffer.concat(to_little_endian_u(slot.chars[i].cap, 2));
         for (let j = 0; j < 4; j++)
             byte_array[base_addr + 20 + j] = buffer[j];
 
-        buffer = to_little_endian(slot.chars[i].cmhp, 2);
-        buffer = buffer.concat(to_little_endian(slot.chars[i].cmap, 2));
+        buffer = to_little_endian_u(slot.chars[i].cmhp, 2);
+        buffer = buffer.concat(to_little_endian_u(slot.chars[i].cmap, 2));
         for (let j = 0; j < 4; j++)
             byte_array[base_addr + 28 + j] = buffer[j];
 
-        buffer = to_little_endian(slot.chars[i].tmhp, 2);
-        buffer =buffer.concat(to_little_endian(slot.chars[i].tmap, 2));
+        buffer = to_little_endian_u(slot.chars[i].tmhp, 2);
+        buffer =buffer.concat(to_little_endian_u(slot.chars[i].tmap, 2));
         for (let j = 0; j < 4; j++)
             byte_array[base_addr + 60 + j] = buffer[j];
 
-        buffer = to_little_endian(slot.chars[i].pwr, 2);
-        buffer = buffer.concat(to_little_endian(slot.chars[i].def, 2));
-        buffer = buffer.concat(to_little_endian(slot.chars[i].agl, 2));
-        buffer = buffer.concat(to_little_endian(slot.chars[i].int, 2));
+        buffer = to_little_endian_u(slot.chars[i].pwr, 2);
+        buffer = buffer.concat(to_little_endian_u(slot.chars[i].def, 2));
+        buffer = buffer.concat(to_little_endian_u(slot.chars[i].agl, 2));
+        buffer = buffer.concat(to_little_endian_u(slot.chars[i].int, 2));
         for (let j = 0; j < 8; j++)
             byte_array[base_addr + 64 + j] = buffer[j];
 
@@ -118,7 +118,7 @@ function save_inv(byte_array, slot)
     for (let i = 0; i < 128; i++)
         byte_array[base_addr + 1056 + i] = byte_safety_u(slot.inv.skill[i]);
 
-    buffer = to_little_endian(slot.inv.zenny, 4);
+    buffer = to_little_endian_u(slot.inv.zenny, 4);
     for (let i = 0; i < 4; i++)
         byte_array[slot.addr + 0x878 + i] = buffer[i];
 
