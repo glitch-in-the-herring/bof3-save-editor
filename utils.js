@@ -55,7 +55,7 @@ function to_little_endian_s(n, bytes)
 function to_little_endian_u(n, bytes)
 {
     let output = [];
-    let k = byte_safety(n, bytes);
+    let k = byte_safety_u(n, bytes);
     
     for (let i = 0; i < bytes; i++)
         output.push((k & (0xff << i * 8)) >> i * 8);
