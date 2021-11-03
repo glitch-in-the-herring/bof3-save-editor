@@ -2,24 +2,43 @@
 <html lang="en">
     <head>
         <title>Notes on Save File Modifications</title>
+        <link href="../info.css" rel="stylesheet">
     </head>
     <body>
         <h1>Notes</h1>
         <h2>2021/11/02 - 2021/11/??: On Accession</h2>
         <p>
-            <i>Emulator used: PCSX-Redux</i><br/>
-            It seems that I have to revise a lot of my prior assumptions. I initially thought that<br/>
-            Accession is an ability unusable to every party member save Ryu, because I remembered<br/>
-            that Accession crashed the game when I gave it to Nina. For some reason, it seems to<br/>
-            "work" now. It doesn't crash the game anymore but it does have visual glitches. Sometimes.<br/>
-            <br/>
-            Kaiser (palette swap), Tiamat, Behemoth, and Mammoth (party members fused) all work well<br/>
-            without any significant visual glitches. With Kaiser, the palette swap doesn't<br/>
-            happen. Other dragon forms have some sort of visual glitch when using them.<br/>
-            <br/>
-            The only character besides Ryu who has a custom animation when using a transformation<br/>
-            spell is Rei, and his Weretiger transformation animation is what's being used when he<br/>
-            uses Accession.<br/>
+            <i>Emulators used: PCSX-Redux, RetroArch (PCSX-ReARMed core), RetroArch (Duckstation core)</i><br/>
+            Accession is an ability normally only accessible to Ryu. It lets him transform into<br/>
+            a dragon. However, it turns out that other characters can also use Accession, with a few<br/>
+            catches:
+
+            <h3>Usability</h3>
+            <p>Certain dragon forms don't work on certain emulators. PCSX-ReARMed seems to crash with most dragon<br/>
+                forms, except for Kaiser (needs more testing). DuckStation and PCSX-Redux will not crash with all<br/>
+                dragon forms (needs more testing). However, there will be plenty of graphical glitches, such as the sprite<br/>
+                not rendering properly, or Ryu's sprite being changed into the dragon's sprite, even when he hasn't used<br/>
+                Accession.
+            </p>
+
+            <h3>Precedence</h3>
+            <p>Two or more characters can use Accession in the same turn, but not using the PCSX-ReARMed core.<br/>
+               If there are two or more characters using Accession, then the dragon forms they transform into depends<br/>
+               on whoever uses Accession last. For example, if Rei's turn is first, and he uses Accession to transform into<br/>
+               a Whelp, but on the same turn, Momo uses Accession to transform into a Kaiser dragon, then both Rei and Momo<br/>
+               will become Kaiser dragons.
+            </p>
+
+            I have yet to test this on my SCPH-9002, as I don't have a Dexdrive utility to copy memory card<br/>
+            files to my Playstation 1 memory card. The closest I can get to real hardware is with DuckStation<br/>
+            and it seems that 
+        </p>
+
+            <h3>Animations and Sounds</h3>
+            <p>Post-timeskip Rei gains the Weretiger ability, giving him animation frames for transformation<br/>
+                abilities. The Weretiger transformation animation is the animation Rei uses when he uses the<br/>
+                Accession ability. For a few frames, you can see the Weretiger before the black sphere effect.<br/>
+
             <a href="accession-gallery.html">A gallery of various characters using Accession</a>
         </p>
     </body>
