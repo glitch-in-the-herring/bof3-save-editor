@@ -142,8 +142,8 @@ function show_party(party_e, slot)
 
     for (let i = 0; i < 3; i++)
     {
-        party_e["in"][i].textContent = "";
-        party_e["out"][i].textContent = "";
+        party_e["in"][i].innerHTML = "";
+        party_e["out"][i].innerHTML = "";
     }
 
     load_item_select(party_e["in"].concat(party_e["out"]), party_list);
