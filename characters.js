@@ -63,6 +63,17 @@ function get_char_e()
     output["abil_label"] = document.getElementById("abil_type_indicator");
     output["abil_prev_button"] = document.getElementById("abil_prev_button");
     output["abil_next_button"] = document.getElementById("abil_next_button");
+    let masters_e = document.getElementById("character_sg_master");
+    masters_e.setAttribute("disabled", "");
+    masters_e.classList.add("disabled");
+
+    for (let j = 0; j < 17; j++)
+    {
+        select = document.createElement("option");
+        select.textContent = masters[i];
+        select.setAttribute("disabled");
+        masters_e.appendChild(select);
+    }
 
     return output;    
 }

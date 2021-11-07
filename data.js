@@ -161,6 +161,15 @@ function store_vital_and_skills(inv_e, inv)
         else
             inv.genes[gene_group] = inv.genes[gene_group] & (logical_not(0b1 << (i % 8), 1));
     }
+
+    for (let i = 0; i < 17; i++)
+    {
+        master_group = i >> 3;
+        if (inv_e.masters[i].checked)
+            inv.masters[master_group] = inv.masters[master_group] | (0b1 << (i % 8));
+        else
+            inv.masters[master_group] = inv.masters[master_group] & (logical_not(0b1 << (i % 8), 1));
+    }
 }
 
 function store_party(party_e, party)

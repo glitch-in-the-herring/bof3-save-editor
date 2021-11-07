@@ -124,6 +124,12 @@ function save_inv(byte_array, slot)
 
     for (let i = 0; i < 3; i++)
         byte_array[slot.addr + 0xe70 + i] = slot.inv.genes[i];
+
+    for (let i = 0; i < 3; i++)
+    {
+        byte_array[slot.addr + 0xe74 + i] = slot.inv.masters[i];
+        byte_array[slot.addr + 0xe77 + i] = slot.inv.masters[i];
+    }
 }
 
 function save_party(byte_array, slot)
