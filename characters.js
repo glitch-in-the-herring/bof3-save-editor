@@ -74,7 +74,7 @@ function get_char_e()
     select = document.createElement("option");
     select.textContent = "--";
     select.setAttribute("value", 255);
-    masters_e.appendChild();
+    masters_e.appendChild(select);
 
     return output;    
 }
