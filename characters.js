@@ -22,11 +22,7 @@ function get_char_e()
         return string_id.startsWith("character_res");
     });
 
-    let res = [];
-    for (let i = 0; i < res_e.length; i++)
-        res[i] = res_e[i];
-
-    output["res"] = res;   
+    output["res"] = res_e;   
 
     //equipment
     const eqp_e = Array.from(document.getElementById("character_eqp").childNodes).filter(function(x) 
@@ -35,11 +31,7 @@ function get_char_e()
         return string_id.startsWith("character_eqp");
     });
 
-    let eqp = [];
-    for (let i = 0; i < eqp_e.length; i++)
-        eqp[i] = eqp_e[i];
-
-    output["eqp"] = eqp;
+    output["eqp"] = eqp_e;
 
     //abilities
     let abil_list = document.getElementById("abil_list");
@@ -70,7 +62,7 @@ function get_char_e()
     for (let j = 0; j < 17; j++)
     {
         select = document.createElement("option");
-        select.textContent = masters[i];
+        select.textContent = masters[j];
         select.setAttribute("disabled");
         masters_e.appendChild(select);
     }
