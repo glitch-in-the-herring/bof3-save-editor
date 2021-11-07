@@ -127,13 +127,12 @@ function get_inv_e()
         select.setAttribute("id", "master_" + masters[i]);
         select.classList.add("disabled");
 
-        output["masters"][i] = select;
+        output["masters"].push(select);
 
         label.setAttribute("for", "master_" + masters[i]);
         label.textContent = masters[i];
         masters_tbl.appendChild(select);
         masters_tbl.appendChild(label);
-        masters_tbl.innerHTML += "<br/>";
     }
 
     output["zenny"] = document.getElementById("inv_zenny");
