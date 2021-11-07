@@ -125,6 +125,7 @@ function get_inv_e()
         select.setAttribute("type", "checkbox");
         select.setAttribute("value", "1");
         select.setAttribute("id", "master_" + masters[i]);
+        select.classList.add("disabled");
 
         output["masters"][i] = select;
 
@@ -200,11 +201,11 @@ function show_vital_and_skills(inv_e, inv)
         master_group = i >> 3;
         if (inv.masters[master_group] & (0b1 << (i % 8)))
         {
-            inv_e["master_group"][i].checked = true;
+            inv_e["masters"][i].checked = true;
         }
         else
         {
-            inv_e["master_group"][i].checked = false;
+            inv_e["masters"][i].checked = false;
         }
     }
 }
