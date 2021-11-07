@@ -74,6 +74,7 @@ function save_char(byte_array, slot)
 
         byte_array[base_addr + 74] = byte_safety_u(slot.chars[i].wpwr);
         byte_array[base_addr + 25] = byte_safety_u(slot.chars[i].fatg);
+        byte_array[base_addr + 27] = byte_safety_u(slot.chars[i].master);
 
         buffer = [slot.chars[i].sprs, slot.chars[i].rprs, slot.chars[i].crit, slot.chars[i].dodg, slot.chars[i].hits];
 
