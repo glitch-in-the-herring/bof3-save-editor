@@ -198,10 +198,10 @@ function show_vital_and_skills(inv_e, inv)
     let master_group;
     for (let i = 0; i < 17; i++)
     {
-        console.log("here");
         master_group = i >> 3;
         if (inv.masters[master_group] & (0b1 << (i % 8)))
         {
+            console.log("here");
             inv_e["masters"][i].checked = true;
         }
         else
