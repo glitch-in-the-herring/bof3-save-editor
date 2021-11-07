@@ -193,4 +193,18 @@ function show_vital_and_skills(inv_e, inv)
             inv_e["genes"][i].checked = false;
         }
     }
+
+    let master_group;
+    for (let i = 0; i < 17; i++)
+    {
+        master_group = i >> 3;
+        if (inv.masters[master_group] & (0b1 << (i % 8)))
+        {
+            inv_e["master_group"][i].checked = true;
+        }
+        else
+        {
+            inv_e["master_group"][i].checked = false;
+        }
+    }
 }

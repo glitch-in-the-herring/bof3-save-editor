@@ -97,6 +97,10 @@ function load_inv(byte_array)
     for (let i = 0; i < 3; i++)
         inv["genes"][i] = String(byte_array[1276 + i]);
 
+    inv["masters"] = [];
+    for (let i = 0; i < 3; i++)
+        inv["masters"][i] = String(byte_array[1280 + i]);
+
     return inv;
 }
 
