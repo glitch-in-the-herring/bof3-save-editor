@@ -78,7 +78,7 @@ function on_file_open()
         show_char_names(char_select, slots[0].chars);
         show_char(char_e, slots[0].chars[0]);
         show_inv(inv_e, slots[0].inv.inv[0]);
-        show_vital_and_skills(inv_e, char_e, char_e, slots[0].inv);
+        show_vital_and_skills(inv_e, char_e, slots[0].inv);
         inv_e.inv_label.textContent = "Item";
         inv_e.inv_next_button.removeAttribute("disabled");
         show_party(party_e, slots[0]);
