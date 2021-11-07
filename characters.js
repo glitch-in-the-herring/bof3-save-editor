@@ -58,7 +58,7 @@ function get_char_e()
     let masters_e = document.getElementById("character_sg_master");
     masters_e.setAttribute("disabled", "");
     masters_e.classList.add("disabled");
-    output["masters"] = masters_e;
+    output["master"] = masters_e;
     output["masters_opt"] = [];
 
     for (let j = 0; j < 17; j++)
@@ -135,6 +135,7 @@ function show_char(char_e, char)
     char_e.abil_prev_button.setAttribute("disabled", "");
     char_e.abil_next_button.removeAttribute("disabled");
     char_e.abil_label.innerHTML = "Heal";
+    char_e.master.value = char.master;
 }
 
 function show_parts(e, data)

@@ -41,6 +41,7 @@ function load_char(byte_array)
         char["dodg"] = String(byte_array[base_address + 87]);
         char["hits"] = String(byte_array[base_address + 88]);
         char["fatg"] = String(byte_array[base_address + 25]);
+        char["master"] = String(byte_array[base_address + 27]);
 
         char["res"] = [];
         for (let j = 0; j < 9; j++)
@@ -132,6 +133,7 @@ function store_char(char_e, char)
     store_parts(char_e.res, char.res);
     store_parts(char_e.eqp, char.eqp);
     store_parts(char_e.abil, char.abil[char_e.cur.abil]);   
+    char.master = char_e.master.value;
 }
 
 function store_inv(inv_e, inv)
