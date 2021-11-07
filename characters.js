@@ -63,7 +63,7 @@ function get_char_e()
     {
         select = document.createElement("option");
         select.textContent = masters[j];
-        select.setAttribute("disabled");
+        select.setAttribute("disabled", "");
         masters_e.appendChild(select);
     }
 
