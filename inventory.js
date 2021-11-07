@@ -173,7 +173,7 @@ function show_inv(inv_e, inv)
     }
 }
 
-function show_vital_and_skills(inv_e, inv)
+function show_vital_and_skills(inv_e, char_e, inv)
 {
     inv_e.zenny.value = inv.zenny;
     for (let i = 0; i < 32; i++)
@@ -203,10 +203,12 @@ function show_vital_and_skills(inv_e, inv)
         if (inv.masters[master_group] & (0b1 << (i % 8)))
         {
             inv_e["masters"][i].checked = true;
+            char_e["masters_opt"][i].removeAttribute("disabled");
         }
         else
         {
             inv_e["masters"][i].checked = false;
+            char_e["masters_opt"][i].setAttribute("disabled", "");
         }
     }
 }

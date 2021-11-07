@@ -58,14 +58,23 @@ function get_char_e()
     let masters_e = document.getElementById("character_sg_master");
     masters_e.setAttribute("disabled", "");
     masters_e.classList.add("disabled");
+    output["masters"] = masters_e;
+    output["masters_opt"] = [];
 
     for (let j = 0; j < 17; j++)
     {
         select = document.createElement("option");
         select.textContent = masters[j];
+        select.setAttribute("value", j);
         select.setAttribute("disabled", "");
         masters_e.appendChild(select);
+        output["masters_opt"].push(select);
     }
+
+    select = document.createElement("option");
+    select.textContent = "--";
+    select.setAttribute("value", 255);
+    masters_e.appendChild();
 
     return output;    
 }

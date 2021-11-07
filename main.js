@@ -78,7 +78,7 @@ function on_file_open()
         show_char_names(char_select, slots[0].chars);
         show_char(char_e, slots[0].chars[0]);
         show_inv(inv_e, slots[0].inv.inv[0]);
-        show_vital_and_skills(inv_e, slots[0].inv);
+        show_vital_and_skills(inv_e, char_e, char_e, slots[0].inv);
         inv_e.inv_label.textContent = "Item";
         inv_e.inv_next_button.removeAttribute("disabled");
         show_party(party_e, slots[0]);
@@ -131,7 +131,7 @@ function prev_slot(e)
     show_char_names(char_select, slots[char_e.cur.slot].chars);
     show_char(char_e, slots[char_e.cur.slot].chars[0]);
     show_inv(inv_e, slots[char_e.cur.slot].inv.inv[0]);
-    show_vital_and_skills(inv_e, slots[char_e.cur.slot].inv);
+    show_vital_and_skills(inv_e, char_e, slots[char_e.cur.slot].inv);
     show_party(party_e, slots[party_e.cur.slot]);
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur.slot + 1) + " / " + String(addresses.length));
 }
@@ -155,7 +155,7 @@ function next_slot(e)
     show_char_names(char_select, slots[char_e.cur.slot].chars);
     show_char(char_e, slots[char_e.cur.slot].chars[0]);
     show_inv(inv_e, slots[char_e.cur.slot].inv.inv[0]);
-    show_vital_and_skills(inv_e, slots[char_e.cur.slot].inv);
+    show_vital_and_skills(inv_e, char_e, slots[char_e.cur.slot].inv);
     show_party(party_e, slots[party_e.cur.slot]);    
     slot_pos_labels.forEach(x => x.textContent = "Slot " + String(char_e.cur.slot + 1) + " / " + String(addresses.length));    
 }
