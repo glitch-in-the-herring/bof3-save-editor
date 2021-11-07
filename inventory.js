@@ -123,7 +123,7 @@ function get_inv_e()
         label = document.createElement("label");
         select.setAttribute("disabled", "");
         select.setAttribute("type", "checkbox");
-        select.setAttribute("value", "1");
+        select.setAttribute("value", i);
         select.setAttribute("id", "master_" + masters[i]);
         select.classList.add("disabled");
 

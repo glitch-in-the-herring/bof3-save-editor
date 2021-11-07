@@ -222,6 +222,18 @@ function next_inv(e)
     show_inv(inv_e, slots[inv_e.cur.slot].inv.inv[inv_e.cur.inv]);
 }
 
+function add_master_opt(e)
+{
+    if (e.target.checked)
+    {
+        char_e["masters_opt"][e.target.value].removeAttribute("disabled");
+    }
+    else
+    {
+        char_e["masters_opt"][e.target.value].setAttribute("disabled", "");
+    }
+}
+
 upload_input.addEventListener("change", on_file_open, false);
 char_select.addEventListener("change", on_character_change, false);
 prev_buttons.forEach(x => x.addEventListener("click", prev_slot, false));
@@ -230,6 +242,12 @@ char_e.abil_prev_button.addEventListener("click", prev_abil, false);
 char_e.abil_next_button.addEventListener("click", next_abil, false);
 inv_e.inv_prev_button.addEventListener("click", prev_inv, false);
 inv_e.inv_next_button.addEventListener("click", next_inv, false);
+
+for (let i = 0; i < 17; i++)
+{
+    inv_e.masters[i].addEventListener("change", add_master_opt, false);
+}
+
 window.onload = function()
 {
     document.getElementById("loading").style.display = "none";
