@@ -95,11 +95,11 @@ function load_inv(byte_array)
 
     inv["genes"] = [];
     for (let i = 0; i < 3; i++)
-        inv["genes"][i] = String(byte_array[1276 + i]);
+        inv["genes"][i] = byte_array[1276 + i];
 
     inv["masters"] = [];
     for (let i = 0; i < 3; i++)
-        inv["masters"][i] = String(byte_array[1280 + i]);
+        inv["masters"][i] = byte_array[1280 + i];
 
     return inv;
 }
