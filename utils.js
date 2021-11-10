@@ -26,7 +26,23 @@ function ascii_encoder(s)
     return output;
 }
 
-function from_little_endian(byte_array)
+function from_little_endian_s(byte_array)
+{
+    let output = 0;
+    for (let i = byte_array.length - 1; i >= 0; i--)
+        output |= byte_array[i] << i * 8;
+
+    if (byte_array[0] & 0x80)
+    {
+        output = logical_not(output, byte_array.length);
+        output++;
+        output *= -1;
+    }
+
+    return output;
+}
+
+function from_little_endian_u(byte_array)
 {
     let output = 0;
     for (let i = byte_array.length - 1; i >= 0; i--)

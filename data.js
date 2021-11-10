@@ -5,7 +5,7 @@ function load_slot(byte_array, address)
     slot["addr"] = address;
     slot["chars"] = load_char(byte_array.slice(address + 0x290, address + 0x7B0));
     slot["inv"] = load_inv(byte_array.slice(address + 0x974, address + 0xe9f));
-    slot["inv"].zenny = String(from_little_endian(byte_array.slice(address + 0x878, address + 0x87c)));
+    slot["inv"].zenny = String(from_little_endian_u(byte_array.slice(address + 0x878, address + 0x87c)));
     slot["party"] = load_party(byte_array.slice(address + 0x882, address + 0x888));
 
     return slot;
@@ -23,17 +23,17 @@ function load_char(byte_array)
         base_address = 0xa4 * i;
         char["name"] = ascii_decoder(byte_array.slice(base_address, base_address + 5));
         char["lvl"] = String(byte_array[base_address + 6]);
-        char["exp"] = String(from_little_endian(byte_array.slice(base_address + 8, base_address + 12)));
-        char["chp"] = String(from_little_endian(byte_array.slice(base_address + 20, base_address + 22)));
-        char["cap"] = String(from_little_endian(byte_array.slice(base_address + 22, base_address + 24)));
-        char["cmhp"] = String(from_little_endian(byte_array.slice(base_address + 28, base_address + 30)));
-        char["cmap"] = String(from_little_endian(byte_array.slice(base_address + 30, base_address + 32)));
-        char["tmhp"] = String(from_little_endian(byte_array.slice(base_address + 60, base_address + 62)));
-        char["tmap"] = String(from_little_endian(byte_array.slice(base_address + 62, base_address + 64)));
-        char["pwr"] = String(from_little_endian(byte_array.slice(base_address + 64, base_address + 66)));
-        char["def"] = String(from_little_endian(byte_array.slice(base_address + 66, base_address + 68)));
-        char["agl"] = String(from_little_endian(byte_array.slice(base_address + 68, base_address + 70)));
-        char["int"] = String(from_little_endian(byte_array.slice(base_address + 70, base_address + 72)));
+        char["exp"] = String(from_little_endian_u(byte_array.slice(base_address + 8, base_address + 12)));
+        char["chp"] = String(from_little_endian_u(byte_array.slice(base_address + 20, base_address + 22)));
+        char["cap"] = String(from_little_endian_u(byte_array.slice(base_address + 22, base_address + 24)));
+        char["cmhp"] = String(from_little_endian_u(byte_array.slice(base_address + 28, base_address + 30)));
+        char["cmap"] = String(from_little_endian_u(byte_array.slice(base_address + 30, base_address + 32)));
+        char["tmhp"] = String(from_little_endian_u(byte_array.slice(base_address + 60, base_address + 62)));
+        char["tmap"] = String(from_little_endian_u(byte_array.slice(base_address + 62, base_address + 64)));
+        char["pwr"] = String(from_little_endian_u(byte_array.slice(base_address + 64, base_address + 66)));
+        char["def"] = String(from_little_endian_u(byte_array.slice(base_address + 66, base_address + 68)));
+        char["agl"] = String(from_little_endian_u(byte_array.slice(base_address + 68, base_address + 70)));
+        char["int"] = String(from_little_endian_u(byte_array.slice(base_address + 70, base_address + 72)));
         char["wpwr"] = String(byte_array[base_address + 74]);
         char["sprs"] = String(byte_array[base_address + 84]);
         char["rprs"] = String(byte_array[base_address + 85]);
@@ -57,6 +57,12 @@ function load_char(byte_array)
             char.abil[j] = [];
             for (let k = 0; k < 10; k++)
                 char.abil[j][k] = String(byte_array[base_address + 92 + j * 10 + k]);
+        }
+
+        char["sg"] = [];
+        for (let j = 0; j < 7; j++)
+        {
+            char["sg"][i] = String(from_little_endian_s([byte_array[base_address + 132 + i]]));
         }
 
         char_array.push(char);
