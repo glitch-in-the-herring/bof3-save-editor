@@ -72,25 +72,33 @@ function save_char(byte_array, slot)
         for (let j = 0; j < 8; j++)
             byte_array[base_addr + 64 + j] = buffer[j];
 
-        byte_array[base_addr + 74] = byte_safety_u(slot.chars[i].wpwr);
-        byte_array[base_addr + 25] = byte_safety_u(slot.chars[i].fatg);
-        byte_array[base_addr + 27] = byte_safety_u(slot.chars[i].master);
+        byte_array[base_addr + 74] = byte_safety_u(slot.chars[i].wpwr, 1);
+        byte_array[base_addr + 25] = byte_safety_u(slot.chars[i].fatg, 1);
+        byte_array[base_addr + 27] = byte_safety_u(slot.chars[i].master, 1);
 
         buffer = [slot.chars[i].sprs, slot.chars[i].rprs, slot.chars[i].crit, slot.chars[i].dodg, slot.chars[i].hits];
 
         for (let j = 0; j < 5; j++)
-            byte_array[base_addr + 84 + j] = byte_safety_u(buffer[j]);
+            byte_array[base_addr + 84 + j] = byte_safety_u(buffer[j], 1);
 
         for (let j = 0; j < 9; j++)
-            byte_array[base_addr + 75 + j] = byte_safety_u(slot.chars[i].res[j]);
+            byte_array[base_addr + 75 + j] = byte_safety_u(slot.chars[i].res[j], 1);
 
         for (let j = 0; j < 6; j++)
-            byte_array[base_addr + 14 + j] = byte_safety_u(slot.chars[i].eqp[j]);
+            byte_array[base_addr + 14 + j] = byte_safety_u(slot.chars[i].eqp[j], 1);
 
         for (let j = 0; j < 4; j++)
         {
             for (let k = 0; k < 10; k++)
-                byte_array[base_addr + 92 + j * 10 + k] = byte_safety_u(slot.chars[i].abil[j][k]); 
+                byte_array[base_addr + 92 + j * 10 + k] = byte_safety_u(slot.chars[i].abil[j][k], 1); 
+        }
+
+        byte_array[base_addr + 132] = slot.chars[i].sg["lvl"];
+
+        let key = ["hp", "ap", "pwr", "def", "agl", "int"];
+        for (let j = 0; j < key.length; j++)
+        {
+            byte_array[base_addr + 133 + j] = byte_safety_s(slot.chars[i].sg[key[i]], 1);
         }
     }
 }
@@ -108,16 +116,16 @@ function save_inv(byte_array, slot)
         n_base_addr = 512 + id_base_addr
         for (let j = 0; j < 128; j++)
         {
-            byte_array[id_base_addr + j] = byte_safety_u(slot.inv.inv[i][j][0]);
-            byte_array[n_base_addr + j] = byte_safety_u(slot.inv.inv[i][j][1]);
+            byte_array[id_base_addr + j] = byte_safety_u(slot.inv.inv[i][j][0], 1);
+            byte_array[n_base_addr + j] = byte_safety_u(slot.inv.inv[i][j][1], 1);
         }
     }
 
     for (let i = 0; i < 32; i++)
-        byte_array[base_addr + 1024 + i] = byte_safety_u(slot.inv.vital[i]);
+        byte_array[base_addr + 1024 + i] = byte_safety_u(slot.inv.vital[i], 1);
 
     for (let i = 0; i < 128; i++)
-        byte_array[base_addr + 1056 + i] = byte_safety_u(slot.inv.skill[i]);
+        byte_array[base_addr + 1056 + i] = byte_safety_u(slot.inv.skill[i], 1);
 
     buffer = to_little_endian_u(slot.inv.zenny, 4);
     for (let i = 0; i < 4; i++)
@@ -138,7 +146,7 @@ function save_party(byte_array, slot)
     let base_addr = slot.addr + 0x882;
     for (let i = 0; i < 3; i++)
     {
-        byte_array[base_addr + i] = byte_safety_u(slot.party.out[i]);
-        byte_array[base_addr + i + 3] = byte_safety_u(slot.party.in[i]);
+        byte_array[base_addr + i] = byte_safety_u(slot.party.out[i], 1);
+        byte_array[base_addr + i + 3] = byte_safety_u(slot.party.in[i], 1);
     }
 }
