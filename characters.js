@@ -133,7 +133,7 @@ function show_char(char_e, char)
 {
     let index;
     let key = Object.keys(char_e.stat);
-    for (let i = 0; i < keys.length; i++)
+    for (let i = 0; i < key.length; i++)
     {
         index = key[i];
         char_e.stat[index].value = char[index.split("_")[1]];
@@ -161,7 +161,7 @@ function show_parts(e, data)
 {
     let index;
     let key = Object.keys(e);
-    for (let i = 0; i < keys.length; i++)
+    for (let i = 0; i < key.length; i++)
     {
         index = key[i];
         e[index].value = data[i];
