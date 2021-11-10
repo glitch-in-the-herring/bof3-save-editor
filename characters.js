@@ -33,7 +33,7 @@ function get_char_e()
 
     output["eqp"] = eqp_e;
 
-    cont sg_e = Array.from(document.getElementById("character_sg").childNodes).filter(function(x) 
+    const sg_e = Array.from(document.getElementById("character_sg").childNodes).filter(function(x) 
     {
         let string_id = String(x.id);
         return string_id.startsWith("character_sg");
