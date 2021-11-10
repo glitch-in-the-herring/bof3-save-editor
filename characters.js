@@ -43,7 +43,7 @@ function get_char_e()
     for (let i = 0; i < sg_e.length; i++)
         stat[String(sg_e[i].id)] = sg_e[i];
 
-    output["sg"] = sq;
+    output["sg"] = sg;
 
     //abilities
     let abil_list = document.getElementById("abil_list");
