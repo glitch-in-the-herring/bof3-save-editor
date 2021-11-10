@@ -59,7 +59,7 @@ function load_char(byte_array)
                 char.abil[j][k] = String(byte_array[base_address + 92 + j * 10 + k]);
         }
 
-        char["sg"] = [];
+        char["sg"] = {};
         let sgs = ["lvl", "hp", "ap", "pow", "def", "agl", "int"];
         for (let j = 0; j < 7; j++)
         {
