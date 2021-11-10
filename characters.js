@@ -41,7 +41,7 @@ function get_char_e()
 
     let sg = {};
     for (let i = 0; i < sg_e.length; i++)
-        stat[String(sg_e[i].id)] = sg_e[i];
+        sg[String(sg_e[i].id)] = sg_e[i];
 
     output["sg"] = sg;
 
