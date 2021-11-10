@@ -63,7 +63,7 @@ function load_char(byte_array)
         let sgs = ["lvl", "hp", "ap", "pow", "def", "agl", "int"];
         for (let j = 0; j < 7; j++)
         {
-            char["sg"][sgs[i]] = String(from_little_endian_s([byte_array[base_address + 132 + i]]));
+            char["sg"][sgs[j]] = String(from_little_endian_s([byte_array[base_address + 132 + j]]));
         }
 
         char_array.push(char);
