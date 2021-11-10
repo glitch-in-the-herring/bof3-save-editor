@@ -141,7 +141,7 @@ function store_char(char_e, char)
     for (let i = 0; i < key.length; i++)
     {
         index = key[i];
-[index.split("_")[2]] = char_e.sg[index].value;
+        char.sg[index.split("_")[2]] = char_e.sg[index].value;
     }
 
     store_parts(char_e.res, char.res);
