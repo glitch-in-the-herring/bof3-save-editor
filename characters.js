@@ -33,6 +33,18 @@ function get_char_e()
 
     output["eqp"] = eqp_e;
 
+    cont sg_e = Array.from(document.getElementById("character_sg").childNodes).filter(function(x) 
+    {
+        let string_id = String(x.id);
+        return string_id.startsWith("character_sg");
+    });
+
+    let sg = {};
+    for (let i = 0; i < sg_e.length; i++)
+        stat[String(sg_e[i].id)] = sg_e[i];
+
+    output["sg"] = sq;
+
     //abilities
     let abil_list = document.getElementById("abil_list");
     let select;
@@ -125,6 +137,13 @@ function show_char(char_e, char)
     {
         index = keys[i];
         char_e.stat[index].value = char[index.split("_")[1]];
+    }
+
+    keys = Object.keys(char_e.sg);
+    for (let i = 0; i < keys.length; i++)
+    {
+        index = keys[i];
+        char_e.sg[index].value = char.sg[index.split("_")[2]];
     }
 
     show_parts(char_e.res, char.res);
