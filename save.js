@@ -98,7 +98,7 @@ function save_char(byte_array, slot)
         let key = ["hp", "ap", "pwr", "def", "agl", "int"];
         for (let j = 0; j < key.length; j++)
         {
-            byte_array[base_addr + 133 + j] = byte_safety_s(slot.chars[i].sg[key[i]], 1);
+            byte_array[base_addr + 133 + j] = byte_safety_s(slot.chars[i].sg[key[j]], 1);
         }
     }
 }
