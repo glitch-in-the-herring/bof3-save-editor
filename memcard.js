@@ -20,7 +20,7 @@ function browse_toc(byte_array)
 
 function check_toc_entry(byte_array, current_address)
 {
-    const code_JP = "SLPS-00990BOF3";
+    //const code_JP = "SLPS-00990BOF3";
     const code_US = "SLUS-00422BOF3";
     const code_EU = "SLES-01304BOF3";
 
