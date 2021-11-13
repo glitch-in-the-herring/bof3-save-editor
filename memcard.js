@@ -26,7 +26,7 @@ function check_toc_entry(byte_array, current_address)
 
     for (let i = 0; i < 0x0E; i++)
     {       
-        if (byte_array[current_address + 0x0C + i] != code_JP[i].charCodeAt() &&
+        if (/*byte_array[current_address + 0x0C + i] != code_JP[i].charCodeAt() &&*/
             byte_array[current_address + 0x0C + i] != code_US[i].charCodeAt() &&
             byte_array[current_address + 0x0C + i] != code_EU[i].charCodeAt())
             return false;
