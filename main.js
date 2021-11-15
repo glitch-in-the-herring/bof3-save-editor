@@ -98,6 +98,7 @@ function on_file_open()
             x.char_e = char_e;
             x.inv_e = inv_e;
             x.party_e = party_e;
+            x.counter_e = counter_e;
             x.cur = cur;
         });
     }
