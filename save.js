@@ -9,7 +9,7 @@ function save_file(e)
         save_char(e.target.byte_array, e.target.slots[i]);
         save_inv(e.target.byte_array, e.target.slots[i]);
         save_party(e.target.byte_array, e.target.slots[i]);
-        save_counter(e.target.byte_array, e.target.slots[i]);
+        save_counter(e.target.byte_array, e.target.slots[i], e.target.counter_e);
         checksum(e.target.byte_array, e.target.slots[i].addr);
     }
 
@@ -152,9 +152,9 @@ function save_party(byte_array, slot)
     }
 }
 
-function save_counter(byte_array, slot)
+function save_counter(byte_array, slot, counter_e)
 {
-    if (get_timer_status[0])
+    if (get_timer_status(counter_e)[0])
     {
         for (let i = 0; i < 4; i++)
         {
@@ -162,7 +162,7 @@ function save_counter(byte_array, slot)
         }
     }
 
-    if (get_timer_status[1])
+    if (get_timer_status(counter_e)[1])
     {
         for (let i = 0; i < 4; i++)
         {
