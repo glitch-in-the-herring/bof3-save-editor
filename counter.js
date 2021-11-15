@@ -8,7 +8,7 @@ function get_counter_e()
     return counter_e;
 }
 
-function get_counter_status(counter_e)
+function get_timer_status(counter_e)
 {
     return [counter_e["celerity"].checked, counter_e["bonebreak"].checked];
 }

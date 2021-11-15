@@ -154,7 +154,7 @@ function save_party(byte_array, slot)
 
 function save_counter(byte_array, slot)
 {
-    if (get_counter_e_status[0])
+    if (get_timer_status[0])
     {
         for (let i = 0; i < 4; i++)
         {
@@ -162,7 +162,7 @@ function save_counter(byte_array, slot)
         }
     }
 
-    if (get_counter_e_status[1])
+    if (get_timer_status[1])
     {
         for (let i = 0; i < 4; i++)
         {
