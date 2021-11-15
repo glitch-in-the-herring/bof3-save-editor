@@ -21,6 +21,7 @@ let cur = {
 let char_e = get_char_e();
 let inv_e = get_inv_e();
 let party_e = get_party_e();
+let counter_e = get_counter_e();
 char_e["cur"] = cur;
 inv_e["cur"] = cur;
 party_e["cur"] = cur;
