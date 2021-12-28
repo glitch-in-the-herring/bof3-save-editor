@@ -23,7 +23,7 @@ Bonebreak
 Spirit Blast
 Bad back
 Watch Enemy
-Nothing (1)
+Nothing (White Flag)
 Counter
 Hypnotize
 Devour
@@ -78,7 +78,7 @@ Raise Dead
 Resurrect
 Leech Power
 Drain
-Nothing (2)
+Nothing (Smoke)
 RottenBreath
 Protect
 Shield
@@ -109,9 +109,9 @@ Sleep
 Confuse
 Depress
 Ragnarok (1)
-Nothing (3)
-Nothing (4)
-Nothing (5)
+Nothing (Hourglass)
+Nothing (Again 1)
+Nothing (Pentagram)
 Fire Whip
 Remedy
 UtmostAttack
@@ -125,7 +125,7 @@ Frost Breath
 ThundrBreath
 DivineBreath
 ShadowBreath
-Nothing (6)
+Nothing (Assault)
 Head Cracker
 Holocaust
 Venom
@@ -143,10 +143,10 @@ Triple Blow
 Syphon
 Thunder Clap
 Wall of Fire
-Nothing (7)
-Nothing (8)
-Nothing (9)
-Nothing (10)
+Nothing (Ink)
+Nothing (InkInk)
+Nothing (Death Bomb)
+Nothing (Roulette)
 Douse
 Eye Beam
 Accession
@@ -211,8 +211,8 @@ Sleep
 Confuse
 Depress
 Ragnarok
-Nothing (11)
-Nothing (12)
+Nothing (PurifyAll)
+Nothing (Again 2)
 Remedy
 Steal
 Restore Form
