@@ -144,12 +144,13 @@ function get_inv_e()
         label.innerHTML = fishes[i];
         label.setAttribute("for", "fish_" + fishes[i]);
 
-        li.appendChild(img);
-        li.appendChild(br);
-        li.appendChild(label);
+        name_d.appendChild(img);
+        name_d.appendChild(br);
+        name_d.appendChild(label);
         br = document.createElement("br");
-        li.appendChild(br);
-        li.append(select);
+        name_d.appendChild(br);
+        name_d.append(select);
+        li.appendChild(name_d);
 
         output["fishes"].push(select);
     }
