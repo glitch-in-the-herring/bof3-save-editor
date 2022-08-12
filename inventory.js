@@ -123,7 +123,7 @@ function get_inv_e()
         if (i % 4 == 0)
         {
             li = document.createElement("tr");
-            fishes_list.appendChild(li);
+            fish_tbl.appendChild(li);
         }
         name_d = document.createElement("tr")
         img = document.createElement("img");
