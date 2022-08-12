@@ -125,21 +125,24 @@ function get_inv_e()
             li = document.createElement("tr");
             fish_tbl.appendChild(li);
         }
-        name_d = document.createElement("tr")
+        name_d = document.createElement("td")
         img = document.createElement("img");
         label = document.createElement("label");
         select = document.createElement("input");
         br = document.createElement("br");
 
         img.setAttribute("src", "img/fishes/" + fishes[i] + ".png");
-        label.innerHTML = fishes[i];
 
         select.setAttribute("disabled", "");
         select.setAttribute("type", "number");
         select.setAttribute("min", "0");
         select.setAttribute("max", "255");
+        select.setAttribute("id", "fish_" + fishes[i]);
         select.classList.add("disabled");
-        select.classList.add("narrow");     
+        select.classList.add("narrow");
+
+        label.innerHTML = fishes[i];
+        label.setAttribute("for", "fish_" + fishes[i]);
 
         li.appendChild(img);
         li.appendChild(br);
