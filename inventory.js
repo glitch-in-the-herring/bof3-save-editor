@@ -141,12 +141,12 @@ function get_inv_e()
         select.classList.add("disabled");
         select.classList.add("narrow");     
 
-        tr.appendChild(img);
-        tr.appendChild(br);
-        tr.appendChild(label);
+        li.appendChild(img);
+        li.appendChild(br);
+        li.appendChild(label);
         br = document.createElement("br");
-        tr.appendChild(br);
-        tr.append(select);
+        li.appendChild(br);
+        li.append(select);
 
         output["fishes"].push(select);
     }
