@@ -132,7 +132,7 @@ function get_inv_e()
         br = document.createElement("br");
 
         img.setAttribute("src", "img/fishes/" + fishes[i] + ".png");
-        img.setAttribute("width", "64");
+        img.setAttribute("height", "64");
 
         select.setAttribute("disabled", "");
         select.setAttribute("type", "number");
