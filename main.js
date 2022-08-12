@@ -245,7 +245,7 @@ char_e.abil_next_button.addEventListener("click", next_abil, false);
 inv_e.inv_prev_button.addEventListener("click", prev_inv, false);
 inv_e.inv_next_button.addEventListener("click", next_inv, false);
 
-for (let i = 0; i < 17; i++)
+for (let i = 0; i < masters.length; i++)
 {
     inv_e.masters[i].addEventListener("change", add_master_opt, false);
 }

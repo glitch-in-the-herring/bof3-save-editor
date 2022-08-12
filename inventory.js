@@ -4,6 +4,7 @@ function get_inv_e()
     const vital_list = document.getElementById("vital_list");
     const skill_list = document.getElementById("skill_list");
     const gene_tbl = document.getElementById("gene_table");
+    const fish_tbl = document.getElementById("fish_table");
     const masters_tbl = document.getElementById("masters_table");   
 
     let output = {};
@@ -114,6 +115,40 @@ function get_inv_e()
         }
         gene_tbl.appendChild(li);
         gene_tbl.appendChild(tbox);
+    }
+
+    output["fishes"] = [];
+    for (let i = 0; i < fishes.length; i++)
+    {
+        if (i % 4 == 0)
+        {
+            li = document.createElement("tr");
+            fishes_list.appendChild(li);
+        }
+        name_d = document.createElement("tr")
+        img = document.createElement("img");
+        label = document.createElement("label");
+        select = document.createElement("input");
+        br = document.createElement("br");
+
+        img.setAttribute("src", "img/fishes/" + fishes[i] + ".png");
+        label.innerHTML = fishes[i];
+
+        select.setAttribute("disabled", "");
+        select.setAttribute("type", "number");
+        select.setAttribute("min", "0");
+        select.setAttribute("max", "255");
+        select.classList.add("disabled");
+        select.classList.add("narrow");     
+
+        tr.appendChild(img);
+        tr.appendChild(br);
+        tr.appendChild(label);
+        br = document.createElement("br");
+        tr.appendChild(br);
+        tr.append(select);
+
+        output["fishes"].push(select);
     }
 
     output["masters"] = [];
