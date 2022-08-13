@@ -237,7 +237,7 @@ function show_vital_and_skills(inv_e, char_e, inv)
     }
 
     for (let i = 0; i < 23; i++)
-        inv_e.["fishes"][i].value = inv.fishes[i];
+        inv_e["fishes"][i].value = inv.fishes[i];
 
     let master_group;
     for (let i = 0; i < 17; i++)
