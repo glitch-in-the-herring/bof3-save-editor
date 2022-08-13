@@ -6,6 +6,7 @@ function load_slot(byte_array, address)
     slot["chars"] = load_char(byte_array.slice(address + 0x290, address + 0x7B0));
     slot["inv"] = load_inv(byte_array.slice(address + 0x974, address + 0xe9f));
     slot["inv"].zenny = String(from_little_endian_u(byte_array.slice(address + 0x878, address + 0x87c)));
+    slot["inv"].fishes = byte_array.slice(address + 0x90c, address + +0x924);
     slot["party"] = load_party(byte_array.slice(address + 0x882, address + 0x888));
 
     return slot;
@@ -109,7 +110,7 @@ function load_inv(byte_array)
 
     inv["masters"] = [];
     for (let i = 0; i < 3; i++)
-        inv["masters"][i] = byte_array[1280 + i];
+        inv["masters"][i] = byte_array[1280 + i];  
 
     return inv;
 }
