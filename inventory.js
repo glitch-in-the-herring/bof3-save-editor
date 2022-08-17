@@ -141,7 +141,6 @@ function get_inv_e()
         label.innerHTML = fishes[i];
         label.setAttribute("for", "fish_" + fishes[i]);
 
-        name_d.appendChild(img);
         name_d.appendChild(br);
         name_d.appendChild(label);
         br = document.createElement("br");
