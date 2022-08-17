@@ -126,13 +126,9 @@ function get_inv_e()
             fish_tbl.appendChild(li);
         }
         name_d = document.createElement("td")
-        img = document.createElement("img");
         label = document.createElement("label");
         select = document.createElement("input");
         br = document.createElement("br");
-
-        img.setAttribute("src", "img/fishes/" + fishes[i] + ".png");
-        img.setAttribute("height", "64");
 
         select.setAttribute("disabled", "");
         select.setAttribute("type", "number");
