@@ -114,7 +114,7 @@ function save_inv(byte_array, slot)
     for (let i = 0; i < 4; i++)
     {
         id_base_addr = base_addr + 128 * i;
-        n_base_addr = 512 + id_base_addr
+        n_base_addr = 512 + id_base_addr;
         for (let j = 0; j < 128; j++)
         {
             byte_array[id_base_addr + j] = byte_safety_u(slot.inv.inv[i][j][0], 1);
