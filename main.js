@@ -236,6 +236,16 @@ function add_master_opt(e)
     }
 }
 
+function change_master_stat(e)
+{
+    let key = Object.keys(char_e.sg)
+    for (let i = 0; i < 7; i+) {
+        char_e.sg[key[i]].value = master_modifiers[e.target.value][i];
+    }
+
+    char_e.sg[7].value = char_e.stat.character_lvl.value // automatically set appr. level
+}
+
 upload_input.addEventListener("change", on_file_open, false);
 char_select.addEventListener("change", on_character_change, false);
 prev_buttons.forEach(x => x.addEventListener("click", prev_slot, false));
