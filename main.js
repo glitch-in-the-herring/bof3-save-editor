@@ -243,7 +243,7 @@ function change_master_stat(e)
         char_e.sg[key[i]].value = master_modifiers[e.target.value][i];
     }
 
-    char_e.sg[7].value = char_e.stat.character_lvl.value // automatically set appr. level
+    char_e.sg[key[i]].value = char_e.stat.character_lvl.value // automatically set appr. level
 }
 
 upload_input.addEventListener("change", on_file_open, false);
