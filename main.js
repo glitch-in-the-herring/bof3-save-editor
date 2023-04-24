@@ -252,6 +252,7 @@ prev_buttons.forEach(x => x.addEventListener("click", prev_slot, false));
 next_buttons.forEach(x => x.addEventListener("click", next_slot, false));
 char_e.abil_prev_button.addEventListener("click", prev_abil, false);
 char_e.abil_next_button.addEventListener("click", next_abil, false);
+char_e.masters.addEventListener("change", change_master_stat, false);
 inv_e.inv_prev_button.addEventListener("click", prev_inv, false);
 inv_e.inv_next_button.addEventListener("click", next_inv, false);
 
