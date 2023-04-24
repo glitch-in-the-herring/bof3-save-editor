@@ -239,7 +239,7 @@ function add_master_opt(e)
 function change_master_stat(e)
 {
     let key = Object.keys(char_e.sg)
-    for (let i = 0; i < 7; i+) {
+    for (let i = 0; i < 7; i++) {
         char_e.sg[key[i]].value = master_modifiers[e.target.value][i];
     }
 
