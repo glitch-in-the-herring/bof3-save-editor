@@ -119,6 +119,8 @@ function get_party_list(chars)
     for (let i = 2; i < 7; i++)
         party_list[i] = chars[i].name;
 
+    party_list[9] = "Child Ryu (Pyjama)"
+
     return party_list;
 }
 
