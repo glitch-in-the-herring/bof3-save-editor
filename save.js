@@ -8,6 +8,7 @@ function save_file(e)
     {
         save_char(e.target.byte_array, e.target.slots[i]);
         save_inv(e.target.byte_array, e.target.slots[i]);
+        save_fish(e.target.byte_array, e.target.slots[i]);
         save_party(e.target.byte_array, e.target.slots[i]);
         save_counter(e.target.byte_array, e.target.slots[i], e.target.counter_e);
         checksum(e.target.byte_array, e.target.slots[i].addr);
