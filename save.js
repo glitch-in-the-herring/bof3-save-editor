@@ -128,6 +128,10 @@ function save_inv(byte_array, slot)
     for (let i = 0; i < 128; i++)
         byte_array[base_addr + 1056 + i] = byte_safety_u(slot.inv.skill[i], 1);
 
+    for (let i = 0; i < 23; i++)
+        byte_array[base_addr + 2316 + i] = byte_safety_u(slot.inv.fishes[i], 1)
+
+
     buffer = to_little_endian_u(slot.inv.zenny, 4);
     for (let i = 0; i < 4; i++)
         byte_array[slot.addr + 0x878 + i] = buffer[i];

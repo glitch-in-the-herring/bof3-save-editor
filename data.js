@@ -181,6 +181,11 @@ function store_vital_and_skills(inv_e, inv)
             inv.genes[gene_group] = inv.genes[gene_group] & (logical_not(0b1 << (i % 8), 1));
     }
 
+    for (let i = 0; i < 23; i++)
+    {
+        inv.fishes[i] = inv_e.fishes[i].value;
+    }
+
     for (let i = 0; i < 17; i++)
     {
         master_group = i >> 3;
