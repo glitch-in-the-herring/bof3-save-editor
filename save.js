@@ -28,7 +28,7 @@ function checksum(byte_array, addr)
     byte_array[addr + 0x270] = 0;
     byte_array[addr + 0x271] = 0;
 
-    for (let i = 0; i < 0x1e00; i++)
+    for (let i = 0; i < 0x10b0; i++)
         sum += byte_array[addr + 0x200 + i];
 
     buffer = to_little_endian_u(sum, 4);
