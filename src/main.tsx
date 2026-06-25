@@ -6,12 +6,15 @@ import Index from "./pages/Index.tsx"
 
 import "./main.css"
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Index />,
-  },
-])
+const router = createBrowserRouter(
+  [
+    {
+      index: true,
+      element: <Index />,
+    },
+  ],
+  { basename: import.meta.env.VITE_BASE_URL },
+)
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
