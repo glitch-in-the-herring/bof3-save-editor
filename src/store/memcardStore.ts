@@ -1,5 +1,6 @@
-import { create } from "zustand";
-import type { Memcard, SaveFile } from "../types/memcard";
+import { create } from "zustand"
+
+import type { Memcard, SaveFile } from "../types/memcard"
 
 interface MemcardState {
   memcard: Memcard
@@ -15,5 +16,5 @@ export const useMemcard = create<MemcardState>((set, get) => ({
   },
   setMemcard: (memcard) => set({ memcard: memcard }),
   getSaveFiles: () => get().memcard.saveFiles,
-  setSaveFileIndex: (index) => set({ saveFileIndex: index })
+  setSaveFileIndex: (index) => set({ saveFileIndex: index }),
 }))

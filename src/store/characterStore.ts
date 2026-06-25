@@ -1,5 +1,6 @@
-import { create } from "zustand";
-import type { Character } from "../types/character";
+import { create } from "zustand"
+
+import type { Character } from "../types/character"
 
 interface CharacterState {
   character: Character

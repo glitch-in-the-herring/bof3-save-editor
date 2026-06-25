@@ -9,18 +9,27 @@ interface InputProps {
   value?: string | number
 }
 
-export default function Input({ 
-  id, name, label, inputType, divClassName, inputClassName, icon, value
+export default function Input({
+  id,
+  name,
+  label,
+  inputType,
+  divClassName,
+  inputClassName,
+  icon,
+  value,
 }: InputProps) {
-  return <div className={`flex flex-row gap-1 ${divClassName}`}>
-    {icon && <img src={icon} height={16} />}
-    <label className="text-nowrap">{label}</label>
-    <input
-      id={id}
-      name={name}
-      type={inputType}
-      className={inputClassName}
-      value={value === undefined ? "" : value}
-    ></input>
-  </div>
+  return (
+    <div className={`flex flex-row gap-1 ${divClassName}`}>
+      {icon && <img src={icon} height={16} />}
+      <label className="text-nowrap">{label}</label>
+      <input
+        id={id}
+        name={name}
+        type={inputType}
+        className={inputClassName}
+        value={value === undefined ? "" : value}
+      ></input>
+    </div>
+  )
 }

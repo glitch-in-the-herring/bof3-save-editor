@@ -11,15 +11,15 @@ export const elements: string[] = [
 ] as const
 
 export const elementsMap: Record<Element, string> = {
-  "fire" : "Fire",
-  "ice" : "Ice",
-  "electric" : "Electric",
-  "earth" : "Earth",
-  "wind" : "Wind",
-  "holy" : "Holy",
-  "psionic" : "Psionic",
-  "status" : "Status",
-  "death" : "Death",
+  fire: "Fire",
+  ice: "Ice",
+  electric: "Electric",
+  earth: "Earth",
+  wind: "Wind",
+  holy: "Holy",
+  psionic: "Psionic",
+  status: "Status",
+  death: "Death",
 }
 
-export type Element = typeof elements[number]
+export type Element = (typeof elements)[number]

@@ -1,4 +1,5 @@
 import { create } from "zustand"
+
 import type { SaveFile } from "../types/memcard"
 
 interface SaveFileState {
@@ -11,5 +12,5 @@ interface SaveFileState {
 export const useSaveFile = create<SaveFileState>()((set) => ({
   saveFile: {},
   setSaveFile: (saveFile) => set({ saveFile: saveFile }),
-  setCharacterIndex: (index) => set({ characterIndex: index })
+  setCharacterIndex: (index) => set({ characterIndex: index }),
 }))

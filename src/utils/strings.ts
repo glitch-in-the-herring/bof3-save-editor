@@ -12,7 +12,7 @@ const symbolMap: Record<number, string> = {
   0x8d: "&",
   0x8e: "'",
   0x8f: ":",
-  0x90: "\"",
+  0x90: '"',
   0x91: ";",
   0x92: "•",
   0x93: "%",
@@ -21,10 +21,9 @@ const symbolMap: Record<number, string> = {
 
 export function decode(byteArray: Uint8Array) {
   let output: string[] = []
-  
+
   for (const b of byteArray) {
-    if (b == 0x00)
-      break
+    if (b == 0x00) break
 
     if (b in symbolMap) {
       output.push(symbolMap[b])

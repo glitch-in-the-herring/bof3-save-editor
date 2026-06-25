@@ -1,5 +1,5 @@
 export function isMemcard(byteArray: Uint8Array) {
-  return byteArray[0] == 0x4D && byteArray[1] == 0x43
+  return byteArray[0] == 0x4d && byteArray[1] == 0x43
 }
 
 export function browseTOC(byteArray: Uint8Array) {
@@ -8,11 +8,11 @@ export function browseTOC(byteArray: Uint8Array) {
 
   while (current_address <= 0x780) {
     current_address += 0x80
-    if (byteArray[current_address] != 0xA0 && checkTOCEntry(byteArray, current_address))
+    if (byteArray[current_address] != 0xa0 && checkTOCEntry(byteArray, current_address))
       addresses.push(0x2000 * (current_address / 0x80))
   }
 
-  return addresses;
+  return addresses
 }
 
 export function checkTOCEntry(byteArray: Uint8Array, currentAddress: number) {
@@ -20,10 +20,10 @@ export function checkTOCEntry(byteArray: Uint8Array, currentAddress: number) {
   const codeUS = "SLUS-00422BOF3"
   const codeEU = "SLES-01304BOF3"
 
-  for (let i = 0; i < 0x0E; i++) {       
+  for (let i = 0; i < 0x0e; i++) {
     if (
-      byteArray[currentAddress + 0x0C + i] != codeUS[i].charCodeAt(0) 
-      && byteArray[currentAddress + 0x0C + i] != codeEU[i].charCodeAt(0)
+      byteArray[currentAddress + 0x0c + i] != codeUS[i].charCodeAt(0) &&
+      byteArray[currentAddress + 0x0c + i] != codeEU[i].charCodeAt(0)
       /*&& byte_array[current_address + 0x0C + i] != codeJP[i].charCodeAt() */
     )
       return false

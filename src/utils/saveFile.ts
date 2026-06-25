@@ -1,13 +1,13 @@
-import type { Character } from "../types/character";
-import { elements } from "../types/element";
-import type { SaveFile } from "../types/memcard";
-import { bytesToNumber } from "./numbers";
-import { decode } from "./strings";
+import type { Character } from "../types/character"
+import { elements } from "../types/element"
+import type { SaveFile } from "../types/memcard"
+import { bytesToNumber } from "./numbers"
+import { decode } from "./strings"
 
 export function loadSaveFile(byteArray: Uint8Array, address: number) {
   let saveFile: SaveFile = {
     address: address,
-    characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7B0))
+    characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
   }
 
   return saveFile
@@ -41,11 +41,12 @@ export function loadCharacters(byteArray: Uint8Array) {
       fatigue: byteArray[baseAddress + 25],
       // master: byteArray[baseAddress + 27],
       resistances: elements.reduce(
-        (prev, cur, i) => ({ 
+        (prev, cur, i) => ({
           ...prev,
-          [cur]: byteArray[baseAddress + 75 + i]
-        }), {}
-      )
+          [cur]: byteArray[baseAddress + 75 + i],
+        }),
+        {},
+      ),
     }
 
     characters.push(character)

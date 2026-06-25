@@ -8,30 +8,38 @@ export default function SaveFileNavigator() {
   const memcard = useMemcard((state) => state.memcard)
   const saveFileIndex = useMemcard((state) => state.saveFileIndex)
 
-  return <>
-    <div className="flex flex-row gap-4">
-      <label htmlFor="slotPrevButton">Prev</label>
-      <div className="flex flex-row gap-2">
-        <button 
-          id="slotPrevButton"
-          onClick={() => paginationHandler("prev")}
-          disabled={saveFileIndex === undefined || saveFileIndex <= 0}
-        >&lt;</button>
-        {
-          saveFileIndex !== undefined ? 
-          <label>Slot {saveFileIndex + 1} / {memcard.saveFiles.length}</label>
-          : <label>Slot ... / ...</label>
-        }
-        <button 
-          id="slotNextButton" 
-          onClick={() => paginationHandler("next")}
-          disabled={saveFileIndex === undefined || saveFileIndex >= memcard.saveFiles.length - 1}
-        >&gt;</button>
+  return (
+    <>
+      <div className="flex flex-row gap-4">
+        <label htmlFor="slotPrevButton">Prev</label>
+        <div className="flex flex-row gap-2">
+          <button
+            id="slotPrevButton"
+            onClick={() => paginationHandler("prev")}
+            disabled={saveFileIndex === undefined || saveFileIndex <= 0}
+          >
+            &lt;
+          </button>
+          {saveFileIndex !== undefined ? (
+            <label>
+              Slot {saveFileIndex + 1} / {memcard.saveFiles.length}
+            </label>
+          ) : (
+            <label>Slot ... / ...</label>
+          )}
+          <button
+            id="slotNextButton"
+            onClick={() => paginationHandler("next")}
+            disabled={saveFileIndex === undefined || saveFileIndex >= memcard.saveFiles.length - 1}
+          >
+            &gt;
+          </button>
+        </div>
+        <label htmlFor="slotNextButton">Next</label>
       </div>
-      <label htmlFor="slotNextButton">Next</label>
-    </div>
-    <button className="w-fit">Save</button>  
-  </>
+      <button className="w-fit">Save</button>
+    </>
+  )
 }
 
 function paginationHandler(direction: PaginationDirection) {
@@ -44,14 +52,11 @@ function paginationHandler(direction: PaginationDirection) {
 
   const setCharacter = useCharacter.getState().setCharacter
 
-  if (saveFileIndex === undefined)
-    return
+  if (saveFileIndex === undefined) return
 
-  if (direction === "prev" && saveFileIndex <= 0)
-    return
+  if (direction === "prev" && saveFileIndex <= 0) return
 
-  if (direction === "next" && saveFileIndex >= memcard.saveFiles.length - 1)
-    return
+  if (direction === "next" && saveFileIndex >= memcard.saveFiles.length - 1) return
 
   const delta = direction === "next" ? 1 : -1
   const saveFile = memcard.saveFiles[saveFileIndex + delta]

@@ -12,7 +12,7 @@ export interface Character {
   trueMaxAP?: number
   pwr?: number
   def?: number
-  agl?: number 
+  agl?: number
   int?: number
   willpower?: number
   surprise?: number
