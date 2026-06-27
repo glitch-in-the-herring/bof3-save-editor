@@ -1,4 +1,6 @@
 import type { Element } from "./element"
+import type { Equipment } from "./equipment"
+import type { SpellCategory } from "./spellCategories"
 
 export interface Character {
   name?: string
@@ -21,21 +23,13 @@ export interface Character {
   dodge?: number
   accuracy?: number
   fatigue?: number
+  apprenticingLevel?: number
+  master?: number
   resistances?: Record<Element, number>
-  weaponID?: number
-  helmetID?: number
-  chestplateID?: number
-  shieldID?: number
-  accessory1ID?: number
-  accessory2ID?: number
-  statGrowth?: StatGrowth
+  equipment?: Record<Equipment, number>
+  statGrowth?: Record<StatGrowthKey, number>
+  spells?: Record<SpellCategory, number[]>
 }
 
-interface StatGrowth {
-  hp: number
-  ap: number
-  pwr: number
-  def: number
-  agl: number
-  int: number
-}
+export const statGrowthKeys = ["hp", "ap", "pwr", "def", "agl", "int"]
+export type StatGrowthKey = (typeof statGrowthKeys)[number]

@@ -1,6 +1,15 @@
-import Input from "../Input"
+import type { ChangeEvent } from "react"
+
+import { useCharacter } from "../../../store/characterStore"
+import Input from "../../shared/Input"
+import Label from "../../shared/Label"
+import MastersSelect from "../MastersSelect"
 
 export default function CharacterGrowth() {
+  const character = useCharacter((state) => state.character)
+  console.log("RERENDER")
+  console.log(character.master)
+
   return (
     <div>
       <h3>Stat Growth Modifier</h3>
@@ -11,6 +20,7 @@ export default function CharacterGrowth() {
           label="HP increase:"
           inputType="number"
           inputClassName="w-1/2"
+          value={character.statGrowth ? character.statGrowth["hp"] : ""}
         />
         <Input
           id="charAPGrowth"
@@ -18,6 +28,7 @@ export default function CharacterGrowth() {
           label="AP increase:"
           inputType="number"
           inputClassName="w-1/2"
+          value={character.statGrowth ? character.statGrowth["ap"] : ""}
         />
         <Input
           id="charPWRGrowth"
@@ -25,6 +36,7 @@ export default function CharacterGrowth() {
           label="PWR increase:"
           inputType="number"
           inputClassName="w-1/2"
+          value={character.statGrowth ? character.statGrowth["pwr"] : ""}
         />
         <Input
           id="charDEFGrowth"
@@ -32,6 +44,7 @@ export default function CharacterGrowth() {
           label="DEF increase:"
           inputType="number"
           inputClassName="w-1/2"
+          value={character.statGrowth ? character.statGrowth["def"] : ""}
         />
         <Input
           id="charAGLGrowth"
@@ -39,6 +52,7 @@ export default function CharacterGrowth() {
           label="AGL increase:"
           inputType="number"
           inputClassName="w-1/2"
+          value={character.statGrowth ? character.statGrowth["agl"] : ""}
         />
         <Input
           id="charINTGrowth"
@@ -46,8 +60,31 @@ export default function CharacterGrowth() {
           label="INT increase:"
           inputType="number"
           inputClassName="w-1/2"
+          value={character.statGrowth ? character.statGrowth["int"] : ""}
         />
+        <Input
+          id="charStartLvl"
+          name="charStartLvl"
+          label="Apprenticing level:"
+          value={character.apprenticingLevel}
+          inputType="number"
+          inputClassName="w-1/2"
+        />
+        <Label id="charMaster" label="Master:">
+          <MastersSelect
+            id="charMaster"
+            value={character.master !== undefined ? character.master : ""}
+            onChange={switchMastersHandler}
+          />
+        </Label>
       </div>
     </div>
   )
+}
+
+function switchMastersHandler(e: ChangeEvent) {
+  const target = e.target as HTMLSelectElement
+
+  const setMaster = useCharacter.getState().setMaster
+  setMaster(Number(target.value))
 }

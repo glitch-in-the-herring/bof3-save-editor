@@ -22,7 +22,9 @@ export default function Input({
   return (
     <div className={`flex flex-row gap-1 ${divClassName}`}>
       {icon && <img src={icon} height={16} />}
-      <label className="text-nowrap">{label}</label>
+      <label className="text-nowrap" htmlFor={id}>
+        {label}
+      </label>
       <input
         id={id}
         name={name}

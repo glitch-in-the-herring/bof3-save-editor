@@ -1,6 +1,8 @@
-import type { Character } from "../types/character"
+import { statGrowthKeys, type Character } from "../types/character"
 import { elements } from "../types/element"
+import { equipment } from "../types/equipment"
 import type { SaveFile } from "../types/memcard"
+import { spellCategories } from "../types/spellCategories"
 import { bytesToNumber } from "./numbers"
 import { decode } from "./strings"
 
@@ -18,7 +20,7 @@ export function loadCharacters(byteArray: Uint8Array) {
 
   for (let i = 0; i < 8; i++) {
     const baseAddress = 0xa4 * i
-    const character = {
+    const character: Character = {
       name: decode(byteArray.slice(baseAddress, baseAddress + 5)),
       lvl: byteArray[baseAddress + 6],
       exp: bytesToNumber(byteArray.slice(baseAddress + 8, baseAddress + 12), false),
@@ -39,11 +41,33 @@ export function loadCharacters(byteArray: Uint8Array) {
       dodge: byteArray[baseAddress + 87],
       accuracy: byteArray[baseAddress + 88],
       fatigue: byteArray[baseAddress + 25],
-      // master: byteArray[baseAddress + 27],
+      apprenticingLevel: byteArray[baseAddress + 132],
+      master: byteArray[baseAddress + 27],
       resistances: elements.reduce(
         (prev, cur, i) => ({
           ...prev,
           [cur]: byteArray[baseAddress + 75 + i],
+        }),
+        {},
+      ),
+      equipment: equipment.reduce(
+        (prev, cur, i) => ({
+          ...prev,
+          [cur]: byteArray[baseAddress + 14 + i],
+        }),
+        {},
+      ),
+      statGrowth: statGrowthKeys.reduce(
+        (prev, cur, i) => ({
+          ...prev,
+          [cur]: byteArray[baseAddress + 133 + i],
+        }),
+        {},
+      ),
+      spells: spellCategories.reduce(
+        (prev, cur, i) => ({
+          ...prev,
+          [cur]: byteArray.slice(baseAddress + 92 + i * 10, baseAddress + 92 + i * 10 + 10),
         }),
         {},
       ),

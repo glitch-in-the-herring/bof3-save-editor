@@ -1,5 +1,5 @@
 import { useCharacter } from "../../../store/characterStore"
-import Input from "../Input"
+import Input from "../../shared/Input"
 
 export default function CharacterStats() {
   const character = useCharacter((state) => state.character)

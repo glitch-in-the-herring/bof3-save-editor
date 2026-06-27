@@ -1,3 +1,10 @@
+import type { JSX } from "react/jsx-runtime"
+
+import AccessorySelect from "../components/Index/AccessorySelect"
+import ArmorSelect from "../components/Index/AmorSelect"
+import WeaponSelect from "../components/Index/WeaponSelect"
+import type { DropdownProps } from "./dropdowns"
+
 export const equipment: string[] = [
   "weapon",
   "shield",
@@ -14,6 +21,15 @@ export const equipmentLabelMap: Record<Equipment, string> = {
   armor: "Armor",
   accessory1: "Accessory 1",
   accessory2: "Accessory 2",
+}
+
+export const equipmentSelectMap: Record<Equipment, (props: DropdownProps) => JSX.Element> = {
+  weapon: WeaponSelect,
+  shield: ArmorSelect,
+  helm: ArmorSelect,
+  armor: ArmorSelect,
+  accessory1: AccessorySelect,
+  accessory2: AccessorySelect,
 }
 
 export const equipmentIconMap: Record<Equipment, string> = {

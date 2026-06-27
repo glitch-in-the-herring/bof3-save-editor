@@ -1,6 +1,6 @@
 import { useCharacter } from "../../../store/characterStore"
 import { elements, elementsMap } from "../../../types/element"
-import Input from "../Input"
+import Input from "../../shared/Input"
 
 export default function CharacterResistances() {
   const character = useCharacter((state) => state.character)

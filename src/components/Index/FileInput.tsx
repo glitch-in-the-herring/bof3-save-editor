@@ -39,6 +39,7 @@ function fileReadHandler(e: ProgressEvent<FileReader>) {
   const setCharacterIndex = useSaveFile.getState().setCharacterIndex
 
   const setCharacter = useCharacter.getState().setCharacter
+  const setSpellCategory = useCharacter.getState().setSpellCategory
 
   if (!e.target) throw Error("Error reading memory card")
 
@@ -60,4 +61,5 @@ function fileReadHandler(e: ProgressEvent<FileReader>) {
   setSaveFileIndex(0)
   setCharacter(saveFiles[0].characters![0])
   setCharacterIndex(0)
+  setSpellCategory("Heal")
 }
