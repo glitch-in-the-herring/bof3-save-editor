@@ -25,11 +25,35 @@ export interface Character {
   fatigue?: number
   apprenticingLevel?: number
   master?: number
-  resistances?: Record<Element, number>
-  equipment?: Record<Equipment, number>
-  statGrowth?: Record<StatGrowthKey, number>
-  spells?: Record<SpellCategory, number[]>
+  resistances: Record<Element, number>
+  equipment: Record<Equipment, number>
+  statGrowth: Record<StatGrowthKey, number>
+  spells: Record<SpellCategory, number[]>
 }
+
+export const characterNumberFields: (keyof Character)[] = [
+  "lvl",
+  "exp",
+  "currentHP",
+  "currentAP",
+  "currentMaxHP",
+  "currentMaxAP",
+  "trueMaxHP",
+  "trueMaxAP",
+  "pwr",
+  "def",
+  "agl",
+  "int",
+  "willpower",
+  "surprise",
+  "reprisal",
+  "critical",
+  "dodge",
+  "accuracy",
+  "fatigue",
+  "apprenticingLevel",
+  "master",
+]
 
 export const statGrowthKeys = ["hp", "ap", "pwr", "def", "agl", "int"]
 export type StatGrowthKey = (typeof statGrowthKeys)[number]

@@ -1,8 +1,6 @@
 import type { ChangeEvent } from "react"
 
-import { useCharacter } from "../../store/characterStore"
-import { useMemcard } from "../../store/memcardStore"
-import { useSaveFile } from "../../store/saveFileStore"
+import { useGlobal } from "../../store/globalStore"
 import type { Memcard } from "../../types/memcard"
 import { browseTOC, isMemcard } from "../../utils/memcard"
 import { loadSaveFile } from "../../utils/saveFile"
@@ -32,14 +30,8 @@ function uploadHandler(e: ChangeEvent) {
 }
 
 function fileReadHandler(e: ProgressEvent<FileReader>) {
-  const setMemcard = useMemcard.getState().setMemcard
-  const setSaveFileIndex = useMemcard.getState().setSaveFileIndex
-
-  const setSaveFile = useSaveFile.getState().setSaveFile
-  const setCharacterIndex = useSaveFile.getState().setCharacterIndex
-
-  const setCharacter = useCharacter.getState().setCharacter
-  const setSpellCategory = useCharacter.getState().setSpellCategory
+  const setMemcard = useGlobal.getState().setMemcard
+  const setActiveOption = useGlobal.getState().setActiveOption
 
   if (!e.target) throw Error("Error reading memory card")
 
@@ -57,9 +49,7 @@ function fileReadHandler(e: ProgressEvent<FileReader>) {
   }
 
   setMemcard(memcard)
-  setSaveFile(saveFiles[0])
-  setSaveFileIndex(0)
-  setCharacter(saveFiles[0].characters![0])
-  setCharacterIndex(0)
-  setSpellCategory("Heal")
+  setActiveOption(0, "saveFileIndex")
+  setActiveOption(0, "characterIndex")
+  setActiveOption("Heal", "spellCategory")
 }

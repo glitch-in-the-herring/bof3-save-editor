@@ -1,7 +1,7 @@
 import type { JSX } from "react/jsx-runtime"
 
 import AccessorySelect from "../components/Index/AccessorySelect"
-import ArmorSelect from "../components/Index/AmorSelect"
+import ArmorSelect from "../components/Index/ArmorSelect"
 import WeaponSelect from "../components/Index/WeaponSelect"
 import type { DropdownProps } from "./dropdowns"
 

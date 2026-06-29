@@ -1,7 +1,6 @@
 import type { ChangeEvent } from "react"
 
-import { useCharacter } from "../../../store/characterStore"
-import { useSaveFile } from "../../../store/saveFileStore"
+import { useGlobal } from "../../../store/globalStore"
 import CharacterAbilities from "./CharacterAbilities"
 import CharacterEquipment from "./CharacterEquipment"
 import CharacterGrowth from "./CharacterGrowth"
@@ -9,8 +8,8 @@ import CharacterResistances from "./CharacterResistances"
 import CharacterStats from "./CharacterStats"
 
 export default function CharacterEditor() {
-  const saveFile = useSaveFile((state) => state.saveFile)
-  const characterIndex = useSaveFile((state) => state.characterIndex)
+  const memcard = useGlobal((state) => state.memcard)
+  const activeOptions = useGlobal((state) => state.activeOptions)
 
   return (
     <div>
@@ -18,9 +17,14 @@ export default function CharacterEditor() {
       <div>
         <div>
           <label>Character: </label>
-          <select value={characterIndex} onChange={switchCharactersHandler}>
-            {saveFile.characters &&
-              saveFile.characters.map((c, i) => (
+          <select
+            value={activeOptions.characterIndex !== undefined ? activeOptions.characterIndex : ""}
+            disabled={activeOptions.characterIndex === undefined}
+            onChange={switchCharactersHandler}
+          >
+            {activeOptions.characterIndex !== undefined &&
+              activeOptions.saveFileIndex !== undefined &&
+              memcard.saveFiles[activeOptions.saveFileIndex].characters!.map((c, i) => (
                 <option key={c.name} value={i}>
                   {c.name}
                 </option>
@@ -45,11 +49,7 @@ function switchCharactersHandler(e: ChangeEvent) {
   const target = e.target as HTMLSelectElement
   const index = Number(target.value)
 
-  const saveFile = useSaveFile.getState().saveFile
-  const setCharacterIndex = useSaveFile.getState().setCharacterIndex
+  const setActiveOption = useGlobal.getState().setActiveOption
 
-  const setCharacter = useCharacter.getState().setCharacter
-
-  setCharacterIndex(index)
-  setCharacter(saveFile.characters![index])
+  setActiveOption(index, "characterIndex")
 }

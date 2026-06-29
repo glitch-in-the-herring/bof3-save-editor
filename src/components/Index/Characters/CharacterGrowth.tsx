@@ -1,14 +1,15 @@
 import type { ChangeEvent } from "react"
 
-import { useCharacter } from "../../../store/characterStore"
+import { getCharacter, useGlobal } from "../../../store/globalStore"
+import type { StatGrowthKey } from "../../../types/character"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
 import MastersSelect from "../MastersSelect"
 
 export default function CharacterGrowth() {
-  const character = useCharacter((state) => state.character)
-  console.log("RERENDER")
-  console.log(character.master)
+  const memcard = useGlobal((state) => state.memcard)
+  const activeOptions = useGlobal((state) => state.activeOptions)
+  const character = getCharacter(activeOptions, memcard)
 
   return (
     <div>
@@ -20,7 +21,9 @@ export default function CharacterGrowth() {
           label="HP increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character.statGrowth ? character.statGrowth["hp"] : ""}
+          value={character && character.statGrowth ? character.statGrowth["hp"] : ""}
+          onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "hp")}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Input
           id="charAPGrowth"
@@ -28,7 +31,9 @@ export default function CharacterGrowth() {
           label="AP increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character.statGrowth ? character.statGrowth["ap"] : ""}
+          value={character && character.statGrowth ? character.statGrowth["ap"] : ""}
+          onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "ap")}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Input
           id="charPWRGrowth"
@@ -36,7 +41,9 @@ export default function CharacterGrowth() {
           label="PWR increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character.statGrowth ? character.statGrowth["pwr"] : ""}
+          value={character && character.statGrowth ? character.statGrowth["pwr"] : ""}
+          onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "pwr")}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Input
           id="charDEFGrowth"
@@ -44,7 +51,9 @@ export default function CharacterGrowth() {
           label="DEF increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character.statGrowth ? character.statGrowth["def"] : ""}
+          value={character && character.statGrowth ? character.statGrowth["def"] : ""}
+          onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "def")}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Input
           id="charAGLGrowth"
@@ -52,7 +61,9 @@ export default function CharacterGrowth() {
           label="AGL increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character.statGrowth ? character.statGrowth["agl"] : ""}
+          value={character && character.statGrowth ? character.statGrowth["agl"] : ""}
+          onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "agl")}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Input
           id="charINTGrowth"
@@ -60,20 +71,25 @@ export default function CharacterGrowth() {
           label="INT increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character.statGrowth ? character.statGrowth["int"] : ""}
+          value={character && character.statGrowth ? character.statGrowth["int"] : ""}
+          onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "int")}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Input
           id="charStartLvl"
           name="charStartLvl"
           label="Apprenticing level:"
-          value={character.apprenticingLevel}
+          value={character ? character.apprenticingLevel : ""}
           inputType="number"
           inputClassName="w-1/2"
+          onChange={startLvlChangeHandler}
+          disabled={activeOptions.characterIndex === undefined}
         />
         <Label id="charMaster" label="Master:">
           <MastersSelect
             id="charMaster"
-            value={character.master !== undefined ? character.master : ""}
+            value={character && character.master !== undefined ? character.master : ""}
+            disabled={activeOptions.characterIndex === undefined}
             onChange={switchMastersHandler}
           />
         </Label>
@@ -84,7 +100,32 @@ export default function CharacterGrowth() {
 
 function switchMastersHandler(e: ChangeEvent) {
   const target = e.target as HTMLSelectElement
+  const { saveFileIndex, characterIndex } = useGlobal.getState().activeOptions
 
-  const setMaster = useCharacter.getState().setMaster
-  setMaster(Number(target.value))
+  if (saveFileIndex === undefined || characterIndex === undefined) return
+
+  const setCharacterField = useGlobal.getState().setCharacterField
+  setCharacterField(Number(target.value), "master", saveFileIndex, characterIndex)
+}
+
+function statGrowthChangeHandler(e: ChangeEvent, key: StatGrowthKey) {
+  const { saveFileIndex, characterIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined || characterIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+
+  const setCharacterGrowth = useGlobal.getState().setCharacterGrowth
+
+  setCharacterGrowth(Number(target.value), key, saveFileIndex, characterIndex)
+}
+
+function startLvlChangeHandler(e: ChangeEvent) {
+  const { saveFileIndex, characterIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined || characterIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+
+  const setCharacterField = useGlobal.getState().setCharacterField
+
+  setCharacterField(Number(target.value), "apprenticingLevel", saveFileIndex, characterIndex)
 }

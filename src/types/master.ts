@@ -18,7 +18,7 @@ export const masters: Record<number, string> = {
   14: "Wynn",
   15: "Ladon",
   16: "Meryleep",
-  0xff: "--"
+  0xff: "--",
 }
 
 export const masterModifiers: Record<number, Record<StatGrowthKey, number>> = {

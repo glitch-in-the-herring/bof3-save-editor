@@ -7,6 +7,8 @@ interface InputProps {
   inputClassName?: string
   icon?: string
   value?: string | number
+  disabled?: boolean
+  onChange?: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>
 }
 
 export default function Input({
@@ -18,6 +20,8 @@ export default function Input({
   inputClassName,
   icon,
   value,
+  disabled,
+  onChange,
 }: InputProps) {
   return (
     <div className={`flex flex-row gap-1 ${divClassName}`}>
@@ -31,6 +35,8 @@ export default function Input({
         type={inputType}
         className={inputClassName}
         value={value === undefined ? "" : value}
+        disabled={disabled}
+        onChange={onChange}
       ></input>
     </div>
   )

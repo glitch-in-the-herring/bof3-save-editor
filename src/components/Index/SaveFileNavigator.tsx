@@ -1,12 +1,10 @@
-import { useCharacter } from "../../store/characterStore"
-import { useMemcard } from "../../store/memcardStore"
-import { useSaveFile } from "../../store/saveFileStore"
+import { useGlobal } from "../../store/globalStore"
 
 type PaginationDirection = "prev" | "next"
 
 export default function SaveFileNavigator() {
-  const memcard = useMemcard((state) => state.memcard)
-  const saveFileIndex = useMemcard((state) => state.saveFileIndex)
+  const memcard = useGlobal((state) => state.memcard)
+  const activeOptions = useGlobal((state) => state.activeOptions)
 
   return (
     <>
@@ -16,13 +14,13 @@ export default function SaveFileNavigator() {
           <button
             id="slotPrevButton"
             onClick={() => paginationHandler("prev")}
-            disabled={saveFileIndex === undefined || saveFileIndex <= 0}
+            disabled={activeOptions.saveFileIndex === undefined || activeOptions.saveFileIndex <= 0}
           >
             &lt;
           </button>
-          {saveFileIndex !== undefined ? (
+          {activeOptions.saveFileIndex !== undefined ? (
             <label>
-              Slot {saveFileIndex + 1} / {memcard.saveFiles.length}
+              Slot {activeOptions.saveFileIndex + 1} / {memcard.saveFiles.length}
             </label>
           ) : (
             <label>Slot ... / ...</label>
@@ -30,39 +28,34 @@ export default function SaveFileNavigator() {
           <button
             id="slotNextButton"
             onClick={() => paginationHandler("next")}
-            disabled={saveFileIndex === undefined || saveFileIndex >= memcard.saveFiles.length - 1}
+            disabled={
+              activeOptions.saveFileIndex === undefined ||
+              activeOptions.saveFileIndex >= memcard.saveFiles.length - 1
+            }
           >
             &gt;
           </button>
         </div>
         <label htmlFor="slotNextButton">Next</label>
       </div>
-      <button className="w-fit">Save</button>
+      <button className="w-fit" disabled={activeOptions.characterIndex === undefined}>
+        Save
+      </button>
     </>
   )
 }
 
 function paginationHandler(direction: PaginationDirection) {
-  const memcard = useMemcard.getState().memcard
-  const saveFileIndex = useMemcard.getState().saveFileIndex
-  const setSaveFileIndex = useMemcard.getState().setSaveFileIndex
+  const memcard = useGlobal.getState().memcard
+  const activeOptions = useGlobal.getState().activeOptions
+  const setActiveOption = useGlobal.getState().setActiveOption
 
-  const setSaveFile = useSaveFile.getState().setSaveFile
-  const setCharacterIndex = useSaveFile.getState().setCharacterIndex
-
-  const setCharacter = useCharacter.getState().setCharacter
-
-  if (saveFileIndex === undefined) return
-
-  if (direction === "prev" && saveFileIndex <= 0) return
-
-  if (direction === "next" && saveFileIndex >= memcard.saveFiles.length - 1) return
+  if (activeOptions.saveFileIndex === undefined) return
+  if (direction === "prev" && activeOptions.saveFileIndex <= 0) return
+  if (direction === "next" && activeOptions.saveFileIndex >= memcard.saveFiles.length - 1) return
 
   const delta = direction === "next" ? 1 : -1
-  const saveFile = memcard.saveFiles[saveFileIndex + delta]
 
-  setSaveFile(saveFile)
-  setSaveFileIndex(saveFileIndex + delta)
-  setCharacter(saveFile.characters![0])
-  setCharacterIndex(0)
+  setActiveOption(activeOptions.saveFileIndex + delta, "saveFileIndex")
+  setActiveOption(0, "characterIndex")
 }
