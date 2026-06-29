@@ -1,7 +1,7 @@
 interface InputProps {
-  id: string
-  name: string
-  label: string
+  id?: string
+  name?: string
+  label?: string
   inputType?: React.HTMLInputTypeAttribute
   divClassName?: string
   inputClassName?: string
@@ -26,9 +26,11 @@ export default function Input({
   return (
     <div className={`flex flex-row gap-1 ${divClassName}`}>
       {icon && <img src={icon} height={16} />}
-      <label className="text-nowrap" htmlFor={id}>
-        {label}
-      </label>
+      {label && (
+        <label className="text-nowrap" htmlFor={id}>
+          {label}
+        </label>
+      )}
       <input
         id={id}
         name={name}

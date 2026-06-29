@@ -1,4 +1,5 @@
 import type { Character } from "./character"
+import type { Inventory } from "./inventory"
 
 export interface Memcard {
   addresses?: number[]
@@ -8,4 +9,5 @@ export interface Memcard {
 export interface SaveFile {
   address?: number
   characters?: Character[]
+  inventory?: Inventory
 }

@@ -1,5 +1,6 @@
 import CharacterEditor from "./Characters/CharacterEditor"
 import FileInput from "./FileInput"
+import InventoryEditor from "./Inventory/InventoryEditor"
 import SaveFileNavigator from "./SaveFileNavigator"
 
 export default function Editor() {
@@ -8,6 +9,7 @@ export default function Editor() {
       <FileInput />
       <SaveFileNavigator />
       <CharacterEditor />
+      <InventoryEditor />
       <SaveFileNavigator />
     </div>
   )

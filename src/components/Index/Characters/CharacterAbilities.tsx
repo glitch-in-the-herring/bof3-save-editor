@@ -12,7 +12,9 @@ export default function CharacterAbilities() {
   return (
     <div>
       <h3>Abilities</h3>
+      <label htmlFor="charSpellCategory">Spell category: </label>
       <select
+        id="charSpellCategory"
         value={activeOptions.spellCategory || ""}
         onChange={switchSpellCategoriesHandler}
         disabled={activeOptions.characterIndex === undefined}
