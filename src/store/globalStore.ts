@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 
-import type { Character, StatGrowthKey } from "../types/character"
+import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
 import type { Fish } from "../types/fishing"
@@ -67,6 +67,11 @@ interface CharacterState {
   setCharacterGrowth: (
     value: number,
     key: StatGrowthKey,
+    saveFileIndex: number,
+    characterIndex: number,
+  ) => void
+  copyStatGrowth: (
+    statGrowth: Record<StatGrowthKey, number>,
     saveFileIndex: number,
     characterIndex: number,
   ) => void
@@ -152,6 +157,14 @@ export const useGlobal = create<GlobalState>()(
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] = value
+      }),
+    copyStatGrowth: (statGrowth, saveFileIndex, characterIndex) => 
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        statGrowthKeys.forEach((key) => {
+          state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] = statGrowth[key]
+        });
       }),
     setZenny: (value, saveFileIndex) =>
       set((state) => {

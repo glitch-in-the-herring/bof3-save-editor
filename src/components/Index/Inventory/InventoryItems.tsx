@@ -11,7 +11,7 @@ export default function InventoryItems() {
 
   return (
     <>
-      <div className="col-span-3">
+      <div className="col-span-5">
         <label htmlFor="inventoryItemCategory">Item category: </label>
         <select id="inventoryItemCategory" onChange={switchItemCategoriesHandler}>
           {itemCategories.map((c) => (

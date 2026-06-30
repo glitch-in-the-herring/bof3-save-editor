@@ -5,6 +5,7 @@ import type { StatGrowthKey } from "../../../types/character"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
 import MastersSelect from "../MastersSelect"
+import { masterStatGrowth } from "../../../types/master"
 
 export default function CharacterGrowth() {
   const memcard = useGlobal((state) => state.memcard)
@@ -105,7 +106,11 @@ function switchMastersHandler(e: ChangeEvent) {
   if (saveFileIndex === undefined || characterIndex === undefined) return
 
   const setCharacterField = useGlobal.getState().setCharacterField
-  setCharacterField(Number(target.value), "master", saveFileIndex, characterIndex)
+  const copyStatGrowth = useGlobal.getState().copyStatGrowth
+  const id = Number(target.value)
+
+  setCharacterField(id, "master", saveFileIndex, characterIndex)
+  copyStatGrowth(masterStatGrowth[id], saveFileIndex, characterIndex)
 }
 
 function statGrowthChangeHandler(e: ChangeEvent, key: StatGrowthKey) {

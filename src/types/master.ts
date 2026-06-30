@@ -26,7 +26,7 @@ export const masters: MasterRecord[] = [
   { id: 16, name: "Meryleep" },
 ]
 
-export const masterModifiers: Record<number, Record<StatGrowthKey, number>> = {
+export const masterStatGrowth: Record<number, Record<StatGrowthKey, number>> = {
   0: { hp: 2, ap: -2, pwr: 2, def: 1, agl: 0, int: -3 },
   1: { hp: 0, ap: 1, pwr: -1, def: -1, agl: 0, int: 2 },
   2: { hp: -1, ap: 1, pwr: -2, def: 1, agl: 0, int: 2 },
