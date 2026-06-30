@@ -17,7 +17,6 @@ export function saveMemcard() {
   const tmpByteArray = byteArray.slice()
 
   for (const saveFile of memcard.saveFiles) {
-    console.log("savefile address:", saveFile.address)
     saveCharacters(tmpByteArray, saveFile)
     saveInventory(tmpByteArray, saveFile)
     checksum(tmpByteArray, saveFile.address)
@@ -38,7 +37,6 @@ function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile) {
   for (let i = 0; i < 8; i++) {
     let buffer: number[]
     baseAddress = saveFile.address + 0x290 + 0xa4 * i
-    console.log("character base address", baseAddress)
 
     buffer = encode(saveFile.characters[i].name!)
     for (let j = 0; j < 5; j++) byteArray[baseAddress + j] = buffer[j]
