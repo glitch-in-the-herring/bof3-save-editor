@@ -13,7 +13,7 @@ export default function InventoryItems() {
     <>
       <div className="col-span-5">
         <label htmlFor="inventoryItemCategory">Item category: </label>
-        <select id="inventoryItemCategory" onChange={switchItemCategoriesHandler}>
+        <select id="inventoryItemCategory" onChange={switchItemCategoriesHandler} disabled={!items}>
           {itemCategories.map((c) => (
             <option key={c} value={c}>
               {c}
