@@ -1,8 +1,47 @@
 import type { ChangeEvent } from "react"
 
-import { genes, geneIconsMap } from "../../../data/genes"
+import defenderIcon from "../../../assets/genes/defender.gif"
+import eldritchIcon from "../../../assets/genes/eldritch.gif"
+import failureIcon from "../../../assets/genes/failure.gif"
+import flameIcon from "../../../assets/genes/flame.gif"
+import forceIcon from "../../../assets/genes/force.gif"
+import frostIcon from "../../../assets/genes/frost.gif"
+import fusionIcon from "../../../assets/genes/fusion.gif"
+import grossIcon from "../../../assets/genes/gross.gif"
+import infinityIcon from "../../../assets/genes/infinity.gif"
+import miracleIcon from "../../../assets/genes/miracle.gif"
+import mutantIcon from "../../../assets/genes/mutant.gif"
+import questionIcon from "../../../assets/genes/question.gif"
+import radianceIcon from "../../../assets/genes/radiance.gif"
+import reverseIcon from "../../../assets/genes/reverse.gif"
+import shadowIcon from "../../../assets/genes/shadow.gif"
+import thornIcon from "../../../assets/genes/thorn.gif"
+import thunderIcon from "../../../assets/genes/thunder.gif"
+import tranceIcon from "../../../assets/genes/trance.gif"
+import { genes } from "../../../data/genes"
 import { useGlobal, getInventory } from "../../../store/globalStore"
 import { logicalNot } from "../../../utils/numbers"
+
+const geneIconsMap: Record<string, string> = {
+  Flame: flameIcon,
+  Frost: frostIcon,
+  Thunder: thunderIcon,
+  Shadow: shadowIcon,
+  Radiance: radianceIcon,
+  Force: forceIcon,
+  Defender: defenderIcon,
+  Eldritch: eldritchIcon,
+  Miracle: miracleIcon,
+  Gross: grossIcon,
+  Thorn: thornIcon,
+  Reverse: reverseIcon,
+  Mutant: mutantIcon,
+  "???": questionIcon,
+  Trance: tranceIcon,
+  Failure: failureIcon,
+  Fusion: fusionIcon,
+  Infinity: infinityIcon,
+}
 
 export default function InventoryGenes() {
   const memcard = useGlobal((state) => state.memcard)
@@ -25,7 +64,7 @@ export default function InventoryGenes() {
                   disabled={!inventory}
                 />
                 <img
-                  src={`src/assets/genes/${geneIconsMap[g]}.gif`}
+                  src={geneIconsMap[g]}
                   height={32}
                   className="opacity-100 peer-disabled:opacity-40"
                 />

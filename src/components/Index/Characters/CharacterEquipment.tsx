@@ -1,14 +1,27 @@
 import type { ChangeEvent } from "react"
 
+import accessoryIcon from "../../../assets/items/accessory.png"
+import armorIcon from "../../../assets/items/armor.png"
+import helmIcon from "../../../assets/items/helm.png"
+import shieldIcon from "../../../assets/items/shield.png"
+import weaponIcon from "../../../assets/items/weapon.png"
 import { useGlobal, getCharacter } from "../../../store/globalStore"
 import {
   equipment,
-  equipmentIconMap,
   equipmentLabelMap,
   equipmentSelectMap,
   type Equipment,
 } from "../../../types/equipment"
 import Label from "../../shared/Label"
+
+const equipmentIconMap: Record<Equipment, string> = {
+  weapon: weaponIcon,
+  shield: shieldIcon,
+  helm: helmIcon,
+  armor: armorIcon,
+  accessory1: accessoryIcon,
+  accessory2: accessoryIcon,
+}
 
 export default function CharacterEquipment() {
   const memcard = useGlobal((state) => state.memcard)
@@ -23,7 +36,7 @@ export default function CharacterEquipment() {
           <Label
             id={`char${equipmentLabelMap[eq]}`}
             label={`${equipmentLabelMap[eq]}:`}
-            icon={`src/assets/items/${equipmentIconMap[eq]}.png`}
+            icon={equipmentIconMap[eq]}
             key={eq}
           >
             {equipmentSelectMap[eq]({

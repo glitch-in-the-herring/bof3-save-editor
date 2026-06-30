@@ -23,6 +23,7 @@ export const fish: Fish[] = [
   "Mackerel",
   "Manillo",
 ]
+
 export type Fish =
   | "Jellyfish"
   | "Piranha"

@@ -18,24 +18,3 @@ export const genes = [
   "Fusion",
   "Infinity",
 ]
-
-export const geneIconsMap: Record<string, string> = {
-  Flame: "flame",
-  Frost: "frost",
-  Thunder: "thunder",
-  Shadow: "shadow",
-  Radiance: "radiance",
-  Force: "force",
-  Defender: "defender",
-  Eldritch: "eldritch",
-  Miracle: "miracle",
-  Gross: "gross",
-  Thorn: "thorn",
-  Reverse: "reverse",
-  Mutant: "mutant",
-  "???": "question",
-  Trance: "trance",
-  Failure: "failure",
-  Fusion: "fusion",
-  Infinity: "infinity",
-}

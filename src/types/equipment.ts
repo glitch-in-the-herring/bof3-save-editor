@@ -32,13 +32,4 @@ export const equipmentSelectMap: Record<Equipment, (props: DropdownProps) => JSX
   accessory2: AccessorySelect,
 }
 
-export const equipmentIconMap: Record<Equipment, string> = {
-  weapon: "weapon",
-  shield: "shield",
-  helm: "helm",
-  armor: "armor",
-  accessory1: "accessory",
-  accessory2: "accessory",
-}
-
 export type Equipment = (typeof equipment)[number]
