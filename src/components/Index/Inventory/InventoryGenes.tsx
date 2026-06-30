@@ -14,7 +14,7 @@ export default function InventoryGenes() {
       <div className="grid grid-cols-3 px-6">
         {genes.map((g, i) => (
           <div key={i}>
-            <label>
+            <label className="flex flex-col">
               <div className="flex flex-row items-end">
                 <input
                   type="checkbox"
@@ -26,6 +26,7 @@ export default function InventoryGenes() {
                 />
                 <img
                   src={`src/assets/genes/${geneIconsMap[g]}.gif`}
+                  height={32}
                   className="opacity-100 peer-disabled:opacity-40"
                 />
               </div>
