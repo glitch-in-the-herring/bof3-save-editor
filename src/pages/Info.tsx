@@ -5,6 +5,7 @@ export default function Info() {
     <>
       <Header />
       <h2>About the Editor</h2>
+      <span>WIP</span>
     </>
   )
 }
