@@ -4,11 +4,19 @@ import { immer } from "zustand/middleware/immer"
 import type { Character, StatGrowthKey } from "../types/character"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
+import type { FormationCategory } from "../types/formations"
 import type { ItemCategory } from "../types/inventory"
 import type { Memcard } from "../types/memcard"
 import type { SpellCategory } from "../types/spellCategories"
 
-interface GlobalState extends ActiveOptionsState, CharacterState, InventoryState {
+interface GlobalState
+  extends
+    ActiveOptionsState,
+    CharacterState,
+    InventoryState,
+    FormationState,
+    FishState,
+    CounterState {
   memcard: Memcard
   byteArray?: Uint8Array
   filename?: string
@@ -77,6 +85,19 @@ interface InventoryState {
   setDragonGenes: (value: number, index: number, saveFileIndex: number) => void
   setMasters: (value: number, index: number, saveFileIndex: number) => void
 }
+
+interface FormationState {
+  setFormation: (
+    value: number,
+    index: number,
+    category: FormationCategory,
+    saveFileIndex: number,
+  ) => void
+}
+
+interface FishState {}
+
+interface CounterState {}
 
 export const useGlobal = create<GlobalState>()(
   immer((set) => ({
@@ -183,8 +204,17 @@ export const useGlobal = create<GlobalState>()(
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
         const masters = state.memcard.saveFiles[saveFileIndex].inventory.masters
-        state.memcard.saveFiles[saveFileIndex].inventory.masters = masters.map((g, i) =>
-          i === index ? value : g,
+        state.memcard.saveFiles[saveFileIndex].inventory.masters = masters.map((m, i) =>
+          i === index ? value : m,
+        )
+      }),
+    setFormation: (value, index, category, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const formation = state.memcard.saveFiles[saveFileIndex].formations[category]
+        state.memcard.saveFiles[saveFileIndex].formations[category] = formation.map((p, i) =>
+          i === index ? value : p,
         )
       }),
   })),

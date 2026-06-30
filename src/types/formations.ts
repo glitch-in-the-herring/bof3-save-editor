@@ -1,4 +1,4 @@
-export const formationCategories = ["field", "battle"]
+export const formationCategories: FormationCategory[] = ["field", "battle"]
 
 export type Formation = Record<FormationCategory, number[]>
-export type FormationCategory = (typeof formationCategories)[number]
+export type FormationCategory = "field" | "battle"

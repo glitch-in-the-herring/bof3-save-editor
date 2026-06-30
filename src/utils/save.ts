@@ -19,6 +19,7 @@ export function saveMemcard() {
   for (const saveFile of memcard.saveFiles) {
     saveCharacters(tmpByteArray, saveFile)
     saveInventory(tmpByteArray, saveFile)
+    saveFormations(tmpByteArray, saveFile)
     checksum(tmpByteArray, saveFile.address)
   }
 
@@ -153,6 +154,15 @@ function saveInventory(byteArray: Uint8Array, saveFile: SaveFile) {
   for (let i = 0; i < 3; i++) {
     byteArray[mastersBaseAddress + i] = byteSafety(saveFile.inventory.masters[i], 1, false)
     byteArray[mastersBaseAddress + i + 3] = byteSafety(saveFile.inventory.masters[i], 1, false)
+  }
+}
+
+function saveFormations(byteArray: Uint8Array, saveFile: SaveFile) {
+  const baseAddress = saveFile.address + 0x882
+
+  for (let i = 0; i < 3; i++) {
+    byteArray[baseAddress + i] = byteSafety(saveFile.formations["field"][i], 1, false)
+    byteArray[baseAddress + i + 3] = byteSafety(saveFile.formations["battle"][i], 1, false)
   }
 }
 
