@@ -74,6 +74,7 @@ export default function FishingLength() {
             value={fishing ? fishing.lengths[f] : ""}
             onChange={(e: ChangeEvent) => lengthChangeHandler(e, f)}
             divClassName="flex flex-col"
+            disabled={!fishing}
             key={i}
           />
         ))}

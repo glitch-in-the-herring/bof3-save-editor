@@ -27,6 +27,7 @@ export default function CountersTimers() {
                 label="h:"
                 value={counters ? counters.countdowns[c].hour : ""}
                 onChange={(e: ChangeEvent) => changeTimerHandler(e, "hour", c)}
+                disabled={!counters}
                 inputClassName="w-10"
               />
               <Input
@@ -35,6 +36,7 @@ export default function CountersTimers() {
                 label="m:"
                 value={counters ? counters.countdowns[c].minute : ""}
                 inputClassName="w-10"
+                disabled={!counters}
                 onChange={(e: ChangeEvent) => changeTimerHandler(e, "minute", c)}
               />
               <Input
@@ -43,6 +45,7 @@ export default function CountersTimers() {
                 label="s:"
                 value={counters ? counters.countdowns[c].second : ""}
                 inputClassName="w-10"
+                disabled={!counters}
                 onChange={(e: ChangeEvent) => changeTimerHandler(e, "second", c)}
               />
               <Input
@@ -51,10 +54,13 @@ export default function CountersTimers() {
                 label="ss:"
                 value={counters ? counters.countdowns[c].subsecond : ""}
                 inputClassName="w-10"
+                disabled={!counters}
                 onChange={(e: ChangeEvent) => changeTimerHandler(e, "subsecond", c)}
               />
             </div>
-            <button onClick={() => resetTimerHandler(c)}>Reset to zero</button>
+            <button onClick={() => resetTimerHandler(c)} disabled={!counters}>
+              Reset to zero
+            </button>
           </div>
         ))}
       </div>

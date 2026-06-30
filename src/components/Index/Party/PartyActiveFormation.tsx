@@ -15,6 +15,7 @@ export default function PartyFormation() {
         <FormationSelect
           value={party ? party.activeFormation : ""}
           onChange={switchFormationsHandler}
+          disabled={!party}
         />
       </div>
     </div>
