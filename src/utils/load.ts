@@ -1,6 +1,7 @@
 import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
 import { elements, type Element } from "../types/element"
 import { equipment, type Equipment } from "../types/equipment"
+import { fish, type Fish, type Fishing } from "../types/fishing"
 import { formationCategories, type Formation } from "../types/formations"
 import {
   itemCategories,
@@ -19,6 +20,7 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
     characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
     inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
     formations: loadFormations(byteArray.slice(address + 0x882, address + 0x888)),
+    fishing: loadFishing(byteArray.slice(address + 0x90c, address + 0x924)),
   }
 
   return saveFile
@@ -129,14 +131,28 @@ function loadInventory(byteArray: Uint8Array) {
 }
 
 function loadFormations(byteArray: Uint8Array) {
-  let formation: Formation = {}
+  let formation: Formation = {
+    battle: [],
+    field: [],
+  }
 
   for (let i = 0; i < formationCategories.length; i++) {
-    formation = {
-      ...formation,
-      [formationCategories[i]]: Array.from(byteArray.slice(i * 3, i * 3 + 3)),
-    }
+    formation[formationCategories[i]] = Array.from(byteArray.slice(i * 3, i * 3 + 3))
   }
 
   return formation
+}
+
+function loadFishing(byteArray: Uint8Array) {
+  let fishing: Fishing = {
+    lengths: Array.from(byteArray).reduce(
+      (prev, cur, i) => ({
+        ...prev,
+        [fish[i]]: cur,
+      }),
+      {} as Record<Fish, number>,
+    ),
+  }
+
+  return fishing
 }

@@ -2,6 +2,7 @@ import { useGlobal } from "../store/globalStore"
 import { statGrowthKeys } from "../types/character"
 import { elements } from "../types/element"
 import { equipment } from "../types/equipment"
+import { fish } from "../types/fishing"
 import { itemCategories } from "../types/inventory"
 import type { SaveFile } from "../types/memcard"
 import { spellCategories } from "../types/spellCategories"
@@ -20,6 +21,7 @@ export function saveMemcard() {
     saveCharacters(tmpByteArray, saveFile)
     saveInventory(tmpByteArray, saveFile)
     saveFormations(tmpByteArray, saveFile)
+    saveFishing(tmpByteArray, saveFile)
     checksum(tmpByteArray, saveFile.address)
   }
 
@@ -163,6 +165,14 @@ function saveFormations(byteArray: Uint8Array, saveFile: SaveFile) {
   for (let i = 0; i < 3; i++) {
     byteArray[baseAddress + i] = byteSafety(saveFile.formations["field"][i], 1, false)
     byteArray[baseAddress + i + 3] = byteSafety(saveFile.formations["battle"][i], 1, false)
+  }
+}
+
+function saveFishing(byteArray: Uint8Array, saveFile: SaveFile) {
+  const baseAddress = saveFile.address
+
+  for (let i = 0; i < fish.length; i++) {
+    byteArray[baseAddress + i] = byteSafety(saveFile.fishing.lengths[fish[i]], 1, false)
   }
 }
 

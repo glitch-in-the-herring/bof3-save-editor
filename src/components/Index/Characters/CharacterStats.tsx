@@ -18,7 +18,7 @@ export default function CharacterStats() {
           name="charName"
           label="Name:"
           inputType="text"
-          divClassName="col-span-2"
+          divClassName="flex flex-row gap-1 col-span-2"
           inputClassName="w-1/2"
           value={character ? character.name : ""}
           disabled={activeOptions.characterIndex === undefined}

@@ -4,6 +4,7 @@ import { immer } from "zustand/middleware/immer"
 import type { Character, StatGrowthKey } from "../types/character"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
+import type { Fish } from "../types/fishing"
 import type { FormationCategory } from "../types/formations"
 import type { ItemCategory } from "../types/inventory"
 import type { Memcard } from "../types/memcard"
@@ -15,7 +16,7 @@ interface GlobalState
     CharacterState,
     InventoryState,
     FormationState,
-    FishState,
+    FishingState,
     CounterState {
   memcard: Memcard
   byteArray?: Uint8Array
@@ -95,7 +96,9 @@ interface FormationState {
   ) => void
 }
 
-interface FishState {}
+interface FishingState {
+  setFishLength: (value: number, fish: Fish, saveFileIndex: number) => void
+}
 
 interface CounterState {}
 
@@ -217,6 +220,11 @@ export const useGlobal = create<GlobalState>()(
           i === index ? value : p,
         )
       }),
+    setFishLength: (value, fish, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+        state.memcard.saveFiles[saveFileIndex].fishing.lengths[fish] = value
+      }),
   })),
 )
 
@@ -253,5 +261,11 @@ export function getSkillNote(activeOptions: ActiveOptions, memcard: Memcard) {
 export function getFormations(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].formations
+    : null
+}
+
+export function getFishing(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].fishing
     : null
 }

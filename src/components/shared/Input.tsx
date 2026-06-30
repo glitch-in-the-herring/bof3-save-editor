@@ -6,6 +6,8 @@ interface InputProps {
   divClassName?: string
   inputClassName?: string
   icon?: string
+  iconHeight?: number
+  iconWidth?: number
   value?: string | number
   disabled?: boolean
   onChange?: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>
@@ -19,13 +21,15 @@ export default function Input({
   divClassName,
   inputClassName,
   icon,
+  iconHeight,
+  iconWidth,
   value,
   disabled,
   onChange,
 }: InputProps) {
   return (
-    <div className={`flex flex-row gap-1 ${divClassName}`}>
-      {icon && <img src={icon} height={16} />}
+    <div className={`${divClassName ? divClassName : "flex flex-row gap-1"}`}>
+      {icon && <img src={icon} height={iconHeight ?? 16} width={iconWidth ?? 16} />}
       {label && (
         <label className="text-nowrap" htmlFor={id}>
           {label}
