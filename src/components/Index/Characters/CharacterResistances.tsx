@@ -4,7 +4,30 @@ import { getCharacter, useGlobal } from "../../../store/globalStore"
 import { elements, elementsMap, type Element } from "../../../types/element"
 import Input from "../../shared/Input"
 
+import fireIcon from '../../../assets/elements/fire.png'
+import iceIcon from '../../../assets/elements/ice.png'
+import electricIcon from '../../../assets/elements/electric.png'
+import earthIcon from '../../../assets/elements/earth.png'
+import windIcon from '../../../assets/elements/wind.png'
+import holyIcon from '../../../assets/elements/holy.png'
+import psionicIcon from '../../../assets/elements/psionic.png'
+import statusIcon from '../../../assets/elements/status.png'
+import deathIcon from '../../../assets/elements/death.png'
+
+
 export default function CharacterResistances() {
+  const elementIconsMap: Record<Element, string> = {
+    fire: fireIcon,
+    ice: iceIcon,
+    electric: electricIcon,
+    earth: earthIcon,
+    wind: windIcon,
+    holy: holyIcon,
+    psionic: psionicIcon,
+    status: statusIcon,
+    death: deathIcon,
+  }
+  
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
   const character = getCharacter(activeOptions, memcard)
@@ -20,7 +43,7 @@ export default function CharacterResistances() {
             label={`${elementsMap[el]}:`}
             inputType="number"
             inputClassName="w-1/2"
-            icon={`src/assets/elements/${el}.png`}
+            icon={elementIconsMap[el]}
             value={character ? character.resistances[el] : ""}
             disabled={activeOptions.characterIndex === undefined}
             onChange={(ev: ChangeEvent) => resistanceChangeHandler(ev, el)}
