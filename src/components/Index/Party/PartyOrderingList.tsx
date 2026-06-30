@@ -1,18 +1,18 @@
 import type { ChangeEvent } from "react"
 
-import { getFormations, useGlobal } from "../../../store/globalStore"
-import type { FormationCategory } from "../../../types/formations"
+import { getParty, useGlobal } from "../../../store/globalStore"
+import type { OrderingCategory } from "../../../types/formations"
 import PartySelect from "../PartySelect"
 
-interface FormationListProps {
+interface PartyOrderingListProps {
   heading: string
-  category: FormationCategory
+  category: OrderingCategory
 }
 
-export default function FormationList({ heading, category }: FormationListProps) {
+export default function PartyOrderingList({ heading, category }: PartyOrderingListProps) {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const formations = getFormations(activeOptions, memcard)
+  const party = getParty(activeOptions, memcard)
 
   return (
     <div>
@@ -21,9 +21,9 @@ export default function FormationList({ heading, category }: FormationListProps)
         {[...Array(3).keys()].map((i) => (
           <li key={i}>
             <PartySelect
-              value={formations ? formations[category][i] : ""}
+              value={party ? party.orderings[category][i] : ""}
               onChange={(e: ChangeEvent) => formationChangeHandler(e, i, category)}
-              disabled={!formations}
+              disabled={!party}
             />
           </li>
         ))}
@@ -32,13 +32,13 @@ export default function FormationList({ heading, category }: FormationListProps)
   )
 }
 
-function formationChangeHandler(e: ChangeEvent, index: number, category: FormationCategory) {
+function formationChangeHandler(e: ChangeEvent, index: number, category: OrderingCategory) {
   const { saveFileIndex } = useGlobal.getState().activeOptions
   if (saveFileIndex === undefined) return
 
   const target = e.target as HTMLSelectElement
 
-  const setFormation = useGlobal.getState().setFormation
+  const setFormation = useGlobal.getState().setOrdering
 
   setFormation(Number(target.value), index, category, saveFileIndex)
 }

@@ -160,11 +160,15 @@ function saveInventory(byteArray: Uint8Array, saveFile: SaveFile) {
 }
 
 function saveFormations(byteArray: Uint8Array, saveFile: SaveFile) {
-  const baseAddress = saveFile.address + 0x882
+  const baseAddress = saveFile.address + 0x880
+  const orderingBaseAddress = baseAddress + 2
 
+  byteArray[baseAddress] = saveFile.party.activeFormation
+  byteArray[baseAddress + 1] = saveFile.party.unlockedFormations
+  
   for (let i = 0; i < 3; i++) {
-    byteArray[baseAddress + i] = byteSafety(saveFile.formations["field"][i], 1, false)
-    byteArray[baseAddress + i + 3] = byteSafety(saveFile.formations["battle"][i], 1, false)
+    byteArray[orderingBaseAddress + i] = byteSafety(saveFile.party.orderings["field"][i], 1, false)
+    byteArray[orderingBaseAddress + i + 3] = byteSafety(saveFile.party.orderings["battle"][i], 1, false)
   }
 }
 

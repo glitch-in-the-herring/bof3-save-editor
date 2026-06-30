@@ -11,14 +11,15 @@ export default function InventoryVitals() {
   return (
     <div className="h-100 overflow-y-scroll">
       <div className="grid grid-cols-1 px-6">
-        {[...Array(32).keys()].map((i) => (
-          <VitalsSelect
-            key={i}
-            value={vitalItems ? vitalItems[i] : ""}
-            disabled={!vitalItems}
-            onChange={(e: ChangeEvent) => changeVitalItemsHandler(e, i)}
-          />
-        ))}
+        {vitalItems &&
+          [...Array(32).keys()].map((i) => (
+            <VitalsSelect
+              key={i}
+              value={vitalItems ? vitalItems[i] : ""}
+              disabled={!vitalItems}
+              onChange={(e: ChangeEvent) => changeVitalItemsHandler(e, i)}
+            />
+          ))}
       </div>
     </div>
   )

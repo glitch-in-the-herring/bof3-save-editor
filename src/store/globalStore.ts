@@ -5,7 +5,7 @@ import type { Character, StatGrowthKey } from "../types/character"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
 import type { Fish } from "../types/fishing"
-import type { FormationCategory } from "../types/formations"
+import type { OrderingCategory } from "../types/formations"
 import type { ItemCategory } from "../types/inventory"
 import type { Memcard } from "../types/memcard"
 import type { SpellCategory } from "../types/spellCategories"
@@ -15,7 +15,7 @@ interface GlobalState
     ActiveOptionsState,
     CharacterState,
     InventoryState,
-    FormationState,
+    PartyState,
     FishingState,
     CounterState {
   memcard: Memcard
@@ -87,13 +87,15 @@ interface InventoryState {
   setMasters: (value: number, index: number, saveFileIndex: number) => void
 }
 
-interface FormationState {
-  setFormation: (
+interface PartyState {
+  setOrdering: (
     value: number,
     index: number,
-    category: FormationCategory,
+    category: OrderingCategory,
     saveFileIndex: number,
   ) => void
+  setActiveFormation: (value: number, saveFileIndex: number) => void
+  setUnlockedFormations: (value: number, saveFileIndex: number) => void
 }
 
 interface FishingState {
@@ -211,14 +213,26 @@ export const useGlobal = create<GlobalState>()(
           i === index ? value : m,
         )
       }),
-    setFormation: (value, index, category, saveFileIndex) =>
+    setOrdering: (value, index, category, saveFileIndex) =>
       set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
-        const formation = state.memcard.saveFiles[saveFileIndex].formations[category]
-        state.memcard.saveFiles[saveFileIndex].formations[category] = formation.map((p, i) =>
+        const formation = state.memcard.saveFiles[saveFileIndex].party.orderings[category]
+        state.memcard.saveFiles[saveFileIndex].party.orderings[category] = formation.map((p, i) =>
           i === index ? value : p,
         )
+      }),
+    setActiveFormation: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].party.activeFormation = value
+      }),
+    setUnlockedFormations: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].party.unlockedFormations = value
       }),
     setFishLength: (value, fish, saveFileIndex) =>
       set((state) => {
@@ -258,9 +272,9 @@ export function getSkillNote(activeOptions: ActiveOptions, memcard: Memcard) {
     : null
 }
 
-export function getFormations(activeOptions: ActiveOptions, memcard: Memcard) {
+export function getParty(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].formations
+    ? memcard.saveFiles[activeOptions.saveFileIndex].party
     : null
 }
 

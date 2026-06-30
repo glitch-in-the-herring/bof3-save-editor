@@ -2,7 +2,7 @@ import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/cha
 import { elements, type Element } from "../types/element"
 import { equipment, type Equipment } from "../types/equipment"
 import { fish, type Fish, type Fishing } from "../types/fishing"
-import { formationCategories, type Formation } from "../types/formations"
+import { orderingCategories, type OrderingCategory, type Party } from "../types/formations"
 import {
   itemCategories,
   type Inventory,
@@ -19,7 +19,7 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
     address: address,
     characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
     inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
-    formations: loadFormations(byteArray.slice(address + 0x882, address + 0x888)),
+    party: loadFormations(byteArray.slice(address + 0x880, address + 0x888)),
     fishing: loadFishing(byteArray.slice(address + 0x90c, address + 0x924)),
   }
 
@@ -131,13 +131,20 @@ function loadInventory(byteArray: Uint8Array) {
 }
 
 function loadFormations(byteArray: Uint8Array) {
-  let formation: Formation = {
-    battle: [],
-    field: [],
-  }
+  let orderingBaseAddress = 0x2
 
-  for (let i = 0; i < formationCategories.length; i++) {
-    formation[formationCategories[i]] = Array.from(byteArray.slice(i * 3, i * 3 + 3))
+  let formation: Party = {
+    orderings: orderingCategories.reduce(
+      (prev, cur, i) => ({
+        ...prev,
+        [cur]: Array.from(
+          byteArray.slice(orderingBaseAddress + i * 3, orderingBaseAddress + i * 3 + 3),
+        ),
+      }),
+      {} as Record<OrderingCategory, number[]>,
+    ),
+    activeFormation: byteArray[0],
+    unlockedFormations: byteArray[1],
   }
 
   return formation

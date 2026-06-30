@@ -20,7 +20,6 @@ export default function InventoryMasters() {
                 id={`inventoryMaster${i}`}
                 type="checkbox"
                 checked={inventory ? !!(inventory.masters[i >> 3] & (0b1 << (i % 8))) : false}
-                className="peer"
                 value={inventory ? inventory.masters[i >> 3] : ""}
                 onChange={(e: ChangeEvent) => enableMasterHandler(e, i)}
                 disabled={!inventory}

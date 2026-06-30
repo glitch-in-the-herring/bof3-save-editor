@@ -1,8 +1,8 @@
 import CharacterEditor from "./Characters/CharacterEditor"
 import FileInput from "./FileInput"
 import FishingEditor from "./Fishing/FishingEditor"
-import FormationEditor from "./Formation/FormationEditor"
 import InventoryEditor from "./Inventory/InventoryEditor"
+import PartyEditor from "./Party/PartyEditor"
 import SaveFileNavigator from "./SaveFileNavigator"
 
 export default function Editor() {
@@ -12,7 +12,7 @@ export default function Editor() {
       <SaveFileNavigator />
       <CharacterEditor />
       <InventoryEditor />
-      <FormationEditor />
+      <PartyEditor />
       <FishingEditor />
       <SaveFileNavigator />
     </div>
