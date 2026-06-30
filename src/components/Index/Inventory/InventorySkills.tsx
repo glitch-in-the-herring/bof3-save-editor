@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react"
+
 import { getSkillNote, useGlobal } from "../../../store/globalStore"
 import SpellSelect from "../SpellSelect"
 
@@ -8,10 +9,15 @@ export default function InventorySkills() {
   const skillNote = getSkillNote(activeOptions, memcard)
 
   return (
-    <div className="h-100 overflow-scroll">
+    <div className="h-100 overflow-y-scroll">
       <div className="grid grid-cols-1 px-6">
         {[...Array(128).keys()].map((i) => (
-          <SpellSelect key={i} value={skillNote ? skillNote[i] : ""} onChange={(e: ChangeEvent) => changeSkillNoteHandler(e, i)} disabled={!skillNote} />
+          <SpellSelect
+            key={i}
+            value={skillNote ? skillNote[i] : ""}
+            onChange={(e: ChangeEvent) => changeSkillNoteHandler(e, i)}
+            disabled={!skillNote}
+          />
         ))}
       </div>
     </div>

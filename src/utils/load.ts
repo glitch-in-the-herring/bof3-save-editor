@@ -1,6 +1,7 @@
 import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
 import { elements, type Element } from "../types/element"
 import { equipment, type Equipment } from "../types/equipment"
+import { formationCategories, type Formation } from "../types/formations"
 import {
   itemCategories,
   type Inventory,
@@ -17,6 +18,7 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
     address: address,
     characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
     inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
+    formations: loadFormations(byteArray.slice(address + 0x882, address + 0x888)),
   }
 
   return saveFile
@@ -124,4 +126,17 @@ function loadInventory(byteArray: Uint8Array) {
   }
 
   return inventory
+}
+
+function loadFormations(byteArray: Uint8Array) {
+  let formation: Formation = {}
+
+  for (let i = 0; i < formationCategories.length; i++) {
+    formation = {
+      ...formation,
+      [formationCategories[i]]: Array.from(byteArray.slice(i * 3, i * 3 + 3)),
+    }
+  }
+
+  return formation
 }

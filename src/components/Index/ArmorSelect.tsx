@@ -4,9 +4,9 @@ import type { DropdownProps } from "../../types/dropdowns"
 export default function ArmorSelect({ value, onChange, disabled }: DropdownProps) {
   return (
     <select value={value} onChange={onChange} disabled={disabled}>
-      {armor.map((e, i) => (
+      {armor.map((a, i) => (
         <option key={i} value={i}>
-          {e}
+          {a}
         </option>
       ))}
     </select>

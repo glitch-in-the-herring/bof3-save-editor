@@ -127,11 +127,12 @@ export const useGlobal = create<GlobalState>()(
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] = value
       }),
-    setZenny: (value, saveFileIndex) => set((state) => {
+    setZenny: (value, saveFileIndex) =>
+      set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].inventory.zenny = value
-    }),
+      }),
     setItemID: (value, index, category, saveFileIndex) =>
       set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
@@ -216,5 +217,11 @@ export function getVitalItems(activeOptions: ActiveOptions, memcard: Memcard) {
 export function getSkillNote(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].inventory.skillNote
+    : null
+}
+
+export function getFormations(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].formations
     : null
 }

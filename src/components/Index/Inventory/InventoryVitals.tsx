@@ -9,7 +9,7 @@ export default function InventoryVitals() {
   const vitalItems = getVitalItems(activeOptions, memcard)
 
   return (
-    <div className="h-100 overflow-scroll">
+    <div className="h-100 overflow-y-scroll">
       <div className="grid grid-cols-1 px-6">
         {[...Array(32).keys()].map((i) => (
           <VitalsSelect

@@ -24,7 +24,7 @@ export default function CharacterEditor() {
           >
             {activeOptions.characterIndex !== undefined &&
               activeOptions.saveFileIndex !== undefined &&
-              memcard.saveFiles[activeOptions.saveFileIndex].characters!.map((c, i) => (
+              memcard.saveFiles[activeOptions.saveFileIndex].characters.map((c, i) => (
                 <option key={c.name} value={i}>
                   {c.name}
                 </option>

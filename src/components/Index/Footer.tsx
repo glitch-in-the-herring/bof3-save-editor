@@ -1,6 +1,6 @@
-export default function Footer() {
+export default function Footer({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
   return (
-    <div>
+    <div ref={ref}>
       <p>
         Special thanks goes to ZC_Liu from GameFAQs for their{" "}
         <a href="https://gamefaqs.gamespot.com/ps/196817-breath-of-fire-iii/faqs/30733">

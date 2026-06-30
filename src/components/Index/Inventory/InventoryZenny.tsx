@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react"
+
 import { getInventory, useGlobal } from "../../../store/globalStore"
 import Input from "../../shared/Input"
 
