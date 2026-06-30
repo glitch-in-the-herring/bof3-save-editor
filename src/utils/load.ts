@@ -1,4 +1,10 @@
 import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
+import {
+  countdownCategories,
+  type ClockTimer,
+  type CountdownCategory,
+  type Counters,
+} from "../types/counters"
 import { elements, type Element } from "../types/element"
 import { equipment, type Equipment } from "../types/equipment"
 import { fish, type Fish, type Fishing } from "../types/fishing"
@@ -21,6 +27,7 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
     inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
     party: loadFormations(byteArray.slice(address + 0x880, address + 0x888)),
     fishing: loadFishing(byteArray.slice(address + 0x90c, address + 0x924)),
+    counters: loadCounters(byteArray.slice(address + 0xe7c, address + 0xe84)),
   }
 
   return saveFile
@@ -162,4 +169,23 @@ function loadFishing(byteArray: Uint8Array) {
   }
 
   return fishing
+}
+
+function loadCounters(byteArray: Uint8Array) {
+  let counters: Counters = {
+    countdowns: countdownCategories.reduce(
+      (prev, cur, i) => ({
+        ...prev,
+        [cur]: {
+          hour: byteArray[4 * i],
+          minute: byteArray[4 * i + 1],
+          second: byteArray[4 * i + 2],
+          subsecond: byteArray[4 * i + 3],
+        },
+      }),
+      {} as Record<CountdownCategory, ClockTimer>,
+    ),
+  }
+
+  return counters
 }

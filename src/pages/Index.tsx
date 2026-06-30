@@ -10,6 +10,7 @@ export default function Index() {
 
   return (
     <>
+      <title>Breath of Fire III Save Editor</title>
       <div className="relative">
         <Header ref={headerRef} />
         <Editor />

@@ -1,5 +1,6 @@
 import { useGlobal } from "../store/globalStore"
 import { statGrowthKeys } from "../types/character"
+import { clockTimerKeys, countdownCategories } from "../types/counters"
 import { elements } from "../types/element"
 import { equipment } from "../types/equipment"
 import { fish } from "../types/fishing"
@@ -22,6 +23,7 @@ export function saveMemcard() {
     saveInventory(tmpByteArray, saveFile)
     saveFormations(tmpByteArray, saveFile)
     saveFishing(tmpByteArray, saveFile)
+    saveCounters(tmpByteArray, saveFile)
     checksum(tmpByteArray, saveFile.address)
   }
 
@@ -163,20 +165,38 @@ function saveFormations(byteArray: Uint8Array, saveFile: SaveFile) {
   const baseAddress = saveFile.address + 0x880
   const orderingBaseAddress = baseAddress + 2
 
-  byteArray[baseAddress] = saveFile.party.activeFormation
-  byteArray[baseAddress + 1] = saveFile.party.unlockedFormations
-  
+  byteArray[baseAddress] = byteSafety(saveFile.party.activeFormation, 1, false)
+  byteArray[baseAddress + 1] = byteSafety(saveFile.party.unlockedFormations, 1, false)
+
   for (let i = 0; i < 3; i++) {
     byteArray[orderingBaseAddress + i] = byteSafety(saveFile.party.orderings["field"][i], 1, false)
-    byteArray[orderingBaseAddress + i + 3] = byteSafety(saveFile.party.orderings["battle"][i], 1, false)
+    byteArray[orderingBaseAddress + i + 3] = byteSafety(
+      saveFile.party.orderings["battle"][i],
+      1,
+      false,
+    )
   }
 }
 
 function saveFishing(byteArray: Uint8Array, saveFile: SaveFile) {
-  const baseAddress = saveFile.address
+  const baseAddress = saveFile.address + 0x90c
 
   for (let i = 0; i < fish.length; i++) {
     byteArray[baseAddress + i] = byteSafety(saveFile.fishing.lengths[fish[i]], 1, false)
+  }
+}
+
+function saveCounters(byteArray: Uint8Array, saveFile: SaveFile) {
+  const baseAddress = saveFile.address + 0xe7c
+
+  for (let i = 0; i < countdownCategories.length; i++) {
+    for (let j = 0; j < clockTimerKeys.length; j++) {
+      byteArray[baseAddress + i * 4 + j] = byteSafety(
+        saveFile.counters.countdowns[countdownCategories[i]][clockTimerKeys[j]],
+        1,
+        false,
+      )
+    }
   }
 }
 

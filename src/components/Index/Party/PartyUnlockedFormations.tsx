@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react"
+
 import { useGlobal, getParty } from "../../../store/globalStore"
 import { formations } from "../../../types/formations"
 import { logicalNot } from "../../../utils/numbers"

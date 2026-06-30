@@ -2,10 +2,10 @@ import type { ChangeEvent } from "react"
 
 import { getCharacter, useGlobal } from "../../../store/globalStore"
 import type { StatGrowthKey } from "../../../types/character"
+import { masterStatGrowth } from "../../../types/master"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
 import MastersSelect from "../MastersSelect"
-import { masterStatGrowth } from "../../../types/master"
 
 export default function CharacterGrowth() {
   const memcard = useGlobal((state) => state.memcard)

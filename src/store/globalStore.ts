@@ -2,6 +2,7 @@ import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 
 import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
+import { clockTimerKeys, type ClockTimer, type CountdownCategory } from "../types/counters"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
 import type { Fish } from "../types/fishing"
@@ -17,7 +18,7 @@ interface GlobalState
     InventoryState,
     PartyState,
     FishingState,
-    CounterState {
+    CountersState {
   memcard: Memcard
   byteArray?: Uint8Array
   filename?: string
@@ -107,7 +108,15 @@ interface FishingState {
   setFishLength: (value: number, fish: Fish, saveFileIndex: number) => void
 }
 
-interface CounterState {}
+interface CountersState {
+  setCountdown: (
+    value: number,
+    subdivision: keyof ClockTimer,
+    category: CountdownCategory,
+    saveFileIndex: number,
+  ) => void
+  copyCountdown: (value: ClockTimer, category: CountdownCategory, saveFileIndex: number) => void
+}
 
 export const useGlobal = create<GlobalState>()(
   immer((set) => ({
@@ -158,13 +167,14 @@ export const useGlobal = create<GlobalState>()(
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] = value
       }),
-    copyStatGrowth: (statGrowth, saveFileIndex, characterIndex) => 
+    copyStatGrowth: (statGrowth, saveFileIndex, characterIndex) =>
       set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
         statGrowthKeys.forEach((key) => {
-          state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] = statGrowth[key]
-        });
+          state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] =
+            statGrowth[key]
+        })
       }),
     setZenny: (value, saveFileIndex) =>
       set((state) => {
@@ -250,7 +260,22 @@ export const useGlobal = create<GlobalState>()(
     setFishLength: (value, fish, saveFileIndex) =>
       set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
+
         state.memcard.saveFiles[saveFileIndex].fishing.lengths[fish] = value
+      }),
+    setCountdown: (value, subdivision, category, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].counters.countdowns[category][subdivision] = value
+      }),
+    copyCountdown: (value, category, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        clockTimerKeys.forEach((key) => {
+          state.memcard.saveFiles[saveFileIndex].counters.countdowns[category][key] = value[key]
+        })
       }),
   })),
 )
@@ -294,5 +319,11 @@ export function getParty(activeOptions: ActiveOptions, memcard: Memcard) {
 export function getFishing(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].fishing
+    : null
+}
+
+export function getCounters(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].counters
     : null
 }
