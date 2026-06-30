@@ -1,25 +1,30 @@
 import type { StatGrowthKey } from "./character"
 
-export const masters: Record<number, string> = {
-  0: "Bunyan",
-  1: "Mygas",
-  2: "Yggdrasil",
-  3: "D'lonzo",
-  4: "Fahl",
-  5: "Durandal",
-  6: "Giotto",
-  7: "Hondara",
-  8: "Emitai",
-  9: "Deis",
-  10: "Hachio",
-  11: "Bais",
-  12: "Lang",
-  13: "Lee",
-  14: "Wynn",
-  15: "Ladon",
-  16: "Meryleep",
-  0xff: "--",
+interface MasterRecord {
+  id: number
+  name: string
 }
+
+export const masters: MasterRecord[] = [
+  { id: 0xff, name: "--" },
+  { id: 0, name: "Bunyan" },
+  { id: 1, name: "Mygas" },
+  { id: 2, name: "Yggdrasil" },
+  { id: 3, name: "D'lonzo" },
+  { id: 4, name: "Fahl" },
+  { id: 5, name: "Durandal" },
+  { id: 6, name: "Giotto" },
+  { id: 7, name: "Hondara" },
+  { id: 8, name: "Emitai" },
+  { id: 9, name: "Deis" },
+  { id: 10, name: "Hachio" },
+  { id: 11, name: "Bais" },
+  { id: 12, name: "Lang" },
+  { id: 13, name: "Lee" },
+  { id: 14, name: "Wynn" },
+  { id: 15, name: "Ladon" },
+  { id: 16, name: "Meryleep" },
+]
 
 export const masterModifiers: Record<number, Record<StatGrowthKey, number>> = {
   0: { hp: 2, ap: -2, pwr: 2, def: 1, agl: 0, int: -3 },
@@ -41,4 +46,3 @@ export const masterModifiers: Record<number, Record<StatGrowthKey, number>> = {
   16: { hp: -1, ap: 0, pwr: -1, def: -1, agl: 2, int: 0 },
   0xff: { hp: 0, ap: 0, pwr: 0, def: 0, agl: 0, int: 0 },
 }
-export type Master = (typeof masters)[number]

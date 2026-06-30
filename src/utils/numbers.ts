@@ -22,7 +22,7 @@ function unsignedBytesToNumber(byteArray: Uint8Array) {
   return output
 }
 
-function logicalNot(n: number, width: number) {
+export function logicalNot(n: number, width: number) {
   if (n > 2 ** (width * 8) - 1) n = n & (2 ** (width * 8) - 1)
   else if (n < 0) return 0
 
@@ -35,4 +35,33 @@ function logicalNot(n: number, width: number) {
   }
 
   return result
+}
+
+export function numberToBytes(n: number, width: number, signed: boolean) {
+  let output = []
+  let safeN = byteSafety(n, width, signed)
+  let unsignedN = safeN
+
+  if (signed) {
+    if (safeN < 0) unsignedN = 2 ** (8 * width) + safeN
+    else unsignedN = safeN
+  }
+
+  for (let i = 0; i < width; i++) output.push((unsignedN & (0xff << (i * 8))) >> (i * 8))
+
+  return output
+}
+
+export function byteSafety(n: number, width: number, signed: boolean) {
+  if (signed) {
+    if (n < -(2 ** (8 * width - 1))) return -(2 ** (8 * width - 1))
+    else if (n > 2 ** (8 * width - 1) - 1) return 2 ** (8 * width - 1) - 1
+
+    return n
+  }
+
+  if (n < 0) return 0
+  else if (n > 2 ** (width * 8) - 1) return 2 ** (width * 8) - 1
+
+  return n
 }

@@ -4,18 +4,24 @@ import { immer } from "zustand/middleware/immer"
 import type { Character, StatGrowthKey } from "../types/character"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
+import type { ItemCategory } from "../types/inventory"
 import type { Memcard } from "../types/memcard"
 import type { SpellCategory } from "../types/spellCategories"
 
-interface GlobalState extends ActiveOptionsState, CharacterState {
+interface GlobalState extends ActiveOptionsState, CharacterState, InventoryState {
   memcard: Memcard
+  byteArray?: Uint8Array
+  filename?: string
   setMemcard: (memcard: Memcard) => void
+  setByteArray: (byteArray: Uint8Array) => void
+  setFilename: (filename: string) => void
 }
 
 interface ActiveOptions {
   saveFileIndex?: number
   characterIndex?: number
   spellCategory?: SpellCategory
+  itemCategory?: ItemCategory
 }
 
 interface ActiveOptionsState {
@@ -57,6 +63,21 @@ interface CharacterState {
   ) => void
 }
 
+interface InventoryState {
+  setZenny: (value: number, saveFileIndex: number) => void
+  setItemID: (value: number, index: number, category: ItemCategory, saveFileIndex: number) => void
+  setItemQuantity: (
+    value: number,
+    index: number,
+    category: ItemCategory,
+    saveFileIndex: number,
+  ) => void
+  setVitalItem: (value: number, index: number, saveFileIndex: number) => void
+  setSkillNote: (value: number, index: number, saveFileIndex: number) => void
+  setDragonGenes: (value: number, index: number, saveFileIndex: number) => void
+  setMasters: (value: number, index: number, saveFileIndex: number) => void
+}
+
 export const useGlobal = create<GlobalState>()(
   immer((set) => ({
     memcard: {
@@ -64,49 +85,35 @@ export const useGlobal = create<GlobalState>()(
     },
     activeOptions: {},
     setMemcard: (memcard) => set({ memcard: memcard }),
+    setByteArray: (byteArray) => set({ byteArray: byteArray }),
+    setFilename: (filename) => set({ filename: filename }),
     setActiveOption: (value, key) =>
       set((state) => {
         state.activeOptions[key] = value
       }),
     setCharacterField: (value, key, saveFileIndex, characterIndex) =>
       set((state) => {
-        if (
-          !state.memcard.saveFiles[saveFileIndex] ||
-          !state.memcard.saveFiles[saveFileIndex].characters
-        )
-          return
+        if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex][key] = value
       }),
     setCharacterResistance: (value, element, saveFileIndex, characterIndex) =>
       set((state) => {
-        if (
-          !state.memcard.saveFiles[saveFileIndex] ||
-          !state.memcard.saveFiles[saveFileIndex].characters
-        )
-          return
+        if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex].resistances[element] =
           value
       }),
     setCharacterEquipment: (value, equipment, saveFileIndex, characterIndex) =>
       set((state) => {
-        if (
-          !state.memcard.saveFiles[saveFileIndex] ||
-          !state.memcard.saveFiles[saveFileIndex].characters
-        )
-          return
+        if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex].equipment[equipment] =
           value
       }),
     setCharacterSpell: (value, index, category, saveFileIndex, characterIndex) =>
       set((state) => {
-        if (
-          !state.memcard.saveFiles[saveFileIndex] ||
-          !state.memcard.saveFiles[saveFileIndex].characters
-        )
-          return
+        if (!state.memcard.saveFiles[saveFileIndex]) return
 
         const spells =
           state.memcard.saveFiles[saveFileIndex].characters[characterIndex].spells[category]
@@ -116,13 +123,68 @@ export const useGlobal = create<GlobalState>()(
       }),
     setCharacterGrowth: (value, key, saveFileIndex, characterIndex) =>
       set((state) => {
-        if (
-          !state.memcard.saveFiles[saveFileIndex] ||
-          !state.memcard.saveFiles[saveFileIndex].characters
-        )
-          return
+        if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].characters[characterIndex].statGrowth[key] = value
+      }),
+    setZenny: (value, saveFileIndex) => set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].inventory.zenny = value
+    }),
+    setItemID: (value, index, category, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const items = state.memcard.saveFiles[saveFileIndex].inventory.items[category]
+        state.memcard.saveFiles[saveFileIndex].inventory.items[category] = items.map((item, i) =>
+          i === index ? { id: value, quantity: item.quantity } : item,
+        )
+      }),
+    setItemQuantity: (value, index, category, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const items = state.memcard.saveFiles[saveFileIndex].inventory.items[category]
+        state.memcard.saveFiles[saveFileIndex].inventory.items[category] = items.map((item, i) =>
+          i === index ? { id: item.id, quantity: value } : item,
+        )
+      }),
+    setSkillNote: (value, index, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const skillNote = state.memcard.saveFiles[saveFileIndex].inventory.skillNote
+        state.memcard.saveFiles[saveFileIndex].inventory.skillNote = skillNote.map((id, i) =>
+          i === index ? value : id,
+        )
+      }),
+    setVitalItem: (value, index, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const vitalItems = state.memcard.saveFiles[saveFileIndex].inventory.vitalItems
+        state.memcard.saveFiles[saveFileIndex].inventory.vitalItems = vitalItems.map((id, i) =>
+          i === index ? value : id,
+        )
+      }),
+    setDragonGenes: (value, index, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const dragonGenes = state.memcard.saveFiles[saveFileIndex].inventory.dragonGenes
+        state.memcard.saveFiles[saveFileIndex].inventory.dragonGenes = dragonGenes.map((g, i) =>
+          i === index ? value : g,
+        )
+      }),
+    setMasters: (value, index, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const masters = state.memcard.saveFiles[saveFileIndex].inventory.masters
+        state.memcard.saveFiles[saveFileIndex].inventory.masters = masters.map((g, i) =>
+          i === index ? value : g,
+        )
       }),
   })),
 )
@@ -130,5 +192,29 @@ export const useGlobal = create<GlobalState>()(
 export function getCharacter(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].characters![activeOptions.characterIndex]
+    : null
+}
+
+export function getInventory(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].inventory
+    : null
+}
+
+export function getItems(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.itemCategory && activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].inventory.items[activeOptions.itemCategory]
+    : null
+}
+
+export function getVitalItems(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].inventory.vitalItems
+    : null
+}
+
+export function getSkillNote(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].inventory.skillNote
     : null
 }

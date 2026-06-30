@@ -8,7 +8,9 @@ export default function Header() {
         <Link to="/changelog" className="block italic">
           Updated 5 October 2024
         </Link>
-        <a className="block">Info</a>
+        <Link to="/info" className="block italic">
+          Info
+        </Link>
       </div>
     </>
   )

@@ -1,28 +1,79 @@
-import { itemSelectMap, itemTypes } from "../../../types/inventory"
+import { type ChangeEvent } from "react"
+
+import { getItems, useGlobal } from "../../../store/globalStore"
+import { itemSelectMap, itemCategories } from "../../../types/inventory"
 import Input from "../../shared/Input"
 
 export default function InventoryItems() {
+  const memcard = useGlobal((state) => state.memcard)
+  const activeOptions = useGlobal((state) => state.activeOptions)
+  const items = getItems(activeOptions, memcard)
+
   return (
     <>
-      <div className="col-span-2">
+      <div className="col-span-3">
         <label htmlFor="inventoryItemCategory">Item category: </label>
-        <select id="inventoryItemCategory">
-          {itemTypes.map((c) => (
+        <select id="inventoryItemCategory" onChange={switchItemCategoriesHandler}>
+          {itemCategories.map((c) => (
             <option key={c} value={c}>
               {c}
             </option>
           ))}
         </select>
       </div>
-      <div className="h-120 overflow-scroll">
+      <div className="h-100 overflow-scroll">
         <div className="grid grid-cols-2 px-6">
-          {[...Array(128).keys()].map(() => (
-            <>
-              {itemSelectMap["Item"]({})} <Input inputType="number" inputClassName="w-full" />
-            </>
-          ))}
+          <div>Item</div>
+          <div>Quantity</div>
+          {activeOptions.itemCategory &&
+            [...Array(128).keys()].map((i) => (
+              <>
+                {itemSelectMap[activeOptions.itemCategory!]({
+                  value: items ? items[i].id : "",
+                  disabled: !items,
+                  onChange: (e: ChangeEvent) => switchItemsHandler(e, i),
+                })}
+                <Input
+                  inputType="number"
+                  value={items ? items[i].quantity : ""}
+                  inputClassName="w-full"
+                  disabled={!items}
+                  onChange={(e: ChangeEvent) => changeQuantityHandler(e, i)}
+                />
+              </>
+            ))}
         </div>
       </div>
     </>
   )
+}
+
+function switchItemCategoriesHandler(e: ChangeEvent) {
+  const target = e.target as HTMLSelectElement
+
+  const setActiveOption = useGlobal.getState().setActiveOption
+
+  setActiveOption(target.value, "itemCategory")
+}
+
+function switchItemsHandler(e: ChangeEvent, index: number) {
+  const { saveFileIndex, itemCategory } = useGlobal.getState().activeOptions
+  if (!itemCategory || saveFileIndex === undefined) return
+
+  const target = e.target as HTMLSelectElement
+
+  const setItemID = useGlobal.getState().setItemID
+
+  setItemID(Number(target.value), index, itemCategory, saveFileIndex)
+}
+
+function changeQuantityHandler(e: ChangeEvent, index: number) {
+  const { saveFileIndex, itemCategory } = useGlobal.getState().activeOptions
+  if (!itemCategory || saveFileIndex === undefined) return
+
+  const target = e.target as HTMLSelectElement
+
+  const setItemQuantity = useGlobal.getState().setItemQuantity
+
+  setItemQuantity(Number(target.value), index, itemCategory, saveFileIndex)
 }

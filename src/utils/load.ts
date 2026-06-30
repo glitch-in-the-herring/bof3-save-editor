@@ -1,8 +1,14 @@
-import { statGrowthKeys, type Character } from "../types/character"
-import { elements } from "../types/element"
-import { equipment } from "../types/equipment"
+import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
+import { elements, type Element } from "../types/element"
+import { equipment, type Equipment } from "../types/equipment"
+import {
+  itemCategories,
+  type Inventory,
+  type ItemCategory,
+  type ItemEntry,
+} from "../types/inventory"
 import type { SaveFile } from "../types/memcard"
-import { spellCategories } from "../types/spellCategories"
+import { spellCategories, type SpellCategory } from "../types/spellCategories"
 import { bytesToNumber } from "./numbers"
 import { decode } from "./strings"
 
@@ -10,12 +16,13 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
   let saveFile: SaveFile = {
     address: address,
     characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
+    inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
   }
 
   return saveFile
 }
 
-export function loadCharacters(byteArray: Uint8Array) {
+function loadCharacters(byteArray: Uint8Array) {
   let characters: Character[] = []
 
   for (let i = 0; i < 8; i++) {
@@ -48,28 +55,30 @@ export function loadCharacters(byteArray: Uint8Array) {
           ...prev,
           [cur]: byteArray[baseAddress + 75 + i],
         }),
-        {},
+        {} as Record<Element, number>,
       ),
       equipment: equipment.reduce(
         (prev, cur, i) => ({
           ...prev,
           [cur]: byteArray[baseAddress + 14 + i],
         }),
-        {},
+        {} as Record<Equipment, number>,
       ),
       statGrowth: statGrowthKeys.reduce(
         (prev, cur, i) => ({
           ...prev,
           [cur]: byteArray[baseAddress + 133 + i],
         }),
-        {},
+        {} as Record<StatGrowthKey, number>,
       ),
       spells: spellCategories.reduce(
         (prev, cur, i) => ({
           ...prev,
-          [cur]: byteArray.slice(baseAddress + 92 + i * 10, baseAddress + 92 + i * 10 + 10),
+          [cur]: Array.from(
+            byteArray.slice(baseAddress + 92 + i * 10, baseAddress + 92 + i * 10 + 10),
+          ),
         }),
-        {},
+        {} as Record<SpellCategory, number[]>,
       ),
     }
 
@@ -77,4 +86,42 @@ export function loadCharacters(byteArray: Uint8Array) {
   }
 
   return characters
+}
+
+function loadInventory(byteArray: Uint8Array) {
+  const idBaseAddress = 0xfc
+  const quantityBaseAddress = 0x2fc
+  const vitalBaseAddress = 0x4fc
+  const skillsBaseAddress = 0x51c
+  const dragonGenesBaseAddress = 0x5f8
+  const mastersBaseAddress = 0x5fc
+
+  let inventory: Inventory = {
+    zenny: bytesToNumber(byteArray.slice(0, 4), false),
+    items: itemCategories.reduce(
+      (prev, cur, i) => {
+        const idArray = Array.from(
+          byteArray.slice(idBaseAddress + 128 * i, idBaseAddress + 128 * i + 128),
+        )
+        const quantityArray = Array.from(
+          byteArray.slice(quantityBaseAddress + 128 * i, quantityBaseAddress + 128 * i + 128),
+        )
+
+        return {
+          ...prev,
+          [cur]: idArray.map((id, idIdx) => ({
+            id: id,
+            quantity: quantityArray[idIdx],
+          })),
+        }
+      },
+      {} as Record<ItemCategory, ItemEntry[]>,
+    ),
+    vitalItems: Array.from(byteArray.slice(vitalBaseAddress, vitalBaseAddress + 32)),
+    skillNote: Array.from(byteArray.slice(skillsBaseAddress, skillsBaseAddress + 128)),
+    dragonGenes: Array.from(byteArray.slice(dragonGenesBaseAddress, dragonGenesBaseAddress + 3)),
+    masters: Array.from(byteArray.slice(mastersBaseAddress, mastersBaseAddress + 3)),
+  }
+
+  return inventory
 }

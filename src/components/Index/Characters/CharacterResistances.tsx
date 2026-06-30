@@ -21,7 +21,7 @@ export default function CharacterResistances() {
             inputType="number"
             inputClassName="w-1/2"
             icon={`src/assets/elements/${el}.png`}
-            value={character && character.resistances ? character.resistances[el] : ""}
+            value={character ? character.resistances[el] : ""}
             disabled={activeOptions.characterIndex === undefined}
             onChange={(ev: ChangeEvent) => resistanceChangeHandler(ev, el)}
             key={el}

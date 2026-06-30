@@ -31,7 +31,7 @@ export default function CharacterAbilities() {
             <li key={i}>
               <SpellSelect
                 value={
-                  activeOptions.spellCategory && character && character.spells
+                  activeOptions.spellCategory && character
                     ? character.spells[activeOptions.spellCategory][i]
                     : ""
                 }

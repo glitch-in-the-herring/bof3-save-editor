@@ -7,7 +7,7 @@ export interface Memcard {
 }
 
 export interface SaveFile {
-  address?: number
-  characters?: Character[]
-  inventory?: Inventory
+  address: number
+  characters: Character[]
+  inventory: Inventory
 }

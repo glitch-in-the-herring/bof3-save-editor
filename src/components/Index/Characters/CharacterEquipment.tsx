@@ -28,7 +28,7 @@ export default function CharacterEquipment() {
           >
             {equipmentSelectMap[eq]({
               id: `char${equipmentLabelMap[eq]}`,
-              value: character && character.equipment ? character.equipment[eq] : "",
+              value: character ? character.equipment[eq] : "",
               disabled: activeOptions.characterIndex === undefined,
               onChange: (ev: ChangeEvent) => equipmentChangeHandler(ev, eq),
             })}

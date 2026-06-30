@@ -21,7 +21,7 @@ export default function CharacterGrowth() {
           label="HP increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character && character.statGrowth ? character.statGrowth["hp"] : ""}
+          value={character ? character.statGrowth["hp"] : ""}
           onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "hp")}
           disabled={activeOptions.characterIndex === undefined}
         />
@@ -31,7 +31,7 @@ export default function CharacterGrowth() {
           label="AP increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character && character.statGrowth ? character.statGrowth["ap"] : ""}
+          value={character ? character.statGrowth["ap"] : ""}
           onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "ap")}
           disabled={activeOptions.characterIndex === undefined}
         />
@@ -41,7 +41,7 @@ export default function CharacterGrowth() {
           label="PWR increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character && character.statGrowth ? character.statGrowth["pwr"] : ""}
+          value={character ? character.statGrowth["pwr"] : ""}
           onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "pwr")}
           disabled={activeOptions.characterIndex === undefined}
         />
@@ -51,7 +51,7 @@ export default function CharacterGrowth() {
           label="DEF increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character && character.statGrowth ? character.statGrowth["def"] : ""}
+          value={character ? character.statGrowth["def"] : ""}
           onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "def")}
           disabled={activeOptions.characterIndex === undefined}
         />
@@ -61,7 +61,7 @@ export default function CharacterGrowth() {
           label="AGL increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character && character.statGrowth ? character.statGrowth["agl"] : ""}
+          value={character ? character.statGrowth["agl"] : ""}
           onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "agl")}
           disabled={activeOptions.characterIndex === undefined}
         />
@@ -71,7 +71,7 @@ export default function CharacterGrowth() {
           label="INT increase:"
           inputType="number"
           inputClassName="w-1/2"
-          value={character && character.statGrowth ? character.statGrowth["int"] : ""}
+          value={character ? character.statGrowth["int"] : ""}
           onChange={(e: ChangeEvent) => statGrowthChangeHandler(e, "int")}
           disabled={activeOptions.characterIndex === undefined}
         />
@@ -88,7 +88,7 @@ export default function CharacterGrowth() {
         <Label id="charMaster" label="Master:">
           <MastersSelect
             id="charMaster"
-            value={character && character.master !== undefined ? character.master : ""}
+            value={character ? character.master : ""}
             disabled={activeOptions.characterIndex === undefined}
             onChange={switchMastersHandler}
           />

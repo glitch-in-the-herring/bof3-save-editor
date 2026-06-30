@@ -1,4 +1,5 @@
 import { useGlobal } from "../../store/globalStore"
+import { saveMemcard } from "../../utils/save"
 
 type PaginationDirection = "prev" | "next"
 
@@ -38,7 +39,11 @@ export default function SaveFileNavigator() {
         </div>
         <label htmlFor="slotNextButton">Next</label>
       </div>
-      <button className="w-fit" disabled={activeOptions.characterIndex === undefined}>
+      <button
+        className="w-fit"
+        onClick={saveMemcard}
+        disabled={activeOptions.characterIndex === undefined}
+      >
         Save
       </button>
     </>

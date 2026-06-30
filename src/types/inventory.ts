@@ -8,7 +8,7 @@ import type { DropdownProps } from "./dropdowns"
 
 export interface Inventory {
   zenny: number
-  items: Record<ItemType, ItemEntry[]>
+  items: Record<ItemCategory, ItemEntry[]>
   vitalItems: number[]
   skillNote: number[]
   dragonGenes: number[]
@@ -20,12 +20,12 @@ export interface ItemEntry {
   quantity: number
 }
 
-export const itemSelectMap: Record<ItemType, (props: DropdownProps) => JSX.Element> = {
+export const itemSelectMap: Record<ItemCategory, (props: DropdownProps) => JSX.Element> = {
   Item: ItemSelect,
   Weapon: WeaponSelect,
   Armor: ArmorSelect,
   Option: AccessorySelect,
 }
 
-export const itemTypes = ["Item", "Weapon", "Armor", "Option"]
-export type ItemType = (typeof itemTypes)[number]
+export const itemCategories = ["Item", "Weapon", "Armor", "Option"]
+export type ItemCategory = (typeof itemCategories)[number]
