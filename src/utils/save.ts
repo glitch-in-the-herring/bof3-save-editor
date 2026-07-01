@@ -1,6 +1,7 @@
 import { useGlobal } from "../store/globalStore"
 import { statGrowthKeys } from "../types/character"
-import { clockTimerKeys, countdownCategories } from "../types/counters"
+import { clockKeys } from "../types/clock"
+import { countdownCategories } from "../types/counters"
 import { elements } from "../types/element"
 import { equipment } from "../types/equipment"
 import { fish } from "../types/fishing"
@@ -19,6 +20,7 @@ export function saveMemcard() {
   const tmpByteArray = byteArray.slice()
 
   for (const saveFile of memcard.saveFiles) {
+    saveMeta(tmpByteArray, saveFile)
     saveCharacters(tmpByteArray, saveFile)
     saveInventory(tmpByteArray, saveFile)
     saveFormations(tmpByteArray, saveFile)
@@ -34,6 +36,31 @@ export function saveMemcard() {
   link.click()
 }
 
+function saveMeta(byteArray: Uint8Array, saveFile: SaveFile) {
+  const metaBaseAdddress = saveFile.address + 0xea0
+  console.log("deece")
+  console.log(saveFile.meta)
+
+  let buffer = encode(saveFile.meta.name)
+  for (let i = 0; i < 5; i++) byteArray[metaBaseAdddress + i] = byteSafety(buffer[i], 1, false)
+
+  for (let i = 0; i < 3; i++)
+    byteArray[metaBaseAdddress + 5 + i] = byteSafety(saveFile.meta.portraits[i], 1, false)
+
+  byteArray[metaBaseAdddress + 8] = byteSafety(saveFile.meta.level, 1, false)
+
+  for (let i = 0; i < clockKeys.length; i++) {
+    byteArray[metaBaseAdddress + 12 + i] = byteSafety(
+      saveFile.meta.playTime[clockKeys[i]],
+      1,
+      false,
+    )
+  }
+
+  buffer = numberToBytes(saveFile.meta.exp, 4, false)
+  for (let i = 0; i < 4; i++) byteArray[metaBaseAdddress + 16 + i] = byteSafety(buffer[i], 1, false)
+}
+
 function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile) {
   if (!saveFile.characters) return
 
@@ -43,42 +70,42 @@ function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile) {
     let buffer: number[]
     baseAddress = saveFile.address + 0x290 + 0xa4 * i
 
-    buffer = encode(saveFile.characters[i].name!)
+    buffer = encode(saveFile.characters[i].name)
     for (let j = 0; j < 5; j++) byteArray[baseAddress + j] = buffer[j]
 
-    byteArray[baseAddress + 6] = byteSafety(saveFile.characters[i].lvl!, 1, false)
+    byteArray[baseAddress + 6] = byteSafety(saveFile.characters[i].level, 1, false)
 
-    buffer = numberToBytes(saveFile.characters[i].exp!, 4, false)
+    buffer = numberToBytes(saveFile.characters[i].exp, 4, false)
     for (let j = 0; j < 4; j++) byteArray[baseAddress + 8 + j] = buffer[j]
 
-    buffer = numberToBytes(saveFile.characters[i].currentHP!, 2, false)
-    buffer = buffer.concat(numberToBytes(saveFile.characters[i].currentAP!, 2, false))
+    buffer = numberToBytes(saveFile.characters[i].currentHP, 2, false)
+    buffer = buffer.concat(numberToBytes(saveFile.characters[i].currentAP, 2, false))
     for (let j = 0; j < 4; j++) byteArray[baseAddress + 20 + j] = buffer[j]
 
-    buffer = numberToBytes(saveFile.characters[i].currentMaxHP!, 2, false)
-    buffer = buffer.concat(numberToBytes(saveFile.characters[i].currentMaxAP!, 2, false))
+    buffer = numberToBytes(saveFile.characters[i].currentMaxHP, 2, false)
+    buffer = buffer.concat(numberToBytes(saveFile.characters[i].currentMaxAP, 2, false))
     for (let j = 0; j < 4; j++) byteArray[baseAddress + 28 + j] = buffer[j]
 
-    buffer = numberToBytes(saveFile.characters[i].trueMaxHP!, 2, false)
-    buffer = buffer.concat(numberToBytes(saveFile.characters[i].trueMaxAP!, 2, false))
+    buffer = numberToBytes(saveFile.characters[i].trueMaxHP, 2, false)
+    buffer = buffer.concat(numberToBytes(saveFile.characters[i].trueMaxAP, 2, false))
     for (let j = 0; j < 4; j++) byteArray[baseAddress + 60 + j] = buffer[j]
 
     buffer = numberToBytes(saveFile.characters[i].pwr!, 2, false)
-    buffer = buffer.concat(numberToBytes(saveFile.characters[i].def!, 2, true))
-    buffer = buffer.concat(numberToBytes(saveFile.characters[i].agl!, 2, true))
-    buffer = buffer.concat(numberToBytes(saveFile.characters[i].int!, 2, true))
+    buffer = buffer.concat(numberToBytes(saveFile.characters[i].def, 2, true))
+    buffer = buffer.concat(numberToBytes(saveFile.characters[i].agl, 2, true))
+    buffer = buffer.concat(numberToBytes(saveFile.characters[i].int, 2, true))
     for (let j = 0; j < 8; j++) byteArray[baseAddress + 64 + j] = buffer[j]
 
-    byteArray[baseAddress + 74] = byteSafety(saveFile.characters[i].willpower!, 1, false)
-    byteArray[baseAddress + 25] = byteSafety(saveFile.characters[i].fatigue!, 1, false)
-    byteArray[baseAddress + 27] = byteSafety(saveFile.characters[i].master!, 1, false)
+    byteArray[baseAddress + 74] = byteSafety(saveFile.characters[i].willpower, 1, false)
+    byteArray[baseAddress + 25] = byteSafety(saveFile.characters[i].fatigue, 1, false)
+    byteArray[baseAddress + 27] = byteSafety(saveFile.characters[i].master, 1, false)
 
     buffer = [
-      saveFile.characters[i].surprise!,
-      saveFile.characters[i].reprisal!,
-      saveFile.characters[i].critical!,
-      saveFile.characters[i].dodge!,
-      saveFile.characters[i].accuracy!,
+      saveFile.characters[i].surprise,
+      saveFile.characters[i].reprisal,
+      saveFile.characters[i].critical,
+      saveFile.characters[i].dodge,
+      saveFile.characters[i].accuracy,
     ]
 
     for (let j = 0; j < 5; j++) byteArray[baseAddress + 84 + j] = byteSafety(buffer[j], 1, false)
@@ -107,7 +134,7 @@ function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile) {
         )
     }
 
-    byteArray[baseAddress + 132] = saveFile.characters[i].apprenticingLevel!
+    byteArray[baseAddress + 132] = saveFile.characters[i].apprenticingLevel
 
     for (let j = 0; j < statGrowthKeys.length; j++) {
       byteArray[baseAddress + 133 + j] = byteSafety(
@@ -187,12 +214,21 @@ function saveFishing(byteArray: Uint8Array, saveFile: SaveFile) {
 }
 
 function saveCounters(byteArray: Uint8Array, saveFile: SaveFile) {
-  const baseAddress = saveFile.address + 0xe7c
+  const playtimeBaseAddress = saveFile.address + 0x8e8
+  const countdownsBaseAddress = saveFile.address + 0xe7c
+
+  for (let i = 0; i < clockKeys.length; i++) {
+    byteArray[playtimeBaseAddress + i] = byteSafety(
+      saveFile.counters.playTime[clockKeys[i]],
+      1,
+      false,
+    )
+  }
 
   for (let i = 0; i < countdownCategories.length; i++) {
-    for (let j = 0; j < clockTimerKeys.length; j++) {
-      byteArray[baseAddress + i * 4 + j] = byteSafety(
-        saveFile.counters.countdowns[countdownCategories[i]][clockTimerKeys[j]],
+    for (let j = 0; j < clockKeys.length; j++) {
+      byteArray[countdownsBaseAddress + i * 4 + j] = byteSafety(
+        saveFile.counters.countdowns[countdownCategories[i]][clockKeys[j]],
         1,
         false,
       )

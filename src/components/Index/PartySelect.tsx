@@ -6,7 +6,11 @@ interface PartyMember {
   name: string
 }
 
-export default function PartySelect({ value, onChange, disabled }: DropdownProps) {
+interface PartySelectProps extends DropdownProps {
+  portraitMode?: boolean
+}
+
+export default function PartySelect({ value, onChange, disabled, portraitMode }: PartySelectProps) {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
   const partyNames: PartyMember[] = [{ id: 0xff, name: "--" }]
@@ -27,6 +31,8 @@ export default function PartySelect({ value, onChange, disabled }: DropdownProps
     partyNames.push({ id: 0x07, name: `${characters[0].name} (adult)` })
     partyNames.push({ id: 0x08, name: `${characters[1].name} (adult)` })
     partyNames.push({ id: 0x09, name: `${characters[0].name} (pajamas)` })
+    partyNames.push({ id: 0x0a, name: `Whelp` })
+    if (portraitMode) partyNames.push({ id: 0x0b, name: `${characters[4].name} (adult)` })
   }
 
   return (

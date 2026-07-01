@@ -4,7 +4,7 @@ import type { SpellCategory } from "./spellCategories"
 
 export interface Character {
   name: string
-  lvl: number
+  level: number
   exp: number
   currentHP: number
   currentAP: number
@@ -32,7 +32,7 @@ export interface Character {
 }
 
 export const characterNumberFields: (keyof Character)[] = [
-  "lvl",
+  "level",
   "exp",
   "currentHP",
   "currentAP",

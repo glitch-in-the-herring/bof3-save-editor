@@ -1,10 +1,6 @@
 import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
-import {
-  countdownCategories,
-  type ClockTimer,
-  type CountdownCategory,
-  type Counters,
-} from "../types/counters"
+import type { Clock } from "../types/clock"
+import { countdownCategories, type CountdownCategory, type Counters } from "../types/counters"
 import { elements, type Element } from "../types/element"
 import { equipment, type Equipment } from "../types/equipment"
 import { fish, type Fish, type Fishing } from "../types/fishing"
@@ -16,6 +12,7 @@ import {
   type ItemEntry,
 } from "../types/inventory"
 import type { SaveFile } from "../types/memcard"
+import type { Meta } from "../types/meta"
 import { spellCategories, type SpellCategory } from "../types/spellCategories"
 import { bytesToNumber } from "./numbers"
 import { decode } from "./strings"
@@ -23,14 +20,35 @@ import { decode } from "./strings"
 export function loadSaveFile(byteArray: Uint8Array, address: number) {
   let saveFile: SaveFile = {
     address: address,
+    meta: loadMeta(byteArray.slice(address + 0x270, address + 0xeb4)),
     characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
     inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
     party: loadFormations(byteArray.slice(address + 0x880, address + 0x888)),
     fishing: loadFishing(byteArray.slice(address + 0x90c, address + 0x924)),
-    counters: loadCounters(byteArray.slice(address + 0xe7c, address + 0xe84)),
+    counters: loadCounters(byteArray.slice(address + 0x8e8, address + 0xe84)),
   }
 
   return saveFile
+}
+
+function loadMeta(byteArray: Uint8Array) {
+  const metaBaseAdddress = 0xc30
+
+  let meta: Meta = {
+    checksum: bytesToNumber(byteArray.slice(0, 2), false),
+    name: decode(byteArray.slice(metaBaseAdddress, metaBaseAdddress + 5)),
+    portraits: Array.from(byteArray.slice(metaBaseAdddress + 5, metaBaseAdddress + 8)),
+    level: byteArray[metaBaseAdddress + 8],
+    exp: bytesToNumber(byteArray.slice(metaBaseAdddress + 16, metaBaseAdddress + 20), false),
+    playTime: {
+      hour: byteArray[metaBaseAdddress + 12],
+      minute: byteArray[metaBaseAdddress + 13],
+      second: byteArray[metaBaseAdddress + 14],
+      subsecond: byteArray[metaBaseAdddress + 15],
+    },
+  }
+
+  return meta
 }
 
 function loadCharacters(byteArray: Uint8Array) {
@@ -40,7 +58,7 @@ function loadCharacters(byteArray: Uint8Array) {
     const baseAddress = 0xa4 * i
     const character: Character = {
       name: decode(byteArray.slice(baseAddress, baseAddress + 5)),
-      lvl: byteArray[baseAddress + 6],
+      level: byteArray[baseAddress + 6],
       exp: bytesToNumber(byteArray.slice(baseAddress + 8, baseAddress + 12), false),
       currentHP: bytesToNumber(byteArray.slice(baseAddress + 20, baseAddress + 22), false),
       currentAP: bytesToNumber(byteArray.slice(baseAddress + 22, baseAddress + 24), false),
@@ -172,19 +190,27 @@ function loadFishing(byteArray: Uint8Array) {
 }
 
 function loadCounters(byteArray: Uint8Array) {
+  const countdownsBaseAddress = 0x594
+
   let counters: Counters = {
     countdowns: countdownCategories.reduce(
       (prev, cur, i) => ({
         ...prev,
         [cur]: {
-          hour: byteArray[4 * i],
-          minute: byteArray[4 * i + 1],
-          second: byteArray[4 * i + 2],
-          subsecond: byteArray[4 * i + 3],
+          hour: byteArray[countdownsBaseAddress + 4 * i],
+          minute: byteArray[countdownsBaseAddress + 4 * i + 1],
+          second: byteArray[countdownsBaseAddress + 4 * i + 2],
+          subsecond: byteArray[countdownsBaseAddress + 4 * i + 3],
         },
       }),
-      {} as Record<CountdownCategory, ClockTimer>,
+      {} as Record<CountdownCategory, Clock>,
     ),
+    playTime: {
+      hour: byteArray[0],
+      minute: byteArray[1],
+      second: byteArray[2],
+      subsecond: byteArray[3],
+    },
   }
 
   return counters

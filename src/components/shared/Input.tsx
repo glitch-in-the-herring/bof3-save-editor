@@ -9,6 +9,7 @@ interface InputProps {
   iconHeight?: number
   iconWidth?: number
   value?: string | number
+  defaultValue?: string | number
   disabled?: boolean
   onChange?: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>
 }
@@ -24,6 +25,7 @@ export default function Input({
   iconHeight,
   iconWidth,
   value,
+  defaultValue,
   disabled,
   onChange,
 }: InputProps) {
@@ -40,7 +42,8 @@ export default function Input({
         name={name}
         type={inputType}
         className={inputClassName}
-        value={value === undefined ? "" : value}
+        value={value}
+        defaultValue={defaultValue}
         disabled={disabled}
         onChange={onChange}
       ></input>

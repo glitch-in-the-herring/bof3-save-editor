@@ -29,9 +29,9 @@ export default function CharacterStats() {
           name="charLvl"
           label="Level:"
           inputType="number"
-          value={character ? character.lvl : ""}
+          value={character ? character.level : ""}
           disabled={activeOptions.characterIndex === undefined}
-          onChange={(e: ChangeEvent) => statChangeHandler(e, "lvl")}
+          onChange={(e: ChangeEvent) => statChangeHandler(e, "level")}
         />
         <Input
           id="charEXP"

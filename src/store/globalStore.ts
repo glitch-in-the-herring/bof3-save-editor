@@ -2,7 +2,8 @@ import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 
 import { statGrowthKeys, type Character, type StatGrowthKey } from "../types/character"
-import { clockTimerKeys, type ClockTimer, type CountdownCategory } from "../types/counters"
+import { clockKeys, type Clock } from "../types/clock"
+import { type CountdownCategory } from "../types/counters"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
 import type { Fish } from "../types/fishing"
@@ -14,6 +15,7 @@ import type { SpellCategory } from "../types/spellCategories"
 interface GlobalState
   extends
     ActiveOptionsState,
+    MetaState,
     CharacterState,
     InventoryState,
     PartyState,
@@ -37,6 +39,15 @@ interface ActiveOptions {
 interface ActiveOptionsState {
   activeOptions: ActiveOptions
   setActiveOption: <K extends keyof ActiveOptions>(value: ActiveOptions[K], key: K) => void
+}
+
+interface MetaState {
+  setMetaName: (value: string, saveFileIndex: number) => void
+  setMetaLevel: (value: number, saveFileIndex: number) => void
+  setMetaEXP: (value: number, saveFileIndex: number) => void
+  setMetaPlayTime: (value: number, subdivision: keyof Clock, saveFileIndex: number) => void
+  copyMetaPlayTime: (value: Clock, saveFileIndex: number) => void
+  setMetaPortrait: (value: number, index: number, saveFileIndex: number) => void
 }
 
 interface CharacterState {
@@ -111,11 +122,13 @@ interface FishingState {
 interface CountersState {
   setCountdown: (
     value: number,
-    subdivision: keyof ClockTimer,
+    subdivision: keyof Clock,
     category: CountdownCategory,
     saveFileIndex: number,
   ) => void
-  copyCountdown: (value: ClockTimer, category: CountdownCategory, saveFileIndex: number) => void
+  setPlayTime: (value: number, subdivision: keyof Clock, saveFileIndex: number) => void
+  copyCountdown: (value: Clock, category: CountdownCategory, saveFileIndex: number) => void
+  copyPlayTime: (value: Clock, saveFileIndex: number) => void
 }
 
 export const useGlobal = create<GlobalState>()(
@@ -130,6 +143,44 @@ export const useGlobal = create<GlobalState>()(
     setActiveOption: (value, key) =>
       set((state) => {
         state.activeOptions[key] = value
+      }),
+    setMetaName: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].meta.name = value
+      }),
+    setMetaLevel: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].meta.level = value
+      }),
+    setMetaEXP: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].meta.exp = value
+      }),
+    setMetaPlayTime: (value, subdivision, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].meta.playTime[subdivision] = value
+      }),
+    copyMetaPlayTime: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        clockKeys.forEach((key) => {
+          state.memcard.saveFiles[saveFileIndex].meta.playTime[key] = value[key]
+        })
+      }),
+    setMetaPortrait: (value, index, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].meta.portraits[index] = value
       }),
     setCharacterField: (value, key, saveFileIndex, characterIndex) =>
       set((state) => {
@@ -269,20 +320,46 @@ export const useGlobal = create<GlobalState>()(
 
         state.memcard.saveFiles[saveFileIndex].counters.countdowns[category][subdivision] = value
       }),
+    setPlayTime: (value, subdivision, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].counters.playTime[subdivision] = value
+      }),
     copyCountdown: (value, category, saveFileIndex) =>
       set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
-        clockTimerKeys.forEach((key) => {
+        clockKeys.forEach((key) => {
           state.memcard.saveFiles[saveFileIndex].counters.countdowns[category][key] = value[key]
+        })
+      }),
+    copyPlayTime: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        clockKeys.forEach((key) => {
+          state.memcard.saveFiles[saveFileIndex].counters.playTime[key] = value[key]
         })
       }),
   })),
 )
 
+export function getMeta(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].meta
+    : null
+}
+
+export function getCharacters(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].characters
+    : null
+}
+
 export function getCharacter(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].characters![activeOptions.characterIndex]
+    ? memcard.saveFiles[activeOptions.saveFileIndex].characters[activeOptions.characterIndex]
     : null
 }
 
