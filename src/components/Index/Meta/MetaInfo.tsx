@@ -27,8 +27,11 @@ export default function MetaInfo() {
             label="Save file name:"
             value={meta ? meta.name : ""}
             onChange={changeFileNameHandler}
+            disabled={!meta}
           />
-          <button onClick={copyFileNameHandler}>Copy from Ryu's name</button>
+          <button onClick={copyFileNameHandler} disabled={!meta}>
+            Copy from Ryu's name
+          </button>
         </div>
         <div className="flex flex-row gap-2">
           <Input
@@ -37,8 +40,11 @@ export default function MetaInfo() {
             label="Save file level:"
             value={meta ? meta.level : ""}
             onChange={changeFileLevelHandler}
+            disabled={!meta}
           />
-          <button onClick={copyFileLevelHandler}>Copy from Ryu's level</button>
+          <button onClick={copyFileLevelHandler} disabled={!meta}>
+            Copy from Ryu's level
+          </button>
         </div>
         <div className="flex flex-row gap-2">
           <Input
@@ -47,8 +53,11 @@ export default function MetaInfo() {
             label="Save file EXP:"
             value={meta ? meta.exp : ""}
             onChange={changeFileEXPHandler}
+            disabled={!meta}
           />
-          <button onClick={copyFileEXPHandler}>Copy from Ryu's EXP</button>
+          <button onClick={copyFileEXPHandler} disabled={!meta}>
+            Copy from Ryu's EXP
+          </button>
         </div>
         <div>
           <span>Play time</span>
@@ -90,7 +99,9 @@ export default function MetaInfo() {
               disabled={!meta}
             />
           </div>
-          <button onClick={copyPlayTimeHandler}>Copy from timers</button>
+          <button onClick={copyPlayTimeHandler} disabled={!meta}>
+            Copy from timers
+          </button>
         </div>
       </div>
     </div>
