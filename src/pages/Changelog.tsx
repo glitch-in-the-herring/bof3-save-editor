@@ -9,6 +9,13 @@ export default function Changelog() {
       <div className="px-6">
         <ul>
           <li>
+            <b>1 July 2026</b>
+            <ul>
+              <li>Added metadata editor</li>
+              <li>Added play time editor</li>
+            </ul>
+          </li>
+          <li>
             <b>30 June 2026</b>
             <ul>
               <li>
