@@ -9,5 +9,4 @@ export interface Axis {
   integer: number
 }
 
-
 export const axisKeys: (keyof Axis)[] = ["fraction", "integer"]

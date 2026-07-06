@@ -1,4 +1,4 @@
-import Header from "../components/Index/Header"
+import Header from "../components/shared/Header"
 
 export default function Changelog() {
   return (
@@ -11,8 +11,13 @@ export default function Changelog() {
           <li>
             <b>6 July 2026</b>
             <ul>
-              <li>Added the ability to edit the last saved position</li>
-              <li>Responsive layout should be better</li>
+              <li>Added the ability to edit the last saved position.</li>
+              <li>
+                The list of AREAs is based on an old note that I have. It's missing some names. If
+                you know what the names for these AREAs are, feel free to contact me so I can edit
+                it.
+              </li>
+              <li>Responsive layout should be better.</li>
             </ul>
           </li>
           <li>

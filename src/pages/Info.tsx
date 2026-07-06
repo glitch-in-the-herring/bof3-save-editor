@@ -1,4 +1,4 @@
-import Header from "../components/Index/Header"
+import Header from "../components/shared/Header"
 
 export default function Info() {
   return (

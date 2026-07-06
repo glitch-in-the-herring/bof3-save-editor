@@ -2,7 +2,7 @@ import { useRef } from "react"
 
 import Editor from "../components/Index/Editor"
 import Footer from "../components/Index/Footer"
-import Header from "../components/Index/Header"
+import Header from "../components/shared/Header"
 
 export default function Index() {
   const headerRef = useRef<null | HTMLHeadingElement>(null)

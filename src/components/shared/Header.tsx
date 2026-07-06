@@ -8,7 +8,7 @@ export default function Header({ ref }: { ref?: React.Ref<HTMLHeadingElement> })
       <h1 ref={ref}>Breath of Fire III Save Editor</h1>
       <div className="flex flex-col">
         <Link to="/changelog" className="block italic">
-          Updated 1 July 2026
+          Updated 6 July 2026
         </Link>
         <Link to="/info" className="block italic">
           Info

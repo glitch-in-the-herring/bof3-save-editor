@@ -241,7 +241,7 @@ function savePosition(byteArray: Uint8Array, saveFile: SaveFile) {
   const baseAddress = saveFile.address + 0x224
 
   byteArray[baseAddress] = saveFile.position.area
-  
+
   for (let i = 0; i < axisKeys.length; i++) {
     const buffer = numberToBytes(saveFile.position.x[axisKeys[i]], 2, false)
     for (let j = 0; j < 2; j++) {

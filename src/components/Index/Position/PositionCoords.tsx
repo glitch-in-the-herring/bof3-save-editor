@@ -1,7 +1,8 @@
 import type { ChangeEvent } from "react"
+
 import { useGlobal, getPosition } from "../../../store/globalStore"
-import Input from "../../shared/Input"
 import type { Axis } from "../../../types/position"
+import Input from "../../shared/Input"
 
 export default function PositionCoords() {
   const memcard = useGlobal((state) => state.memcard)
@@ -56,7 +57,7 @@ export default function PositionCoords() {
 }
 
 function changeXHandler(e: ChangeEvent, key: keyof Axis) {
-    const { saveFileIndex } = useGlobal.getState().activeOptions
+  const { saveFileIndex } = useGlobal.getState().activeOptions
   if (saveFileIndex === undefined) return
 
   const target = e.target as HTMLInputElement
@@ -66,7 +67,7 @@ function changeXHandler(e: ChangeEvent, key: keyof Axis) {
 }
 
 function changeYHandler(e: ChangeEvent, key: keyof Axis) {
-    const { saveFileIndex } = useGlobal.getState().activeOptions
+  const { saveFileIndex } = useGlobal.getState().activeOptions
   if (saveFileIndex === undefined) return
 
   const target = e.target as HTMLInputElement
