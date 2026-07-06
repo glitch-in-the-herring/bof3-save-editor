@@ -22,7 +22,7 @@ export default function InventoryItems() {
           ))}
         </select>
       </div>
-      <div className="h-100 overflow-y-scroll ">
+      <div className="h-100 overflow-y-scroll">
         <div className="grid grid-cols-2 px-6">
           <div>Item</div>
           <div>Quantity</div>

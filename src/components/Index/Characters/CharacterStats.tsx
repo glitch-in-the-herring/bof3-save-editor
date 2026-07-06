@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "react"
+import { useEffect, useState, type ChangeEvent } from "react"
 
 import { getCharacter, useGlobal } from "../../../store/globalStore"
 import { characterNumberFields, type Character } from "../../../types/character"
@@ -8,6 +8,18 @@ export default function CharacterStats() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
   const character = getCharacter(activeOptions, memcard)
+  const [name, setName] = useState(character ? character.name : "")
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      nameChangeHandler(name)
+    }, 300)
+    return () => clearTimeout(timeoutId)
+  }, [name])
+
+  useEffect(() => {
+    setName(character ? character.name : "")
+  }, [character])
 
   return (
     <div>
@@ -20,9 +32,9 @@ export default function CharacterStats() {
           inputType="text"
           divClassName="flex flex-row gap-1 col-span-2"
           inputClassName="w-1/4"
-          value={character ? character.name : ""}
+          value={name}
           disabled={activeOptions.characterIndex === undefined}
-          onChange={(e: ChangeEvent) => statChangeHandler(e, "name")}
+          onChange={(e: ChangeEvent) => setName((e.target as HTMLInputElement).value)}
         />
         <Input
           id="charLvl"
@@ -217,6 +229,15 @@ export default function CharacterStats() {
       </div>
     </div>
   )
+}
+
+function nameChangeHandler(name: string) {
+  const { saveFileIndex, characterIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined || characterIndex === undefined) return
+
+  const setCharacterField = useGlobal.getState().setCharacterField
+
+  setCharacterField(name, "name", saveFileIndex, characterIndex)
 }
 
 function statChangeHandler(e: ChangeEvent, key: keyof Character) {

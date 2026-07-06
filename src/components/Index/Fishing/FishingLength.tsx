@@ -61,7 +61,7 @@ export default function FishingLength() {
   return (
     <div>
       <h3>Fish Lengths</h3>
-      <div className="grid lg:w-4/12 grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-2 lg:w-4/12">
         {fish.map((f, i) => (
           <Input
             id={`fish${i}`}

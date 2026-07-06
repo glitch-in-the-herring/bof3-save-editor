@@ -38,8 +38,6 @@ export function saveMemcard() {
 
 function saveMeta(byteArray: Uint8Array, saveFile: SaveFile) {
   const metaBaseAdddress = saveFile.address + 0xea0
-  console.log("deece")
-  console.log(saveFile.meta)
 
   let buffer = encode(saveFile.meta.name)
   for (let i = 0; i < 5; i++) byteArray[metaBaseAdddress + i] = byteSafety(buffer[i], 1, false)
