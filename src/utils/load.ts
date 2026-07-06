@@ -13,6 +13,7 @@ import {
 } from "../types/inventory"
 import type { SaveFile } from "../types/memcard"
 import type { Meta } from "../types/meta"
+import type { Position } from "../types/position"
 import { spellCategories, type SpellCategory } from "../types/spellCategories"
 import { bytesToNumber } from "./numbers"
 import { decode } from "./strings"
@@ -26,6 +27,7 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
     party: loadFormations(byteArray.slice(address + 0x880, address + 0x888)),
     fishing: loadFishing(byteArray.slice(address + 0x90c, address + 0x924)),
     counters: loadCounters(byteArray.slice(address + 0x8e8, address + 0xe84)),
+    position: loadLocation(byteArray.slice(address + 0x224, address + 0x230)),
   }
 
   return saveFile
@@ -214,4 +216,21 @@ function loadCounters(byteArray: Uint8Array) {
   }
 
   return counters
+}
+
+function loadLocation(byteArray: Uint8Array) {
+  const coordsBaseAddress = 4
+
+  let position: Position = {
+    area: byteArray[0],
+    x: {
+      fraction: bytesToNumber(byteArray.slice(coordsBaseAddress, coordsBaseAddress + 2), false),
+      integer: bytesToNumber(byteArray.slice(coordsBaseAddress + 2, coordsBaseAddress + 4), false),
+    },
+    y: {
+      fraction: bytesToNumber(byteArray.slice(coordsBaseAddress + 4, coordsBaseAddress + 6), false),
+      integer: bytesToNumber(byteArray.slice(coordsBaseAddress + 6, coordsBaseAddress + 7), false),
+    },
+  }
+  return position
 }

@@ -10,6 +10,7 @@ import type { Fish } from "../types/fishing"
 import type { OrderingCategory } from "../types/formations"
 import type { ItemCategory } from "../types/inventory"
 import type { Memcard } from "../types/memcard"
+import type { Axis } from "../types/position"
 import type { SpellCategory } from "../types/spellCategories"
 
 interface GlobalState
@@ -20,7 +21,8 @@ interface GlobalState
     InventoryState,
     PartyState,
     FishingState,
-    CountersState {
+    CountersState,
+    PositionState {
   memcard: Memcard
   byteArray?: Uint8Array
   filename?: string
@@ -129,6 +131,12 @@ interface CountersState {
   setPlayTime: (value: number, subdivision: keyof Clock, saveFileIndex: number) => void
   copyCountdown: (value: Clock, category: CountdownCategory, saveFileIndex: number) => void
   copyPlayTime: (value: Clock, saveFileIndex: number) => void
+}
+
+interface PositionState {
+  setArea: (value: number, saveFileIndex: number) => void
+  setX: (value: number, part: keyof Axis, saveFileIndex: number) => void
+  setY: (value: number, part: keyof Axis, saveFileIndex: number) => void
 }
 
 export const useGlobal = create<GlobalState>()(
@@ -342,6 +350,24 @@ export const useGlobal = create<GlobalState>()(
           state.memcard.saveFiles[saveFileIndex].counters.playTime[key] = value[key]
         })
       }),
+    setArea: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].position.area = value
+      }),
+    setX: (value, part, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].position.x[part] = value
+      }),
+    setY: (value, part, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].position.y[part] = value
+      }),
   })),
 )
 
@@ -402,5 +428,11 @@ export function getFishing(activeOptions: ActiveOptions, memcard: Memcard) {
 export function getCounters(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].counters
+    : null
+}
+
+export function getPosition(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].position
     : null
 }

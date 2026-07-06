@@ -5,6 +5,7 @@ import FishingEditor from "./Fishing/FishingEditor"
 import InventoryEditor from "./Inventory/InventoryEditor"
 import MetaEditor from "./Meta/MetaEditor"
 import PartyEditor from "./Party/PartyEditor"
+import PositionEditor from "./Position/PositionEditor"
 import SaveFileNavigator from "./SaveFileNavigator"
 
 export default function Editor() {
@@ -18,6 +19,7 @@ export default function Editor() {
       <PartyEditor />
       <FishingEditor />
       <CountersEditor />
+      <PositionEditor />
       <SaveFileNavigator />
     </div>
   )

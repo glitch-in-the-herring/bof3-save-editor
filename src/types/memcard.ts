@@ -4,6 +4,7 @@ import type { Fishing } from "./fishing"
 import type { Party } from "./formations"
 import type { Inventory } from "./inventory"
 import type { Meta } from "./meta"
+import type { Position } from "./position"
 
 export interface Memcard {
   addresses?: number[]
@@ -18,4 +19,5 @@ export interface SaveFile {
   party: Party
   fishing: Fishing
   counters: Counters
+  position: Position
 }

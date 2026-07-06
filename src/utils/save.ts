@@ -7,6 +7,7 @@ import { equipment } from "../types/equipment"
 import { fish } from "../types/fishing"
 import { itemCategories } from "../types/inventory"
 import type { SaveFile } from "../types/memcard"
+import { axisKeys } from "../types/position"
 import { spellCategories } from "../types/spellCategories"
 import { byteSafety, numberToBytes } from "./numbers"
 import { encode } from "./strings"
@@ -26,6 +27,8 @@ export function saveMemcard() {
     saveFormations(tmpByteArray, saveFile)
     saveFishing(tmpByteArray, saveFile)
     saveCounters(tmpByteArray, saveFile)
+    savePosition(tmpByteArray, saveFile)
+
     checksum(tmpByteArray, saveFile.address)
   }
 
@@ -230,6 +233,26 @@ function saveCounters(byteArray: Uint8Array, saveFile: SaveFile) {
         1,
         false,
       )
+    }
+  }
+}
+
+function savePosition(byteArray: Uint8Array, saveFile: SaveFile) {
+  const baseAddress = saveFile.address + 0x224
+
+  byteArray[baseAddress] = saveFile.position.area
+  
+  for (let i = 0; i < axisKeys.length; i++) {
+    const buffer = numberToBytes(saveFile.position.x[axisKeys[i]], 2, false)
+    for (let j = 0; j < 2; j++) {
+      byteArray[baseAddress + 4 + i * 2 + j] = buffer[j]
+    }
+  }
+
+  for (let i = 0; i < axisKeys.length; i++) {
+    const buffer = numberToBytes(saveFile.position.y[axisKeys[i]], 2, false)
+    for (let j = 0; j < 2; j++) {
+      byteArray[baseAddress + 8 + i * 2 + j] = buffer[j]
     }
   }
 }

@@ -9,6 +9,13 @@ export default function Changelog() {
       <div className="px-6">
         <ul>
           <li>
+            <b>6 July 2026</b>
+            <ul>
+              <li>Added the ability to edit the last saved position</li>
+              <li>Responsive layout should be better</li>
+            </ul>
+          </li>
+          <li>
             <b>1 July 2026</b>
             <ul>
               <li>Added metadata editor</li>
