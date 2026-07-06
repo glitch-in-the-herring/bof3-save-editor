@@ -11,6 +11,7 @@ export default function Index() {
   return (
     <>
       <title>Breath of Fire III Save Editor</title>
+      <meta name="description" content="A save file editor for Breath of Fire III" />
       <div className="relative">
         <Header ref={headerRef} />
         <Editor />
