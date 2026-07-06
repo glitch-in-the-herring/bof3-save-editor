@@ -9,17 +9,20 @@ export default function InventoryVitals() {
   const vitalItems = getVitalItems(activeOptions, memcard)
 
   return (
-    <div className="h-100 overflow-y-scroll">
-      <div className="grid grid-cols-1 px-6">
-        {vitalItems &&
-          [...Array(32).keys()].map((i) => (
-            <VitalsSelect
-              key={i}
-              value={vitalItems ? vitalItems[i] : ""}
-              disabled={!vitalItems}
-              onChange={(e: ChangeEvent) => changeVitalItemsHandler(e, i)}
-            />
-          ))}
+    <div className="flex flex-col justify-between">
+      <h3>Vitals</h3>
+      <div className="h-100 overflow-y-scroll">
+        <div className="grid grid-cols-1 px-6">
+          {vitalItems &&
+            [...Array(32).keys()].map((i) => (
+              <VitalsSelect
+                key={i}
+                value={vitalItems ? vitalItems[i] : ""}
+                disabled={!vitalItems}
+                onChange={(e: ChangeEvent) => changeVitalItemsHandler(e, i)}
+              />
+            ))}
+        </div>
       </div>
     </div>
   )

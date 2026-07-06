@@ -10,12 +10,7 @@ export default function InventoryEditor() {
     <div>
       <h2>Inventory</h2>
       <InventoryZenny />
-      <div className="grid w-9/12 grid-cols-5 gap-1">
-        <h3>Items</h3>
-        <h3>Vitals</h3>
-        <h3>Skill List</h3>
-        <h3>Dragon Genes</h3>
-        <h3>Masters</h3>
+      <div className="grid gap-1 lg:w-9/12 lg:grid-cols-5 grid-cols-1">
         <InventoryItems />
         <InventoryVitals />
         <InventorySkills />

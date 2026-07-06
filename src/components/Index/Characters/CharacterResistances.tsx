@@ -40,7 +40,7 @@ export default function CharacterResistances() {
             name={`char${elementsMap[el]}`}
             label={`${elementsMap[el]}:`}
             inputType="number"
-            inputClassName="w-1/2"
+          inputClassName="w-20"
             icon={elementIconsMap[el]}
             value={character ? character.resistances[el] : ""}
             disabled={activeOptions.characterIndex === undefined}

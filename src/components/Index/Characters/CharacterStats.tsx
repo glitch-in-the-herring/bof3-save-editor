@@ -19,7 +19,7 @@ export default function CharacterStats() {
           label="Name:"
           inputType="text"
           divClassName="flex flex-row gap-1 col-span-2"
-          inputClassName="w-1/2"
+          inputClassName="w-1/4"
           value={character ? character.name : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "name")}
@@ -29,6 +29,7 @@ export default function CharacterStats() {
           name="charLvl"
           label="Level:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.level : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "level")}
@@ -38,6 +39,7 @@ export default function CharacterStats() {
           name="charEXP"
           label="EXP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.exp : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "exp")}
@@ -47,6 +49,7 @@ export default function CharacterStats() {
           name="charCurrentHP"
           label="Current HP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.currentHP : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "currentHP")}
@@ -56,6 +59,7 @@ export default function CharacterStats() {
           name="charCurrentAP"
           label="Current AP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.currentAP : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "currentAP")}
@@ -65,6 +69,7 @@ export default function CharacterStats() {
           name="charCurrentMaxHP"
           label="Current Max HP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.currentMaxHP : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "currentMaxHP")}
@@ -74,6 +79,7 @@ export default function CharacterStats() {
           name="charCurrentMaxAP"
           label="Current Max AP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.currentMaxAP : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "currentMaxAP")}
@@ -83,6 +89,7 @@ export default function CharacterStats() {
           name="charTrueMaxHP"
           label="True Max HP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.trueMaxHP : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "trueMaxHP")}
@@ -92,6 +99,7 @@ export default function CharacterStats() {
           name="charTrueMaxAP"
           label="True Max AP:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.trueMaxAP : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "trueMaxAP")}
@@ -101,6 +109,7 @@ export default function CharacterStats() {
           name="charBasePWR"
           label="Base PWR:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.pwr : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "pwr")}
@@ -110,6 +119,7 @@ export default function CharacterStats() {
           name="charBaseINT"
           label="Base INT:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.int : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "int")}
@@ -119,6 +129,7 @@ export default function CharacterStats() {
           name="charBaseDEF"
           label="Base DEF:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.def : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "def")}
@@ -128,6 +139,7 @@ export default function CharacterStats() {
           name="charBaseAGL"
           label="Base AGL:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.agl : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "agl")}
@@ -137,6 +149,7 @@ export default function CharacterStats() {
           name="charBaseWillpower"
           label="Base Willpower:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.willpower : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "willpower")}
@@ -146,6 +159,7 @@ export default function CharacterStats() {
           name="charBaseSurprise"
           label="Base Surprise:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.surprise : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "surprise")}
@@ -155,6 +169,7 @@ export default function CharacterStats() {
           name="charBaseReprisal"
           label="Base Reprisal:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.reprisal : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "reprisal")}
@@ -164,6 +179,7 @@ export default function CharacterStats() {
           name="charBaseCritical"
           label="Base Critical:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.critical : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "critical")}
@@ -173,6 +189,7 @@ export default function CharacterStats() {
           name="charBaseDodge"
           label="Base Dodge:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.dodge : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "dodge")}
@@ -182,6 +199,7 @@ export default function CharacterStats() {
           name="charBaseAccuracy"
           label="Base Accuracy:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.accuracy : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "accuracy")}
@@ -191,6 +209,7 @@ export default function CharacterStats() {
           name="charFatigue"
           label="Fatigue:"
           inputType="number"
+          inputClassName="w-20"
           value={character ? character.fatigue : ""}
           disabled={activeOptions.characterIndex === undefined}
           onChange={(e: ChangeEvent) => statChangeHandler(e, "fatigue")}

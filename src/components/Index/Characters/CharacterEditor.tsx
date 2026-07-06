@@ -31,7 +31,7 @@ export default function CharacterEditor() {
               ))}
           </select>
         </div>
-        <div className="grid w-9/12 grid-cols-2 gap-x-4">
+        <div className="grid grid-cols-1 gap-4 lg:w-9/12 lg:grid-cols-2">
           <CharacterStats />
           <div className="grid grid-rows-2 gap-y-4">
             <CharacterResistances />

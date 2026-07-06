@@ -49,30 +49,35 @@ export default function InventoryGenes() {
   const inventory = getInventory(activeOptions, memcard)
 
   return (
-    <div className="h-100">
-      <div className="grid grid-cols-3 px-6">
-        {genes.map((g, i) => (
-          <div key={i}>
-            <label className="flex flex-col">
-              <div className="flex flex-row items-end">
-                <input
-                  type="checkbox"
-                  className="peer"
-                  value={inventory ? inventory.dragonGenes[i >> 3] : ""}
-                  checked={inventory ? !!(inventory.dragonGenes[i >> 3] & (0b1 << (i % 8))) : false}
-                  onChange={(e: ChangeEvent) => enableGeneHandler(e, i)}
-                  disabled={!inventory}
-                />
-                <img
-                  src={geneIconsMap[g]}
-                  height={32}
-                  className="opacity-100 peer-disabled:opacity-40"
-                />
-              </div>
-              <span>{g}</span>
-            </label>
-          </div>
-        ))}
+    <div>
+      <h3>Dragon Genes</h3>
+      <div className="h-100">
+        <div className="grid grid-cols-3 px-6">
+          {genes.map((g, i) => (
+            <div key={i}>
+              <label className="flex flex-col">
+                <div className="flex flex-row items-end">
+                  <input
+                    type="checkbox"
+                    className="peer"
+                    value={inventory ? inventory.dragonGenes[i >> 3] : ""}
+                    checked={
+                      inventory ? !!(inventory.dragonGenes[i >> 3] & (0b1 << (i % 8))) : false
+                    }
+                    onChange={(e: ChangeEvent) => enableGeneHandler(e, i)}
+                    disabled={!inventory}
+                  />
+                  <img
+                    src={geneIconsMap[g]}
+                    height={32}
+                    className="opacity-100 peer-disabled:opacity-40"
+                  />
+                </div>
+                <span>{g}</span>
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
