@@ -73,7 +73,7 @@ export default function InventoryGenes() {
                     className="opacity-100 peer-disabled:opacity-40"
                   />
                 </div>
-                <span>{g}</span>
+                <span className="text-xs">{g}</span>
               </label>
             </div>
           ))}
