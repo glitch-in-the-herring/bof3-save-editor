@@ -19,6 +19,7 @@ export default function PositionCoords() {
           label="X:"
           value={position ? position.x.integer : ""}
           onChange={(e: ChangeEvent) => changeXHandler(e, "integer")}
+          disabled={!position}
           inputType="number"
           inputClassName="w-20"
         />
@@ -28,6 +29,7 @@ export default function PositionCoords() {
           label=". "
           value={position ? position.x.fraction : ""}
           onChange={(e: ChangeEvent) => changeXHandler(e, "fraction")}
+          disabled={!position}
           inputType="number"
           inputClassName="w-20"
         />
@@ -39,6 +41,7 @@ export default function PositionCoords() {
           label="Y:"
           value={position ? position.y.integer : ""}
           onChange={(e: ChangeEvent) => changeYHandler(e, "integer")}
+          disabled={!position}
           inputType="number"
           inputClassName="w-20"
         />
@@ -48,6 +51,7 @@ export default function PositionCoords() {
           label=". "
           value={position ? position.y.fraction : ""}
           onChange={(e: ChangeEvent) => changeYHandler(e, "fraction")}
+          disabled={!position}
           inputType="number"
           inputClassName="w-20"
         />

@@ -1,5 +1,6 @@
 import CharacterEditor from "./Characters/CharacterEditor"
 import CountersEditor from "./Counters/CountersEditor"
+import FaerieEditor from "./Faerie/FaerieEditor"
 import FileInput from "./FileInput"
 import FishingEditor from "./Fishing/FishingEditor"
 import InventoryEditor from "./Inventory/InventoryEditor"
@@ -20,6 +21,7 @@ export default function Editor() {
       <FishingEditor />
       <CountersEditor />
       <PositionEditor />
+      <FaerieEditor />
       <SaveFileNavigator />
     </div>
   )

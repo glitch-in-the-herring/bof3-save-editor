@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from "react"
 
 interface LabelProps extends PropsWithChildren {
-  id: string
+  id?: string
   label: string
   divClassName?: string
   icon?: string
