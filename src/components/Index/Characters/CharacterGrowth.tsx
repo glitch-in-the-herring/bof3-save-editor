@@ -99,10 +99,13 @@ export default function CharacterGrowth() {
       {inventory &&
         character &&
         character.master != 0xff &&
-        !(inventory.masters[(character.master + 1) >> 3] & (0b1 << ((character.master + 1) % 8))) && (
+        !(
+          inventory.masters[(character.master + 1) >> 3] &
+          (0b1 << ((character.master + 1) % 8))
+        ) && (
           <div className="bg-orange-300">
             Warning: The master {masters.find((x) => x.id === character.master)!.name} is not yet
-            unlocked in this save file{" "}
+            unlocked in this save file
           </div>
         )}
     </div>
