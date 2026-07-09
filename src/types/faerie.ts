@@ -1,3 +1,9 @@
+export interface FaerieVillage {
+  faerieJobs: FaerieJob[]
+  faerieRooms: FaerieRoom[]
+  faerieNames: string[]
+}
+
 export interface Faerie {
   name: string
   stats: FaerieStats

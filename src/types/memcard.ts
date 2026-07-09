@@ -1,5 +1,6 @@
 import type { Character } from "./character"
 import type { Counters } from "./counters"
+import type { FaerieVillage } from "./faerie"
 import type { Fishing } from "./fishing"
 import type { Party } from "./formations"
 import type { Inventory } from "./inventory"
@@ -20,4 +21,5 @@ export interface SaveFile {
   fishing: Fishing
   counters: Counters
   position: Position
+  faerieVillage?: FaerieVillage
 }

@@ -10,3 +10,15 @@ export const jobs = [
   "Casino",
   "Copy",
 ]
+
+export const merchantJobs = [
+ "Weapons",
+ "Items",
+ "Handyman"
+]
+
+export const explorationJobs = [
+  "Daytrip",
+  "Nearby",
+  "Distant"
+]

@@ -139,6 +139,8 @@ interface PositionState {
   setY: (value: number, part: keyof Axis, saveFileIndex: number) => void
 }
 
+interface FaerieState {}
+
 export const useGlobal = create<GlobalState>()(
   immer((set) => ({
     memcard: {
