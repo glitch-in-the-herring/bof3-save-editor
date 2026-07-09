@@ -4,7 +4,7 @@ export default function FaerieRooms() {
   return (
     <div>
       <h3>Rooms</h3>
-      <div className="grid w-10/12 grid-cols-4">
+      <div className="grid w-10/12 grid-cols-4 gap-2">
         {[...Array(8).keys()].map((x) => (
           <FaerieRoomCard id={x} key={x} />
         ))}

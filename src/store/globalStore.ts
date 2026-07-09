@@ -23,7 +23,8 @@ interface GlobalState
     FishingState,
     CountersState,
     PositionState,
-    FaerieState {
+    FaerieRoomState,
+    FaerieJobState {
   memcard: Memcard
   byteArray?: Uint8Array
   filename?: string
@@ -140,7 +141,17 @@ interface PositionState {
   setY: (value: number, part: keyof Axis, saveFileIndex: number) => void
 }
 
-interface FaerieState {}
+interface FaerieRoomState {
+  setRoomType: (value: number, room: number, saveFileIndex: number) => void
+  setRoomSubtype: (value: number, room: number, saveFileIndex: number) => void
+  setRoomSubsubtype: (value: number, room: number, saveFileIndex: number) => void
+}
+
+interface FaerieJobState {
+  setFaerieAlive: (value: number, id: number, saveFileIndex: number) => void
+  setFaerieName: (value: string, id: number, saveFileIndex: number) => void
+  setFaerieRoom: (value: number, id: number, saveFileIndex: number) => void
+}
 
 export const useGlobal = create<GlobalState>()(
   immer((set) => ({
@@ -370,6 +381,60 @@ export const useGlobal = create<GlobalState>()(
         if (!state.memcard.saveFiles[saveFileIndex]) return
 
         state.memcard.saveFiles[saveFileIndex].position.y[part] = value
+      }),
+    setRoomType: (value, room, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const rooms = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms = rooms.map((x, i) =>
+          i === room ? { ...x, type: value } : x,
+        )
+      }),
+    setRoomSubtype: (value, room, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const rooms = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms = rooms.map((x, i) =>
+          i === room ? { ...x, subtype: value } : x,
+        )
+      }),
+    setRoomSubsubtype: (value, room, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const rooms = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms = rooms.map((x, i) =>
+          i === room ? { ...x, subsubtype: value } : x,
+        )
+      }),
+    setFaerieAlive: (value, id, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const jobs = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs = jobs.map((x, i) =>
+          i === id ? { ...x, status: value } : x,
+        )
+      }),
+    setFaerieName: (value, id, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const names = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieNames
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieNames = names.map((x, i) =>
+          i === id ? value : x,
+        )
+      }),
+    setFaerieRoom: (value, id, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const jobs = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs = jobs.map((x, i) =>
+          i === id ? { ...x, room: value } : x,
+        )
       }),
   })),
 )

@@ -1,3 +1,5 @@
+import type { ChangeEvent } from "react"
+
 import { faeries } from "../../../data/faeries"
 import { jobs } from "../../../data/jobs"
 import { useGlobal, getFaerieVillage } from "../../../store/globalStore"
@@ -25,8 +27,11 @@ export default function FaerieJobCard({ id }: FaerieJobCardProp) {
     <div className="border p-2">
       <div className="font-bold">{faeries[id].name}</div>
       <Input
+        id={`faerieName${id}`}
         label="Renamed as:"
         value={faerieVillage ? faerieVillage.faerieNames[id] : faeries[id].name}
+        onChange={(e: ChangeEvent) => changeNameHandler(e, id)}
+        disabled={!faerieVillage}
       />
       <div className="grid grid-cols-2">
         {FaerieStatsKeys.map((x) => (
@@ -47,10 +52,16 @@ export default function FaerieJobCard({ id }: FaerieJobCardProp) {
           <input
             type="checkbox"
             checked={faerieVillage ? !!faerieVillage.faerieJobs[id].status : false}
+            onChange={(e: ChangeEvent) => changeAliveHandler(e, id)}
           />
         </Label>
-        <Label label="Assignment:">
-          <select value={faerieVillage ? faerieVillage.faerieJobs[id].room : ""}>
+        <Label id={`faerieRoomAssignment${id}`} label="Assignment:">
+          <select
+            id={`faerieRoomAssignment${id}`}
+            value={faerieVillage ? faerieVillage.faerieJobs[id].room : ""}
+            onChange={(e: ChangeEvent) => changeRoomHandler(e, id)}
+            disabled={!faerieVillage}
+          >
             {[...Array(12).keys()].map((i) => (
               <option value={i} key={i}>
                 {((): string => {
@@ -72,7 +83,67 @@ export default function FaerieJobCard({ id }: FaerieJobCardProp) {
             ))}
           </select>
         </Label>
+        {faerieVillage &&
+          (() => {
+            const currentRoom = faerieVillage.faerieJobs[id].room
+            if (!faerieVillage.faerieJobs[id].status) return
+            if (
+              currentRoom === 0 ||
+              currentRoom === 9 ||
+              currentRoom === 0xa ||
+              currentRoom === 0xb
+            )
+              return
+
+            if (
+              faerieVillage.faerieJobs.filter((x) => x.room === currentRoom && x.status).length > 3
+            )
+              return (
+                <div className="bg-orange-300">
+                  Warning: Room {currentRoom} has more than three occupants!
+                </div>
+              )
+          })()}
+        <Input
+          label="Battle count:"
+          value={faerieVillage ? faerieVillage.faerieJobs[id].battles : ""}
+          inputType="number"
+          inputClassName="w-20"
+          disabled={!faerieVillage}
+        />
       </div>
     </div>
   )
+}
+
+function changeAliveHandler(e: ChangeEvent, id: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setAlive = useGlobal.getState().setFaerieAlive
+  const setFaerieName = useGlobal.getState().setFaerieName
+
+  setAlive(Number(target.checked), id, saveFileIndex)
+  setFaerieName(faeries[id].name, id, saveFileIndex)
+}
+
+function changeNameHandler(e: ChangeEvent, id: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setFaerieName = useGlobal.getState().setFaerieName
+
+  setFaerieName(target.value, id, saveFileIndex)
+}
+
+function changeRoomHandler(e: ChangeEvent, id: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setFaerieRoom = useGlobal.getState().setFaerieRoom
+
+  setFaerieRoom(Number(target.value), id, saveFileIndex)
 }

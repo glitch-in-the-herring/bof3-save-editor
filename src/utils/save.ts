@@ -28,6 +28,7 @@ export function saveMemcard() {
     saveFishing(tmpByteArray, saveFile)
     saveCounters(tmpByteArray, saveFile)
     savePosition(tmpByteArray, saveFile)
+    saveFaerieVillage(tmpByteArray, saveFile)
 
     checksum(tmpByteArray, saveFile.address)
   }
@@ -253,6 +254,80 @@ function savePosition(byteArray: Uint8Array, saveFile: SaveFile) {
     const buffer = numberToBytes(saveFile.position.y[axisKeys[i]], 2, false)
     for (let j = 0; j < 2; j++) {
       byteArray[baseAddress + 8 + i * 2 + j] = buffer[j]
+    }
+  }
+}
+
+function saveFaerieVillage(byteArray: Uint8Array, saveFile: SaveFile) {
+  const baseAddress = saveFile.address + 0xef0
+  const roomsBaseAddress = baseAddress + 0x1e0
+  const namesBaseAddress = baseAddress + 0x220
+
+  for (let i = 0; i < 60; i++) {
+    byteArray[baseAddress + i * 8] = byteSafety(
+      saveFile.faerieVillage.faerieJobs[i].status,
+      1,
+      false,
+    )
+    byteArray[baseAddress + i * 8 + 1] = byteSafety(
+      saveFile.faerieVillage.faerieJobs[i].room,
+      1,
+      false,
+    )
+    byteArray[baseAddress + i * 8 + 2] = byteSafety(
+      saveFile.faerieVillage.faerieJobs[i].jobData[0],
+      1,
+      false,
+    )
+    byteArray[baseAddress + i * 8 + 3] = byteSafety(
+      saveFile.faerieVillage.faerieJobs[i].jobData[1],
+      1,
+      false,
+    )
+
+    let buffer = numberToBytes(saveFile.faerieVillage.faerieJobs[i].battles, 4, false)
+    for (let j = 0; j < 4; j++) {
+      byteArray[baseAddress + i * 8 + 4 + j] = buffer[j]
+    }
+
+    if (saveFile.faerieVillage.faerieNames[i] === "") {
+      for (let j = 0; j < 5; j++) {
+        byteArray[namesBaseAddress + i * 5 + j] = 0
+      }
+      continue
+    }
+
+    buffer = encode(saveFile.faerieVillage.faerieNames[i])
+    for (let j = 0; j < 5; j++) {
+      if (buffer[j] === 0) {
+        byteArray[roomsBaseAddress + i * 8 + 4 + j] = 0xff
+        continue
+      }
+
+      byteArray[namesBaseAddress + i * 5 + j] = buffer[j]
+    }
+  }
+
+  for (let i = 0; i < 8; i++) {
+    byteArray[roomsBaseAddress + i * 8] = byteSafety(
+      saveFile.faerieVillage.faerieRooms[i].type,
+      1,
+      false,
+    )
+    byteArray[roomsBaseAddress + i * 8 + 1] = byteSafety(
+      saveFile.faerieVillage.faerieRooms[i].subtype,
+      1,
+      false,
+    )
+    byteArray[roomsBaseAddress + i * 8 + 2] = byteSafety(
+      saveFile.faerieVillage.faerieRooms[i].subsubtype,
+      1,
+      false,
+    )
+
+    const buffer = numberToBytes(saveFile.faerieVillage.faerieRooms[i].battles, 4, false)
+    for (let j = 0; j < 4; j++) {
+      byteArray[roomsBaseAddress + i * 8 + 4 + j] = buffer[j]
     }
   }
 }
