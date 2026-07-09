@@ -1,5 +1,5 @@
 import FaerieRooms from "./FaerieRooms"
-import FaerieJobs from "./FaerisJobs"
+import FaerieJobs from "./FaeriesJobs"
 
 export default function FaerieEditor() {
   return (

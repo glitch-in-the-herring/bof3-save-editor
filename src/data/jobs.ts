@@ -11,14 +11,8 @@ export const jobs = [
   "Copy",
 ]
 
-export const merchantJobs = [
- "Weapons",
- "Items",
- "Handyman"
-]
+export const merchantSubjobs = ["Weapons", "Items", "Handyman"]
 
-export const explorationJobs = [
-  "Daytrip",
-  "Nearby",
-  "Distant"
-]
+export const explorationSubjobs = ["Daytrip", "Nearby", "Distant"]
+
+export const merchantSubsubjobs = ["Speed", "Ability"]

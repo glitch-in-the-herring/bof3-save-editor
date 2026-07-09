@@ -22,7 +22,8 @@ interface GlobalState
     PartyState,
     FishingState,
     CountersState,
-    PositionState {
+    PositionState,
+    FaerieState {
   memcard: Memcard
   byteArray?: Uint8Array
   filename?: string
@@ -436,5 +437,11 @@ export function getCounters(activeOptions: ActiveOptions, memcard: Memcard) {
 export function getPosition(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].position
+    : null
+}
+
+export function getFaerieVillage(activeOptions: ActiveOptions, memcard: Memcard) {
+  return activeOptions.saveFileIndex !== undefined
+    ? memcard.saveFiles[activeOptions.saveFileIndex].faerieVillage
     : null
 }

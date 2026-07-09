@@ -17,7 +17,7 @@ export interface FaerieStats {
 }
 
 export interface FaerieJob {
-  status: FaerieStatus
+  status: number
   room: number
   jobData: number[]
   battles: number
@@ -30,7 +30,7 @@ export interface FaerieRoom {
   battles: number
 }
 
-type FaerieStatus = "Dead" | "Alive"
+export const faerieStatus = ["Dead", "Alive"]
 
 export const FaerieStatsKeys: (keyof FaerieStats)[] = [
   "power",

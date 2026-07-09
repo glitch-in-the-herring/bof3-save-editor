@@ -1,4 +1,3 @@
-import { faeries } from "../../../data/faeries"
 import FaerieJobCard from "./FaerieJobCard"
 
 export default function FaerieJobs() {
@@ -10,8 +9,8 @@ export default function FaerieJobs() {
           Note: Faerie stats are stored in the ROM and cannot be modified through the save file.
         </div>
         <div className="grid grid-cols-3">
-          {faeries.map((x, i) => (
-            <FaerieJobCard faerie={x} key={i} />
+          {[...Array(60).keys()].map((i) => (
+            <FaerieJobCard id={i} key={i} />
           ))}
         </div>
       </div>

@@ -21,5 +21,5 @@ export interface SaveFile {
   fishing: Fishing
   counters: Counters
   position: Position
-  faerieVillage?: FaerieVillage
+  faerieVillage: FaerieVillage
 }

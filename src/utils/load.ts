@@ -3,6 +3,7 @@ import type { Clock } from "../types/clock"
 import { countdownCategories, type CountdownCategory, type Counters } from "../types/counters"
 import { elements, type Element } from "../types/element"
 import { equipment, type Equipment } from "../types/equipment"
+import type { FaerieVillage } from "../types/faerie"
 import { fish, type Fish, type Fishing } from "../types/fishing"
 import { orderingCategories, type OrderingCategory, type Party } from "../types/formations"
 import {
@@ -23,11 +24,12 @@ export function loadSaveFile(byteArray: Uint8Array, address: number) {
     address: address,
     meta: loadMeta(byteArray.slice(address + 0x270, address + 0xeb4)),
     characters: loadCharacters(byteArray.slice(address + 0x290, address + 0x7b0)),
-    inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xe9f)),
+    inventory: loadInventory(byteArray.slice(address + 0x878, address + 0xea0)),
     party: loadFormations(byteArray.slice(address + 0x880, address + 0x888)),
     fishing: loadFishing(byteArray.slice(address + 0x90c, address + 0x924)),
     counters: loadCounters(byteArray.slice(address + 0x8e8, address + 0xe84)),
     position: loadLocation(byteArray.slice(address + 0x224, address + 0x230)),
+    faerieVillage: loadFaerieVillage(byteArray.slice(address + 0xef0, address + 0x123c)),
   }
 
   return saveFile
@@ -233,4 +235,32 @@ function loadLocation(byteArray: Uint8Array) {
     },
   }
   return position
+}
+
+function loadFaerieVillage(byteArray: Uint8Array) {
+  const namesBaseAddress = 0x220
+  const roomsBaseAddress = 0x1e0
+
+  let faerieVillage: FaerieVillage = {
+    faerieJobs: [...Array(60).keys()].map((i) => ({
+      status: byteArray[i * 8],
+      room: byteArray[i * 8 + 1],
+      jobData: Array.from(byteArray.slice(i * 8 + 2, i * 8 + 4)),
+      battles: bytesToNumber(byteArray.slice(i * 8 + 4, i * 8 + 8), false),
+    })),
+    faerieRooms: [...Array(8).keys()].map((i) => ({
+      type: byteArray[roomsBaseAddress + i * 8],
+      subtype: byteArray[roomsBaseAddress + i * 8 + 1],
+      subsubtype: byteArray[roomsBaseAddress + i * 8 + 2],
+      battles: bytesToNumber(
+        byteArray.slice(roomsBaseAddress + i * 8 + 4, roomsBaseAddress + i * 8 + 8),
+        false,
+      ),
+    })),
+    faerieNames: [...Array(60).keys()].map((i) =>
+      decode(byteArray.slice(namesBaseAddress + i * 5, namesBaseAddress + i * 5 + 5)),
+    ),
+  }
+
+  return faerieVillage
 }
