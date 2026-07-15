@@ -3,12 +3,27 @@ import type { ChangeEvent } from "react"
 import { faeries } from "../../../data/faeries"
 import { jobs } from "../../../data/jobs"
 import { useGlobal, getFaerieVillage } from "../../../store/globalStore"
-import { FaerieStatsColors, FaerieStatsKeys } from "../../../types/faerie"
+import {
+  copyStatus,
+  explorationStatus,
+  FaerieStatsColors,
+  FaerieStatsKeys,
+} from "../../../types/faerie"
+import { itemCategories } from "../../../types/inventory"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
+import AccessorySelect from "../AccessorySelect"
+import ArmorSelect from "../ArmorSelect"
+import ItemSelect from "../ItemSelect"
+import WeaponSelect from "../WeaponSelect"
 
 interface FaerieJobCardProp {
   id: number
+}
+
+interface FaerieJobSubeditorProp {
+  id: number
+  jobData: number[]
 }
 
 // w-0/5
@@ -53,6 +68,7 @@ export default function FaerieJobCard({ id }: FaerieJobCardProp) {
             type="checkbox"
             checked={faerieVillage ? !!faerieVillage.faerieJobs[id].status : false}
             onChange={(e: ChangeEvent) => changeAliveHandler(e, id)}
+            disabled={!faerieVillage}
           />
         </Label>
         <Label id={`faerieRoomAssignment${id}`} label="Assignment:">
@@ -107,12 +123,123 @@ export default function FaerieJobCard({ id }: FaerieJobCardProp) {
         <Input
           label="Battle count:"
           value={faerieVillage ? faerieVillage.faerieJobs[id].battles : ""}
+          onChange={(e: ChangeEvent) => changeBattleCountHandler(e, id)}
           inputType="number"
           inputClassName="w-20"
           disabled={!faerieVillage}
         />
+        {faerieVillage &&
+          (() => {
+            const room = faerieVillage.faerieJobs[id].room
+            if (room < 1 || room > 8) return
+
+            const job = faerieVillage.faerieRooms[room - 1].type
+            switch (job) {
+              case 0x09:
+                return (
+                  <ExplorationJobEditor jobData={faerieVillage.faerieJobs[id].jobData} id={id} />
+                )
+              case 0x0d:
+                return <CopyJobEditor jobData={faerieVillage.faerieJobs[id].jobData} id={id} />
+            }
+          })()}
       </div>
     </div>
+  )
+}
+
+function CopyJobEditor({ jobData, id }: FaerieJobSubeditorProp) {
+  const itemType = jobData[1] & 0xf
+  const status = jobData[1] & 0xf0
+  let select
+
+  switch (itemType) {
+    case 0x00:
+      select = (
+        <ItemSelect
+          value={jobData[0]}
+          onChange={(e: ChangeEvent) => changeJobDataHandler(e, (n) => n, 0, id)}
+        />
+      )
+      break
+    case 0x01:
+      select = (
+        <WeaponSelect
+          value={jobData[0]}
+          onChange={(e: ChangeEvent) => changeJobDataHandler(e, (n) => n, 0, id)}
+        />
+      )
+      break
+    case 0x02:
+      select = (
+        <ArmorSelect
+          value={jobData[0]}
+          onChange={(e: ChangeEvent) => changeJobDataHandler(e, (n) => n, 0, id)}
+        />
+      )
+      break
+    case 0x03:
+      select = (
+        <AccessorySelect
+          value={jobData[0]}
+          onChange={(e: ChangeEvent) => changeJobDataHandler(e, (n) => n, 0, id)}
+        />
+      )
+      break
+  }
+
+  return (
+    <>
+      <Label label="Selected item:">{select}</Label>
+      <Label label="Item type:">
+        <select
+          value={itemType}
+          onChange={(e: ChangeEvent) => {
+            changeJobDataHandler(e, () => 0, 0, id)
+            changeJobDataHandler(e, (n) => status | n, 1, id)
+          }}
+        >
+          {itemCategories.map((c, i) => (
+            <option key={c} value={i}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </Label>
+      <Label label="Status">
+        <select
+          value={status}
+          onChange={(e: ChangeEvent) => changeJobDataHandler(e, (n) => n | itemType, 1, id)}
+        >
+          {copyStatus.map((c, i) => (
+            <option key={c} value={i * 0x10}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </Label>
+    </>
+  )
+}
+
+function ExplorationJobEditor({ jobData, id }: FaerieJobSubeditorProp) {
+  const status = jobData[0]
+
+  return (
+    <>
+      <Label label="Status">
+        <select
+          value={status}
+          onChange={(e: ChangeEvent) => changeJobDataHandler(e, (n) => n, 0, id)}
+        >
+          {explorationStatus.map((c, i) => (
+            <option key={c} value={i}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </Label>
+    </>
   )
 }
 
@@ -146,4 +273,24 @@ function changeRoomHandler(e: ChangeEvent, id: number) {
   const setFaerieRoom = useGlobal.getState().setFaerieRoom
 
   setFaerieRoom(Number(target.value), id, saveFileIndex)
+}
+
+function changeJobDataHandler(e: ChangeEvent, f: (n: number) => number, index: number, id: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setFaerieJobData = useGlobal.getState().setFaerieJobData
+
+  setFaerieJobData(f(Number(target.value)), index, id, saveFileIndex)
+}
+
+function changeBattleCountHandler(e: ChangeEvent, id: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setFaerieBattleCount = useGlobal.getState().setFaerieBattleCount
+
+  setFaerieBattleCount(Number(target.value), id, saveFileIndex)
 }

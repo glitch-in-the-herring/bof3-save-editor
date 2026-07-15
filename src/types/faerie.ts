@@ -2,6 +2,23 @@ export interface FaerieVillage {
   faerieJobs: FaerieJob[]
   faerieRooms: FaerieRoom[]
   faerieNames: string[]
+  food: number
+  culture: number
+  maxJobs: number
+  stage: number[]
+  battleCounts: FaerieVillageBattles
+  constructionPowers: ConstructionPowers
+}
+
+export interface FaerieVillageBattles {
+  huntingBattleCount: number
+  constructionBattleCounter: number
+  scholarBattleCount: number
+}
+
+export interface ConstructionPowers {
+  clearPower: number
+  buildPower: number
 }
 
 export interface Faerie {
@@ -27,10 +44,13 @@ export interface FaerieRoom {
   type: number
   subtype: number
   subsubtype: number
+  level: number
   battles: number
 }
 
 export const faerieStatus = ["Dead", "Alive"]
+export const copyStatus = ["Idle", "Not Done", "Success", "Failure", "Spectacular Failure"]
+export const explorationStatus = ["Idle", "Exploring", "Success", "Failure"]
 
 export const FaerieStatsKeys: (keyof FaerieStats)[] = [
   "power",

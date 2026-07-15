@@ -6,6 +6,7 @@ import { clockKeys, type Clock } from "../types/clock"
 import { type CountdownCategory } from "../types/counters"
 import type { Element } from "../types/element"
 import type { Equipment } from "../types/equipment"
+import type { ConstructionPowers, FaerieVillageBattles } from "../types/faerie"
 import type { Fish } from "../types/fishing"
 import type { OrderingCategory } from "../types/formations"
 import type { ItemCategory } from "../types/inventory"
@@ -24,7 +25,8 @@ interface GlobalState
     CountersState,
     PositionState,
     FaerieRoomState,
-    FaerieJobState {
+    FaerieJobState,
+    FaerieVillageState {
   memcard: Memcard
   byteArray?: Uint8Array
   filename?: string
@@ -145,12 +147,29 @@ interface FaerieRoomState {
   setRoomType: (value: number, room: number, saveFileIndex: number) => void
   setRoomSubtype: (value: number, room: number, saveFileIndex: number) => void
   setRoomSubsubtype: (value: number, room: number, saveFileIndex: number) => void
+  setRoomLevel: (value: number, room: number, saveFileIndex: number) => void
+  setRoomBattleCount: (value: number, room: number, saveFileIndex: number) => void
 }
 
 interface FaerieJobState {
   setFaerieAlive: (value: number, id: number, saveFileIndex: number) => void
   setFaerieName: (value: string, id: number, saveFileIndex: number) => void
   setFaerieRoom: (value: number, id: number, saveFileIndex: number) => void
+  setFaerieJobData: (value: number, index: number, id: number, saveFileIndex: number) => void
+  setFaerieBattleCount: (value: number, id: number, saveFileIndex: number) => void
+}
+
+interface FaerieVillageState {
+  setFood: (value: number, saveFileIndex: number) => void
+  setCulture: (value: number, saveFileIndex: number) => void
+  setMaxJob: (value: number, saveFileIndex: number) => void
+  setConstructionStage: (value: number, index: number, saveFileIndex: number) => void
+  setConstructionPower: (
+    value: number,
+    key: keyof ConstructionPowers,
+    saveFileIndex: number,
+  ) => void
+  setBattleCount: (value: number, key: keyof FaerieVillageBattles, saveFileIndex: number) => void
 }
 
 export const useGlobal = create<GlobalState>()(
@@ -409,6 +428,24 @@ export const useGlobal = create<GlobalState>()(
           i === room ? { ...x, subsubtype: value } : x,
         )
       }),
+    setRoomLevel: (value, room, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const rooms = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms = rooms.map((x, i) =>
+          i === room ? { ...x, level: value } : x,
+        )
+      }),
+    setRoomBattleCount: (value, room, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const rooms = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieRooms = rooms.map((x, i) =>
+          i === room ? { ...x, battles: value } : x,
+        )
+      }),
     setFaerieAlive: (value, id, saveFileIndex) =>
       set((state) => {
         if (!state.memcard.saveFiles[saveFileIndex]) return
@@ -435,6 +472,63 @@ export const useGlobal = create<GlobalState>()(
         state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs = jobs.map((x, i) =>
           i === id ? { ...x, room: value } : x,
         )
+      }),
+    setFaerieJobData: (value, index, id, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const jobData = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs[id].jobData
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs[id].jobData = jobData.map(
+          (x, i) => (i === index ? value : x),
+        )
+      }),
+    setFaerieBattleCount: (value, id, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const jobs = state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.faerieJobs = jobs.map((x, i) =>
+          i === id ? { ...x, battles: value } : x,
+        )
+      }),
+    setFood: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.food = value
+      }),
+    setCulture: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.culture = value
+      }),
+    setMaxJob: (value, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.maxJobs = value
+      }),
+    setConstructionStage: (value, index, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        const stage = state.memcard.saveFiles[saveFileIndex].faerieVillage.stage
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.stage = stage.map((s, i) =>
+          i === index ? value : s,
+        )
+      }),
+    setBattleCount: (value, key, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.battleCounts[key] = value
+      }),
+    setConstructionPower: (value, key, saveFileIndex) =>
+      set((state) => {
+        if (!state.memcard.saveFiles[saveFileIndex]) return
+
+        state.memcard.saveFiles[saveFileIndex].faerieVillage.constructionPowers[key] = value
       }),
   })),
 )

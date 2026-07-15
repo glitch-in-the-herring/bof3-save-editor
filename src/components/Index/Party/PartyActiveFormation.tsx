@@ -1,6 +1,7 @@
 import type { ChangeEvent } from "react"
 
 import { useGlobal, getParty } from "../../../store/globalStore"
+import { formations } from "../../../types/formations"
 import FormationSelect from "../FormationSelect"
 
 export default function PartyFormation() {
@@ -17,6 +18,11 @@ export default function PartyFormation() {
           onChange={switchFormationsHandler}
           disabled={!party}
         />
+        {party && !(party.unlockedFormations & (0b1 << party.activeFormation)) && (
+          <div className="bg-orange-300">
+            Warning: The {formations[party.activeFormation]} formation is not yet unlocked!
+          </div>
+        )}
       </div>
     </div>
   )

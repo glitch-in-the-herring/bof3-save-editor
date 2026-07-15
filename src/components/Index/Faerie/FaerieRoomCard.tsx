@@ -23,6 +23,7 @@ export default function FaerieRoomCard({ id }: FaerieRoomCardProp) {
           onChange={(e: ChangeEvent) => changeTypeHandler(e, id)}
           disabled={!faerieVillage}
         >
+          <option value={0}>--</option>
           {jobs.map((x, i) => (
             <option value={i + 4} key={x}>
               {x}
@@ -53,24 +54,34 @@ export default function FaerieRoomCard({ id }: FaerieRoomCardProp) {
               </select>
             </Label>
             {faerieVillage.faerieRooms[id].type === 5 && (
-              <Label label="Job subsubtype:">
-                <select
-                  onChange={(e: ChangeEvent) => changeSubsubtypeHandler(e, id)}
-                  disabled={!faerieVillage}
-                >
-                  {merchantSubsubjobs.map((x, i) => (
-                    <option value={i} key={x}>
-                      {x}
-                    </option>
-                  ))}
-                </select>
-              </Label>
+              <>
+                <Label label="Job subsubtype:">
+                  <select
+                    onChange={(e: ChangeEvent) => changeSubsubtypeHandler(e, id)}
+                    disabled={!faerieVillage}
+                  >
+                    {merchantSubsubjobs.map((x, i) => (
+                      <option value={i} key={x}>
+                        {x}
+                      </option>
+                    ))}
+                  </select>
+                </Label>
+                <Input
+                  label="Level:"
+                  inputType="number"
+                  value={faerieVillage ? faerieVillage.faerieRooms[id].level : ""}
+                  onChange={(e: ChangeEvent) => changeLevelHandler(e, id)}
+                  inputClassName="w-20"
+                />
+              </>
             )}
           </>
         )}
       <Input
         id={`faerieRoomBattle${id}`}
         value={faerieVillage ? faerieVillage.faerieRooms[id].battles : ""}
+        onChange={(e: ChangeEvent) => changeBattleCountHandler(e, id)}
         label="Battle count:"
         inputType="number"
         inputClassName="w-20"
@@ -114,4 +125,24 @@ function changeSubsubtypeHandler(e: ChangeEvent, room: number) {
   const setRoomSubsubtype = useGlobal.getState().setRoomSubsubtype
 
   setRoomSubsubtype(Number(target.value), room, saveFileIndex)
+}
+
+function changeLevelHandler(e: ChangeEvent, room: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setRoomLevel = useGlobal.getState().setRoomLevel
+
+  setRoomLevel(Number(target.value), room, saveFileIndex)
+}
+
+function changeBattleCountHandler(e: ChangeEvent, room: number) {
+  const { saveFileIndex } = useGlobal.getState().activeOptions
+  if (saveFileIndex === undefined) return
+
+  const target = e.target as HTMLInputElement
+  const setRoomBattleCount = useGlobal.getState().setRoomBattleCount
+
+  setRoomBattleCount(Number(target.value), room, saveFileIndex)
 }

@@ -2,7 +2,7 @@ export const jobs = [
   "Scholar",
   "Merchant",
   "Inn",
-  "Gift shop",
+  "Gift",
   "Fortune",
   "Explorer",
   "Antiques",

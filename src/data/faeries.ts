@@ -540,3 +540,17 @@ export const faeries = [
     },
   },
 ]
+
+export const villageStage = [
+  "Initial (1 room)",
+  "First clear (1 room)",
+  "First build (2 rooms)",
+  "Second build (3 rooms)",
+  "Second clear (3 rooms)",
+  "Fourth build (4 rooms)",
+  "Fifth build (5 rooms)",
+  "Third clear (5 rooms)",
+  "Sixth build (6 rooms)",
+  "Seveth build (7 rooms)",
+  "Eighth build (8 rooms)",
+]

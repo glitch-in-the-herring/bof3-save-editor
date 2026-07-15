@@ -9,6 +9,12 @@ export default function Changelog() {
       <div className="px-6">
         <ul>
           <li>
+            <b>14 July 2026</b>
+            <ul>
+              <li>Added the faerie village editor</li>
+            </ul>
+          </li>
+          <li>
             <b>6 July 2026</b>
             <ul>
               <li>Added the ability to edit the last saved position.</li>
