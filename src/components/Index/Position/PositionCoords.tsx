@@ -1,13 +1,13 @@
 import type { ChangeEvent } from "react"
 
-import { useGlobal, getPosition } from "../../../store/globalStore"
-import type { Axis } from "../../../types/position"
+import { useGlobal, getSubstate } from "../../../store/globalStore"
+import type { Axis, Position } from "../../../types/position"
 import Input from "../../shared/Input"
 
 export default function PositionCoords() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const position = getPosition(activeOptions, memcard)
+  const position = getSubstate<Position>("position", activeOptions, memcard)
 
   return (
     <div>

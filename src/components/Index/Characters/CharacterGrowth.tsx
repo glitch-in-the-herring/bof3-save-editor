@@ -1,7 +1,8 @@
 import type { ChangeEvent } from "react"
 
-import { getCharacter, getInventory, useGlobal } from "../../../store/globalStore"
+import { getCharacter, getSubstate, useGlobal } from "../../../store/globalStore"
 import type { StatGrowthKey } from "../../../types/character"
+import { type Inventory } from "../../../types/inventory"
 import { masters, masterStatGrowth } from "../../../types/master"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
@@ -11,7 +12,7 @@ export default function CharacterGrowth() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
   const character = getCharacter(activeOptions, memcard)
-  const inventory = getInventory(activeOptions, memcard)
+  const inventory = getSubstate<Inventory>("inventory", activeOptions, memcard)
 
   return (
     <div>

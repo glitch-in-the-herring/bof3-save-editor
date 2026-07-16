@@ -1,13 +1,14 @@
 import type { ChangeEvent } from "react"
 
-import { useGlobal, getInventory } from "../../../store/globalStore"
+import { useGlobal, getSubstate } from "../../../store/globalStore"
+import type { Inventory } from "../../../types/inventory"
 import { masters } from "../../../types/master"
 import { logicalNot } from "../../../utils/numbers"
 
 export default function InventoryMasters() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const inventory = getInventory(activeOptions, memcard)
+  const inventory = getSubstate<Inventory>("inventory", activeOptions, memcard)
 
   if (inventory) console.log(inventory.masters)
 
@@ -23,7 +24,9 @@ export default function InventoryMasters() {
                 <input
                   id={`inventoryMaster${m.id}`}
                   type="checkbox"
-                  checked={inventory ? !!(inventory.masters[m.id >> 3] & (0b1 << (m.id % 8))) : false}
+                  checked={
+                    inventory ? !!(inventory.masters[m.id >> 3] & (0b1 << (m.id % 8))) : false
+                  }
                   value={inventory ? inventory.masters[m.id >> 3] : ""}
                   onChange={(e: ChangeEvent) => enableMasterHandler(e, m.id)}
                   disabled={!inventory}

@@ -2,15 +2,15 @@ import type { ChangeEvent } from "react"
 
 import { villageStage } from "../../../data/faeries"
 import { jobs } from "../../../data/jobs"
-import { useGlobal, getFaerieVillage } from "../../../store/globalStore"
-import type { ConstructionPowers, FaerieVillageBattles } from "../../../types/faerie"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { ConstructionPowers, FaerieVillage, FaerieVillageBattles } from "../../../types/faerie"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
 
 export default function FaerieVillageStats() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const faerieVillage = getFaerieVillage(activeOptions, memcard)
+  const faerieVillage = getSubstate<FaerieVillage>("faerieVillage", activeOptions, memcard)
 
   return (
     <div>

@@ -1,14 +1,14 @@
 import type { ChangeEvent } from "react"
 
-import { getCounters, useGlobal } from "../../../store/globalStore"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
 import type { Clock } from "../../../types/clock"
-import { countdownCategories, type CountdownCategory } from "../../../types/counters"
+import { countdownCategories, type Counters, type CountdownCategory } from "../../../types/counters"
 import Input from "../../shared/Input"
 
 export default function CountersTimers() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const counters = getCounters(activeOptions, memcard)
+  const counters = getSubstate<Counters>("counters", activeOptions, memcard)
 
   return (
     <div>

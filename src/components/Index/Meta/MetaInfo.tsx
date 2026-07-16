@@ -1,13 +1,16 @@
 import type { ChangeEvent } from "react"
 
-import { getCharacters, getCounters, getMeta, useGlobal } from "../../../store/globalStore"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { Character } from "../../../types/character"
 import type { Clock } from "../../../types/clock"
+import type { Counters } from "../../../types/counters"
+import type { Meta } from "../../../types/meta"
 import Input from "../../shared/Input"
 
 export default function MetaInfo() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const meta = getMeta(activeOptions, memcard)
+  const meta = getSubstate<Meta>("meta", activeOptions, memcard)
 
   return (
     <div>
@@ -125,7 +128,7 @@ function copyFileNameHandler() {
 
   const memcard = useGlobal.getState().memcard
   const activeOptions = useGlobal.getState().activeOptions
-  const characters = getCharacters(activeOptions, memcard)
+  const characters = getSubstate<Character[]>("characters", activeOptions, memcard)
   if (!characters) return
 
   const setMetaName = useGlobal.getState().setMetaName
@@ -150,7 +153,7 @@ function copyFileLevelHandler() {
 
   const memcard = useGlobal.getState().memcard
   const activeOptions = useGlobal.getState().activeOptions
-  const characters = getCharacters(activeOptions, memcard)
+  const characters = getSubstate<Character[]>("characters", activeOptions, memcard)
   if (!characters) return
 
   const setMetaLevel = useGlobal.getState().setMetaLevel
@@ -175,7 +178,7 @@ function copyFileEXPHandler() {
 
   const memcard = useGlobal.getState().memcard
   const activeOptions = useGlobal.getState().activeOptions
-  const characters = getCharacters(activeOptions, memcard)
+  const characters = getSubstate<Character[]>("characters", activeOptions, memcard)
   if (!characters) return
 
   const setMetaEXP = useGlobal.getState().setMetaEXP
@@ -200,7 +203,7 @@ function copyPlayTimeHandler() {
 
   const memcard = useGlobal.getState().memcard
   const activeOptions = useGlobal.getState().activeOptions
-  const counters = getCounters(activeOptions, memcard)
+  const counters = getSubstate<Counters>("counters", activeOptions, memcard)
   if (!counters) return
 
   const copyMetaPlayTime = useGlobal.getState().copyMetaPlayTime
