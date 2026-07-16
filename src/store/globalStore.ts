@@ -10,7 +10,7 @@ import type { ConstructionPowers, FaerieVillageBattles } from "../types/faerie"
 import type { Fish } from "../types/fishing"
 import type { OrderingCategory } from "../types/formations"
 import type { ItemCategory } from "../types/inventory"
-import type { Memcard } from "../types/memcard"
+import type { Memcard, SaveFile } from "../types/memcard"
 import type { Axis } from "../types/position"
 import type { SpellCategory } from "../types/spellCategories"
 
@@ -532,28 +532,9 @@ export const useGlobal = create<GlobalState>()(
       }),
   })),
 )
-
-export function getMeta(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].meta
-    : null
-}
-
-export function getCharacters(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].characters
-    : null
-}
-
 export function getCharacter(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].characters[activeOptions.characterIndex]
-    : null
-}
-
-export function getInventory(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].inventory
     : null
 }
 
@@ -575,32 +556,12 @@ export function getSkillNote(activeOptions: ActiveOptions, memcard: Memcard) {
     : null
 }
 
-export function getParty(activeOptions: ActiveOptions, memcard: Memcard) {
+export function getSubstate<T>(
+  key: keyof SaveFile,
+  activeOptions: ActiveOptions,
+  memcard: Memcard,
+) {
   return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].party
-    : null
-}
-
-export function getFishing(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].fishing
-    : null
-}
-
-export function getCounters(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].counters
-    : null
-}
-
-export function getPosition(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].position
-    : null
-}
-
-export function getFaerieVillage(activeOptions: ActiveOptions, memcard: Memcard) {
-  return activeOptions.saveFileIndex !== undefined
-    ? memcard.saveFiles[activeOptions.saveFileIndex].faerieVillage
+    ? (memcard.saveFiles[activeOptions.saveFileIndex][key] as T)
     : null
 }

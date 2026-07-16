@@ -1,7 +1,8 @@
 import type { ChangeEvent } from "react"
 
 import { explorationSubjobs, jobs, merchantSubjobs, merchantSubsubjobs } from "../../../data/jobs"
-import { getFaerieVillage, useGlobal } from "../../../store/globalStore"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { FaerieVillage } from "../../../types/faerie"
 import Input from "../../shared/Input"
 import Label from "../../shared/Label"
 
@@ -12,7 +13,7 @@ interface FaerieRoomCardProp {
 export default function FaerieRoomCard({ id }: FaerieRoomCardProp) {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const faerieVillage = getFaerieVillage(activeOptions, memcard)
+  const faerieVillage = getSubstate<FaerieVillage>("faerieVillage", activeOptions, memcard)
 
   return (
     <div>

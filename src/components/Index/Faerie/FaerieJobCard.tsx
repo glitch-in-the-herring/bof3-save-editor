@@ -2,12 +2,13 @@ import type { ChangeEvent } from "react"
 
 import { faeries } from "../../../data/faeries"
 import { jobs } from "../../../data/jobs"
-import { useGlobal, getFaerieVillage } from "../../../store/globalStore"
+import { useGlobal, getSubstate } from "../../../store/globalStore"
 import {
   copyStatus,
   explorationStatus,
   FaerieStatsColors,
   FaerieStatsKeys,
+  type FaerieVillage,
 } from "../../../types/faerie"
 import { itemCategories } from "../../../types/inventory"
 import Input from "../../shared/Input"
@@ -36,7 +37,7 @@ interface FaerieJobSubeditorProp {
 export default function FaerieJobCard({ id }: FaerieJobCardProp) {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const faerieVillage = getFaerieVillage(activeOptions, memcard)
+  const faerieVillage = getSubstate<FaerieVillage>("faerieVillage", activeOptions, memcard)
 
   return (
     <div className="border p-2">

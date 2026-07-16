@@ -1,13 +1,13 @@
 import type { ChangeEvent } from "react"
 
-import { useGlobal, getParty } from "../../../store/globalStore"
-import { formations } from "../../../types/formations"
+import { useGlobal, getSubstate } from "../../../store/globalStore"
+import { formations, type Party } from "../../../types/formations"
 import { logicalNot } from "../../../utils/numbers"
 
 export default function PartyUnlockedFormations() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const party = getParty(activeOptions, memcard)
+  const party = getSubstate<Party>("party", activeOptions, memcard)
 
   return (
     <div>

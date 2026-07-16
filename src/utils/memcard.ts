@@ -1,3 +1,5 @@
+import { numberToBytes } from "./numbers"
+
 export function isMemcard(byteArray: Uint8Array) {
   return byteArray[0] == 0x4d && byteArray[1] == 0x43
 }
@@ -30,4 +32,17 @@ export function checkTOCEntry(byteArray: Uint8Array, currentAddress: number) {
   }
 
   return true
+}
+
+export function checksum(byteArray: Uint8Array, address: number) {
+  let sum = 0
+  let buffer
+  byteArray[address + 0x270] = 0
+  byteArray[address + 0x271] = 0
+
+  for (let i = 0; i < 0x10b0; i++) sum += byteArray[address + 0x200 + i]
+
+  buffer = numberToBytes(sum, 4, false)
+  byteArray[address + 0x270] = buffer[0]
+  byteArray[address + 0x271] = buffer[1]
 }

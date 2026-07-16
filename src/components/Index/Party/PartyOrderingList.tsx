@@ -1,7 +1,7 @@
 import type { ChangeEvent } from "react"
 
-import { getParty, useGlobal } from "../../../store/globalStore"
-import type { OrderingCategory } from "../../../types/formations"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { OrderingCategory, Party } from "../../../types/formations"
 import PartySelect from "../PartySelect"
 
 interface PartyOrderingListProps {
@@ -12,7 +12,7 @@ interface PartyOrderingListProps {
 export default function PartyOrderingList({ heading, category }: PartyOrderingListProps) {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const party = getParty(activeOptions, memcard)
+  const party = getSubstate<Party>("party", activeOptions, memcard)
 
   return (
     <div>

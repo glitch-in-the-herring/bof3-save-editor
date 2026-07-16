@@ -1,12 +1,13 @@
 import type { ChangeEvent } from "react"
 
-import { getPosition, useGlobal } from "../../../store/globalStore"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { Position } from "../../../types/position"
 import AreaSelect from "../AreaSelect"
 
 export default function PositionArea() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const position = getPosition(activeOptions, memcard)
+  const position = getSubstate<Position>("position", activeOptions, memcard)
 
   return (
     <div>

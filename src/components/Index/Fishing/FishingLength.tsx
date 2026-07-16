@@ -23,8 +23,8 @@ import seaBreamIcon from "../../../assets/fish/Sea Bream.png"
 import spearfishIcon from "../../../assets/fish/Spearfish.png"
 import troutIcon from "../../../assets/fish/Trout.png"
 import whaleIcon from "../../../assets/fish/Whale.png"
-import { getFishing, useGlobal } from "../../../store/globalStore"
-import { fish, type Fish } from "../../../types/fishing"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import { fish, type Fishing, type Fish } from "../../../types/fishing"
 import Input from "../../shared/Input"
 
 const fishIconsMap: Record<Fish, string> = {
@@ -56,7 +56,7 @@ const fishIconsMap: Record<Fish, string> = {
 export default function FishingLength() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const fishing = getFishing(activeOptions, memcard)
+  const fishing = getSubstate<Fishing>("fishing", activeOptions, memcard)
 
   return (
     <div>

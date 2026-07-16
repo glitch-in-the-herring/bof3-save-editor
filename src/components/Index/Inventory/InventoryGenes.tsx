@@ -19,7 +19,8 @@ import thornIcon from "../../../assets/genes/thorn.gif"
 import thunderIcon from "../../../assets/genes/thunder.gif"
 import tranceIcon from "../../../assets/genes/trance.gif"
 import { genes } from "../../../data/genes"
-import { useGlobal, getInventory } from "../../../store/globalStore"
+import { useGlobal, getSubstate } from "../../../store/globalStore"
+import type { Inventory } from "../../../types/inventory"
 import { logicalNot } from "../../../utils/numbers"
 
 const geneIconsMap: Record<string, string> = {
@@ -46,7 +47,7 @@ const geneIconsMap: Record<string, string> = {
 export default function InventoryGenes() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const inventory = getInventory(activeOptions, memcard)
+  const inventory = getSubstate<Inventory>("inventory", activeOptions, memcard)
 
   return (
     <div>

@@ -1,12 +1,13 @@
 import type { ChangeEvent } from "react"
 
-import { getInventory, useGlobal } from "../../../store/globalStore"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { Inventory } from "../../../types/inventory"
 import Input from "../../shared/Input"
 
 export default function InventoryZenny() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const inventory = getInventory(activeOptions, memcard)
+  const inventory = getSubstate<Inventory>("inventory", activeOptions, memcard)
 
   return (
     <div>

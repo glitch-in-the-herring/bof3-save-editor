@@ -1,12 +1,13 @@
 import type { ChangeEvent } from "react"
 
-import { getMeta, useGlobal } from "../../../store/globalStore"
+import { getSubstate, useGlobal } from "../../../store/globalStore"
+import type { Meta } from "../../../types/meta"
 import PartySelect from "../PartySelect"
 
 export default function MetaIcons() {
   const memcard = useGlobal((state) => state.memcard)
   const activeOptions = useGlobal((state) => state.activeOptions)
-  const meta = getMeta(activeOptions, memcard)
+  const meta = getSubstate<Meta>("meta", activeOptions, memcard)
 
   return (
     <div>
