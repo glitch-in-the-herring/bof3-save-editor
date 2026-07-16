@@ -9,6 +9,8 @@ export default function InventoryMasters() {
   const activeOptions = useGlobal((state) => state.activeOptions)
   const inventory = getInventory(activeOptions, memcard)
 
+  if (inventory) console.log(inventory.masters)
+
   return (
     <div className="flex flex-col">
       <h3>Masters</h3>
@@ -19,14 +21,14 @@ export default function InventoryMasters() {
             return (
               <div key={i}>
                 <input
-                  id={`inventoryMaster${i}`}
+                  id={`inventoryMaster${m.id}`}
                   type="checkbox"
-                  checked={inventory ? !!(inventory.masters[i >> 3] & (0b1 << (i % 8))) : false}
-                  value={inventory ? inventory.masters[i >> 3] : ""}
-                  onChange={(e: ChangeEvent) => enableMasterHandler(e, i)}
+                  checked={inventory ? !!(inventory.masters[m.id >> 3] & (0b1 << (m.id % 8))) : false}
+                  value={inventory ? inventory.masters[m.id >> 3] : ""}
+                  onChange={(e: ChangeEvent) => enableMasterHandler(e, m.id)}
                   disabled={!inventory}
                 />
-                <label htmlFor={`inventoryMaster${i}`}>{m.name}</label>
+                <label htmlFor={`inventoryMaster${m.id}`}>{m.name}</label>
               </div>
             )
           })}
