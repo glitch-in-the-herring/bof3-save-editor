@@ -2,7 +2,7 @@ import { accessories } from "../../data/accessories"
 import type { DropdownProps } from "../../types/dropdowns"
 
 export default function AccessorySelect({ value, onChange, disabled }: DropdownProps) {
-  console.log(accessories)
+  "use no memo"
   return (
     <select value={value} onChange={onChange} disabled={disabled}>
       {accessories.map((e, i) => (

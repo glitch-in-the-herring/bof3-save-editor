@@ -2,7 +2,7 @@ import { armor } from "../../data/armor"
 import type { DropdownProps } from "../../types/dropdowns"
 
 export default function ArmorSelect({ value, onChange, disabled }: DropdownProps) {
-  console.log(armor)
+  "use no memo"
   return (
     <select value={value} onChange={onChange} disabled={disabled}>
       {armor.map((a, i) => (
