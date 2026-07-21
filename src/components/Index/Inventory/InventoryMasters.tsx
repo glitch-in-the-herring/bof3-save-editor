@@ -10,8 +10,6 @@ export default function InventoryMasters() {
   const activeOptions = useGlobal((state) => state.activeOptions)
   const inventory = getSubstate<Inventory>("inventory", activeOptions, memcard)
 
-  if (inventory) console.log(inventory.masters)
-
   return (
     <div className="flex flex-col">
       <h3>Masters</h3>
