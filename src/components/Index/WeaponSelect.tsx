@@ -2,6 +2,7 @@ import { weapons } from "../../data/weapons"
 import type { DropdownProps } from "../../types/dropdowns"
 
 export default function WeaponSelect({ value, onChange, disabled }: DropdownProps) {
+  console.log("weapons dropdown")
   return (
     <select value={value} onChange={onChange} disabled={disabled}>
       {weapons.map((e, i) => (
